@@ -42,6 +42,9 @@ const typeDefs = `
 
     type Query {
         me: User
+        allPosts: [Post]
+        singlePost(requestedPostId: ID!): Post
+        user(requestedUserId: ID!): User
     }
 
 

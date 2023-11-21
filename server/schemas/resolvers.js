@@ -1,3 +1,4 @@
+const { request } = require('express');
 const { User, Post, Caption, Comment } = require('../models');
 const auth = require('../utils/auth');
 const {signToken, AuthenticationError } = require('../utils/auth');
@@ -10,6 +11,30 @@ const resolvers = {
             }
             throw new AuthenticationError('you need to be logged in');
         },
+        allPosts: async (parent, args, context) => {
+            try {
+                return Post.find.populate(['user', 'captions', 'comments']);
+            } catch (error) {
+                console.error(error);
+                throw new Error('failed to get all posts');
+            }
+        },
+        singlePost: async (parent, {requestedPostId}, context) => {
+            try {
+                return Post.findOne({_id: requestedPostId}).populate(['user', 'captions', 'comments']);
+            } catch (error) {
+                console.error(error);
+                throw new Error('failed to get singular post');
+            }
+        },
+        user: async (parent, {requestedUserId}, context) => {
+            try {
+                return User.findOne({_id: requestedUserId}).populate(['posts', 'captions', 'comments']);
+            } catch (error) {
+                console.error(error);
+                throw new Error('failed to find user');
+            }
+        }
     },
     Mutation: {
         login: async (parent, {email, password}) => {
