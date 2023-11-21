@@ -14,7 +14,10 @@
     "bcrypt": "^4.0.1",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^7.0.2"
+    "mongoose": "^7.0.2",
+    "@apollo/client": "^3.8.7",
+    "@apollo/server": "^4.9.5",
+    "apollo-server-express": "^3.13.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.3"
