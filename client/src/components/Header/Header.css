@@ -1,0 +1,68 @@
+.wrapper .top_navbar{
+  width: calc(100% - 20px);
+  height: 60px;
+  display: flex;
+  position: fixed;
+  top: 10px;
+}
+
+.wrapper .top_navbar .hamburger{
+  width: 70px;
+  height: 100%;
+  background: rgb(255,32,182);
+  padding: 15px 17px;
+  border-top-left-radius: 20px;
+  cursor: pointer;
+}
+
+.wrapper .top_navbar .hamburger div{
+  width: 35px;
+  height: 4px;
+  background: #92a6e2;
+  margin: 5px 0;
+  border-radius: 5px;
+}
+
+.wrapper .top_navbar .top_menu{
+  width: calc(100% - 70px);
+  height: 100%;
+  background: black;
+  border-top-right-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+.wrapper .top_navbar .top_menu .logo{
+  color: rgb(255,32,182);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.wrapper .top_navbar .top_menu ul{
+  display: flex;
+}
+
+.wrapper .top_navbar .top_menu ul li a{
+  display: block;
+  margin: 0 10px;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  border: 1px solid rgb(255,32,182);
+  border-radius: 50%;
+  color: rgb(255,32,182);
+}
+
+.wrapper .top_navbar .top_menu ul li a:hover{
+  background: #4360b5;
+  color: #fff;
+}
+
+.wrapper .top_navbar .top_menu ul li a:hover i{
+  color: #fff;
+}
