@@ -10,6 +10,10 @@ export const GET_ME = gql`
             posts
             captions
             comments
+            votes {
+                postId
+                captionId
+            }
         }
     },
     query allPosts {
@@ -43,6 +47,10 @@ export const GET_ME = gql`
             posts
             captions
             comments
+            votes {
+                postId
+                captionId
+            }
         }
     }
 `;

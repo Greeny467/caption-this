@@ -185,6 +185,74 @@ const resolvers = {
                 console.error(error);
                 throw new Error('failed to update caption vote entirely');
             };
+        },
+        addUserVote: async (parent, {postId, captionId}, context) => {
+            try {
+                if(context.user){
+                    const user = await User.findById(context.user._id);
+                    if(user.votes.some((vote) => vote.votePost === postId && vote.voteCaption === captionId)){
+                        throw new Error('vote already exists');
+                    }
+
+                    const updatedUser = await User.findOneAndUpdate(
+                        { _id: context.user._id },
+                        { $addToSet: {votes: {
+                            votePost: postId,
+                            voteCaption: captionId
+                        }}},
+                        { new: true }
+                    ).populate(['posts', 'captions', 'votes']);
+
+                    if(!updatedUser){
+                        throw new Error('failed to create vote');
+                    }
+
+                    return updatedUser;
+
+                }
+                else{
+                    throw new AuthenticationError('you have to be logged in');
+                }
+            } catch (error) {
+                console.error(error);
+                throw new Error('failed to add vote entirely');
+            }
+        },
+        removeUserVote: async (parent, {postId, captionId}, context) => {
+            try {
+                if(context.user){
+                    const user = await User.findById(context.user._id);
+
+                    if(!user){
+                        throw Error('failed to find user');
+                    }
+
+                    if(!user.votes.some((vote) => vote.votePost === postId && vote.voteCaption === captionId)){
+                        throw Error('vote does not exist');
+                    }
+
+                    const updatedUser = await User.findOneAndUpdate(
+                        { _id: context.user._id},
+                        { $pull: {votes: {
+                            votePost: postId,
+                            voteCaption: captionId
+                        }}},
+                        { new: true}
+                    ).populate(['posts', 'captions', 'votes']);
+
+                    if(!updatedUser){
+                        throw new Error('failed to remove vote');
+                    }
+
+                    return updatedUser
+                }
+                else{
+                    throw new AuthenticationError('you have to be logged in');
+                }
+            } catch (error) {
+                console.error(error);
+                throw new Error('failed to remove vote entirely');
+            }
         }
 
 

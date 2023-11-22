@@ -71,3 +71,52 @@ export const ADD_COMMENT = gql`
         }
     }
 `;
+
+export const ADD_VOTE = gql`
+    mutation captionVote($caption: captionInput!, $update: String!) {
+        captionVote(caption: $caption, update: $update) {
+            _id
+            text
+            user
+            likes
+            createdAt
+            postId    
+        }
+    }
+`;
+
+export const ADD_USER_VOTE = gql`
+    mutation addUserComment($postId: ID!, $captionId: ID!) {
+        addUserComment(postId: $postId, captionId: $captionId) {
+            _id
+            username
+            email
+            createdAt
+            posts
+            captions
+            comments
+            votes {
+                postId
+                captionId
+            }
+        }
+    }
+`;
+
+export const REMOVE_USER_VOTE = gql`
+    mutation removeUserComment($postId: ID!, $captionId: ID!) {
+        removeUserComment(postId: $postId, captionId: $captionId) {
+            _id
+            username
+            email
+            createdAt
+            posts
+            captions
+            comments
+            votes {
+                postId
+                captionId
+            }
+        }
+    }
+`;

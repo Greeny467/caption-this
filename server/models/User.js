@@ -33,6 +33,16 @@ const userSchema = new Schema({
     comments: [{
       type: Schema.Types.ObjectId, 
       ref: 'Caption' 
+    }],
+    votes: [{
+      votePost: {
+        type: Schema.Types.ObjectId,
+        ref: 'Post'
+      },
+      voteCaption: {
+        type: Schema.Types.ObjectId,
+        ref: 'Caption'
+      },
     }]
   },
   {
