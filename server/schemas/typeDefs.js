@@ -7,6 +7,7 @@ const typeDefs = `
         posts: [ID]
         captions: [ID]
         comments: [ID]
+        votes: [Vote]
     }
     type Post {
         _id: ID!
@@ -36,7 +37,10 @@ const typeDefs = `
         token: ID!
         user: User
     }
-
+    type Vote {
+        votePost: Post
+        voteCaption: Caption
+    }
 
 
 
@@ -83,6 +87,9 @@ const typeDefs = `
         addPost(post: postInput): Post
         addCaption(caption: captionInput): Caption
         addComment(comment: commentInput): Comment
+
         captionVote(caption: captionInput, update: String!): Caption
+        addUserVote(postId: ID!, captionId: ID!): User
+        removeUserVote(postId: ID!, captionId: ID!): User
     }
 `
