@@ -1,4 +1,6 @@
 import Hamburger from "./Hamburger";
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import PersonIcon from '@mui/icons-material/Person';
 import "./Header.css";
 
 export default function Header({showSidebar}) {
@@ -6,29 +8,22 @@ export default function Header({showSidebar}) {
   return (
     <>
         <div className="top_navbar">
-          <Hamburger onClick={showSidebar}/>
           <div className="top_menu">
             <div className="logo">
               {/* <img src="logos/New logo.png" /> */}
             </div>
             <ul>
               <li>
-                <a href="#">
-                  <i className="fas fa-search"></i>
+                <a href="#"><NotificationsActiveIcon className="icon"/>
                 </a>
               </li>
               <li>
-                <a href="#">
-                  <i className="fas fa-bell"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i className="fas fa-user"></i>
+                <a href="#"><PersonIcon className="icon"/>
                 </a>
               </li>
             </ul>
           </div>
+          <Hamburger onClick={showSidebar}/>
         </div>
     </>
   );

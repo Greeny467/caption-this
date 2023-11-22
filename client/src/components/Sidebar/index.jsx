@@ -1,4 +1,9 @@
 import './Sidebar.css';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import WhatshotIcon from '@mui/icons-material/Whatshot';
+import WavesIcon from '@mui/icons-material/Waves';
+import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
+import CasinoIcon from '@mui/icons-material/Casino';
 
 export default function Sidebar() {
   return (
@@ -8,7 +13,7 @@ export default function Sidebar() {
           <li>
             <a href="#">
               <span className="icon">
-                <i className="fas fa-fire"></i>
+                <i className="fas fa-fire"><TrendingUpIcon/></i>
               </span>
               <span className="title">Trending</span>
             </a>
@@ -16,7 +21,7 @@ export default function Sidebar() {
           <li>
             <a href="#">
               <span className="icon">
-                <i className="fas fa-fire-extinguisher"></i>
+                <i className="fas fa-fire-extinguisher"><WhatshotIcon/></i>
               </span>
               <span className="title">Roast Me</span>
             </a>
@@ -24,7 +29,7 @@ export default function Sidebar() {
           <li>
             <a href="#">
               <span className="icon">
-                <i className="fas fa-coffee"></i>
+                <i className="fas fa-coffee"><WavesIcon/></i>
               </span>
               <span className="title">Deep Captions</span>
             </a>
@@ -32,7 +37,7 @@ export default function Sidebar() {
           <li>
             <a href="#" className="active">
               <span className="icon">
-                <i className="fas fa-video"></i>
+                <i className="fas fa-video"><OndemandVideoIcon/></i>
               </span>
               <span className="title">Videos</span>
             </a>
@@ -40,7 +45,7 @@ export default function Sidebar() {
           <li>
             <a href="#">
               <span className="icon">
-                <i className="fas fa-dumpster-fire"></i>
+                <i className="fas fa-dumpster-fire"><CasinoIcon/></i>
               </span>
               <span className="title">Random</span>
             </a>

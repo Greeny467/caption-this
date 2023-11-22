@@ -13,8 +13,8 @@ function App() {
     <div className={`wrapper ${sidebar ? 'collapse' : ''}`}>
       <Header showSidebar={showSidebar} />
       <main >
-        <Sidebar />
         <Outlet />
+        <Sidebar />
       </main>
       <Footer />
     </div>

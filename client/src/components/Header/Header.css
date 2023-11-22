@@ -9,16 +9,16 @@
 .wrapper .top_navbar .hamburger{
   width: 70px;
   height: 100%;
-  background: rgb(255,32,182);
+  background: #2292A4;
   padding: 15px 17px;
-  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
   cursor: pointer;
 }
 
 .wrapper .top_navbar .hamburger div{
   width: 35px;
   height: 4px;
-  background: #92a6e2;
+  background: #fff;
   margin: 5px 0;
   border-radius: 5px;
 }
@@ -26,8 +26,8 @@
 .wrapper .top_navbar .top_menu{
   width: calc(100% - 70px);
   height: 100%;
-  background: black;
-  border-top-right-radius: 20px;
+  background: rgb(14, 14, 14);
+  border-top-left-radius: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -36,7 +36,7 @@
 }
 
 .wrapper .top_navbar .top_menu .logo{
-  color: rgb(255,32,182);
+  color: #2292A4;
   font-size: 20px;
   font-weight: 700;
   letter-spacing: 3px;
@@ -47,22 +47,29 @@
 }
 
 .wrapper .top_navbar .top_menu ul li a{
-  display: block;
+  display: flex;
   margin: 0 10px;
-  width: 35px;
-  height: 35px;
+  width: auto;
+  height: auto;
+  padding: 5px 15px;
   line-height: 35px;
   text-align: center;
-  border: 1px solid rgb(255,32,182);
-  border-radius: 50%;
-  color: rgb(255,32,182);
+  border: 1px solid #2292A4;
+  border-radius: 15px;
+  color: #fff;
+  transition: all 0.3s ease;
 }
 
 .wrapper .top_navbar .top_menu ul li a:hover{
-  background: #4360b5;
+  background: rgb(25, 25, 25);
   color: #fff;
+  transform: translateY(-2px);
 }
 
 .wrapper .top_navbar .top_menu ul li a:hover i{
   color: #fff;
+}
+
+.icon{
+  scale: 1.3;
 }

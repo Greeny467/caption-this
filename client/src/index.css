@@ -20,30 +20,14 @@ body{
 .wrapper .main_container{
   width: (100% - 200px);
   margin-top: 70px;
-  margin-left: 200px;
+  margin-right: 200px;
   padding: 15px;
   transition: all 0.3s ease;
 }
 
-.wrapper.collapse .sidebar{
-  width: 70px;
-}
-
-.wrapper.collapse .sidebar ul li a{
-  text-align: center; 
-}
-
-.wrapper.collapse .sidebar ul li a span.icon{
-  margin: 0;
-}
-
-.wrapper.collapse .sidebar ul li a span.title{
-  display: none;
-}
-
 .wrapper.collapse .main_container{
   width: (100% - 70px);
-  margin-left: 70px;
+  margin-right: 70px;
 }
 .logo img{
   height: 64px;
