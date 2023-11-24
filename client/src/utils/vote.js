@@ -161,3 +161,13 @@ export default async function vote (user, caption) {
         return newCaption;
     }
 };
+
+export const voteStyleFinder = async (user, caption) => {
+    const existingVote = user.votes.find((vote) => vote.votePost === postId);
+    if(existingVote) {
+        return('voteBtnOn');
+    };
+    if(!existingVote) {
+        return('voteBtnOff');
+    };
+};
