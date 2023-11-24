@@ -34,6 +34,21 @@ const resolvers = {
                 console.error(error);
                 throw new Error('failed to find user');
             }
+        },
+        singleCaption: async (parent, {captionId}, context) => {
+            try{
+                const caption = await Caption.findById(captionId).populate(['user', 'postId']);
+
+                if(!caption){
+                    throw new Error('failed to find single caption');
+                }
+
+                return caption;
+            }
+            catch (error) {
+                console.error(error);
+                throw new Error('failed to find single caption entirely');
+            }
         }
     },
     Mutation: {

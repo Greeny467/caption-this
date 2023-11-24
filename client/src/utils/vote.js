@@ -1,15 +1,77 @@
-import { useMutation, useQuery } from '@apollo/client';
-import { ADD_USER_VOTE, REMOVE_USER_VOTE, ADD_VOTE } from './mutations';
-// create new query to find caption by id and import it
+import client from '../apollo';
+import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 
+import { ADD_USER_VOTE, REMOVE_USER_VOTE, ADD_VOTE } from './mutations';
+import { SINGLE_CAPTION } from './queries';
+
+
+const addUserVote = async (postId, captionId) => {
+    try {
+        const { data } = await client.mutation({
+            mutate: ADD_USER_VOTE,
+            variables: {
+                postId: postId,
+                captionId: captionId
+            },
+        });
+
+        return data;
+    } catch (error) {
+        console.error(error);
+        return null; 
+    }
+};
+
+const removeUserVote = async (postId, captionId) => {
+    try {
+        const { data } = await client.mutation({
+            mutate: REMOVE_USER_VOTE,
+            variables: {
+                postId: postId,
+                captionId: captionId
+            },
+        });
+
+        return data;
+    } catch (error) {
+        console.error(error);
+        return null; 
+    }
+};
+
+const changeVote = async (caption, update) => {
+    try {
+        const { data } = await client.mutation({
+            mutate: ADD_VOTE,
+            variables: { 
+                caption: caption,
+                update: update
+             },
+        });
+
+        return data;
+    } catch (error) {
+        console.error(error);
+        return null; 
+    }
+};
+
+
+const findCaption = async (id) => {
+    try {
+        const { data } = await client.query({
+            query: SINGLE_CAPTION,
+            variables: { id },
+        });
+
+        return data;
+    } catch (error) {
+        console.error(error);
+        return null; 
+    }
+};
 
 export default async function vote (user, caption) {
-
-    const [addUserVote, {addVoteError}] = useMutation(ADD_USER_VOTE);
-    const [removeUserVote, {removeVoteError}] = useMutation(REMOVE_USER_VOTE);
-    const [changeVote, {voteError}] = useMutation(ADD_VOTE);
-
-    
 
     const captionId = caption._id;
     const postId = caption.postId;
@@ -18,21 +80,84 @@ export default async function vote (user, caption) {
     const hasVote = user.votes.some((vote) => vote.votePost === postId);
 
     if(voteExists){
-        return;
+        const {downVoteData} = await changeVote(caption, 'decrease');
+
+        if(!downVoteData){
+            throw new Error('failed to remove vote from caption');
+        }
+
+        const {removeUserVoteData} = await removeUserVote(postId, captionId);
+
+        if(!removeUserVoteData) {
+            throw new Error('failed to remove vote from user');
+        };
+
+        const updatedCaption = await findCaption(captionId);
+
+        if(!updatedCaption) {
+            throw new Error('failed to find downvoted caption');
+        };
+
+        return updatedCaption;
     }
 
     if(hasVote){
         const existingVote = user.votes.find((vote) => vote.votePost === postId);
-        // use new caption(id) query to get the old caption
+        const oldCaption = await findCaption(existingVote.voteCaption);
 
-        const {downVoteData} = await changeVote({
-            variables: {
-                caption: {
-                    // oldCaption query return data
-                },
-                update: 'decrease'
-            }
-        })
+        const {downVoteData} = await changeVote(oldCaption, 'decrease');
 
+        if(!downVoteData) {
+            throw new Error('failed to decrease caption vote');
+        };
+
+        const {removeUserVoteData} = await removeUserVote(existingVote.votePost, existingVote.voteCaption);
+
+        if(!removeUserVoteData) {
+            throw new Error('failed to remove vote from user');
+        }
+
+        const {addUserVoteData} = await addUserVote(postId, captionId);
+
+        if(!addUserVoteData) {
+            throw new Error('failed to add new vote to user');
+        };
+
+        const {upVoteData} = await changeVote(caption, 'increase');
+
+        if(!upVoteData) {
+            throw new Error('failed to increase caption vote');
+        }
+
+
+        const newCaption = await findCaption(captionId);
+
+        if(!newCaption) {
+            throw new Error('failed to find new caption');
+        };
+
+        return newCaption;
+    };
+
+    if(!hasVote){
+        const {addUserVoteData} = await addUserVote(postId, captionId);
+
+        if(!addUserVoteData) {
+            throw new Error('failed to create userVote');
+        };
+
+        const {upVoteData} = await changeVote(caption, 'increase');
+
+        if(!upVoteData) {
+            throw new Error('failed to increase caption vote for initial vote.');
+        };
+
+        const newCaption = await findCaption(captionId);
+
+        if(!newCaption) {
+            throw new Error('failed to find updated caption');
+        };
+
+        return newCaption;
     }
-}
+};
