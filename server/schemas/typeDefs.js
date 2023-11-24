@@ -49,6 +49,7 @@ const typeDefs = `
         allPosts: [Post]
         singlePost(requestedPostId: ID!): Post
         user(requestedUserId: ID!): User
+        singleCaption(captionId: ID!): Caption
     }
 
 
