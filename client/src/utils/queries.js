@@ -10,8 +10,15 @@ export const GET_ME = gql`
             posts
             captions
             comments
+            votes {
+                postId
+                captionId
+            }
         }
-    },
+    }
+`;
+
+export const ALL_POSTS = gql`
     query allPosts {
         allPosts{
             _id
@@ -22,7 +29,10 @@ export const GET_ME = gql`
             captions
             comments
         }
-    },
+    }
+`;
+
+export const SINGLE_POST = gql`
     query singlePost($requestedPostId: ID!) {
         singlePost(requestedPostId: $requestedPostId){
             _id
@@ -33,7 +43,10 @@ export const GET_ME = gql`
             captions
             comments
         }
-    }
+    } 
+`;
+
+export const USER = gql`
     query user($requestedUserId: ID!) {
         user(requestedUserId: $requestedUserId){
             _id
@@ -43,6 +56,23 @@ export const GET_ME = gql`
             posts
             captions
             comments
+            votes {
+                postId
+                captionId
+            }
+        }
+    }
+`;
+
+
+export const SINGLE_CAPTION = gql`
+    query singleCaption($captionId: ID!) {
+        singleCaption(captionId: $captionId){
+            text
+            user 
+            likes
+            createdAt
+            postId
         }
     }
 `;

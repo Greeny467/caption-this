@@ -1,5 +1,9 @@
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
+
+import { ApolloProvider } from "@apollo/client";
+import client from './apollo';
+
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Sidebar from "./components/Sidebar";
@@ -12,16 +16,18 @@ function App() {
   
    const showSidebar = () => setSidebar(!sidebar);
   return (
-    <ThemeProvider theme={darkTheme}>
-    <div className={`wrapper ${sidebar ? 'collapse' : ''}`}>
-      <Header showSidebar={showSidebar} />
-      <main >
-        <Outlet />
-        <Sidebar />
-      </main>
-      <Footer />
-    </div>
+    <ApolloProvider client = {client}>
+      <ThemeProvider theme={darkTheme}>
+      <div className={`wrapper ${sidebar ? 'collapse' : ''}`}>
+        <Header showSidebar={showSidebar} />
+        <main >
+          <Outlet />
+          <Sidebar />
+        </main>
+        <Footer />
+      </div>
     </ThemeProvider>
+    </ApolloProvider>
   );
 }
 
