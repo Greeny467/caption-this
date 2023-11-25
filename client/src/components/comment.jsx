@@ -4,7 +4,7 @@ import { voteStyleFinder } from '../utils/vote';
 import { useState, useQuery } from 'react';
 import { GET_ME } from '../utils/queries';
 
-export default function comment ({item, type}) {
+export default function Comment ({item, type}) {
 
     const [user, setUser] = useState({});
     const currentUser = useQuery(GET_ME);
