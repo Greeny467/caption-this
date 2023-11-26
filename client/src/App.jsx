@@ -7,7 +7,9 @@ import client from './apollo';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Sidebar from "./components/Sidebar";
+import { createTheme, ThemeProvider } from "@mui/material";
 
+const darkTheme = createTheme({ palette: { mode: "dark" } });
 
 function App() {
   const [sidebar, setSidebar] = useState(true);
@@ -15,6 +17,7 @@ function App() {
    const showSidebar = () => setSidebar(!sidebar);
   return (
     <ApolloProvider client = {client}>
+      <ThemeProvider theme={darkTheme}>
       <div className={`wrapper ${sidebar ? 'collapse' : ''}`}>
         <Header showSidebar={showSidebar} />
         <main >
@@ -23,6 +26,7 @@ function App() {
         </main>
         <Footer />
       </div>
+    </ThemeProvider>
     </ApolloProvider>
   );
 }
