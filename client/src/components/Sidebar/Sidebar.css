@@ -1,11 +1,10 @@
 .wrapper .sidebar{
   position: fixed;
   top: 70px;
-  right: 10px;
+  right: 0;
   background: #2292A4;
   width: 200px;
-  height: calc(100% - 80px);
-  border-bottom-right-radius: 20px;
+  height: calc(100%);
   transition: all 0.3s ease;
 }
 
@@ -31,7 +30,7 @@
 }
 
 .wrapper .sidebar ul li a span.icon{
-  margin-right: 10px;
+  margin-right: 15px;
   display: inline-block;
 }
 

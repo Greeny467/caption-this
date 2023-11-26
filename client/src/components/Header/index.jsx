@@ -13,6 +13,7 @@ export default function Header({showSidebar}) {
             <div className="logo">
               {/* <img src="logos/New logo.png" /> */}
             </div>
+            <div className="padded"></div>
                 <TextField id="searchForm" label="Search" variant="outlined" />
             <ul>
               <li>
@@ -24,8 +25,8 @@ export default function Header({showSidebar}) {
                 </a>
               </li>
             </ul>
-          </div>
           <Hamburger onClick={showSidebar}/>
+          </div>
         </div>
     </>
   );
