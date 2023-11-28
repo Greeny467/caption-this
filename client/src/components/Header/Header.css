@@ -44,11 +44,15 @@
 
 .wrapper .top_navbar .top_menu ul{
   display: flex;
+  margin: 0 5% 0 3%;
+  @media screen and (max-width: 900px) {
+    margin: 0;
+  }
 }
 
 .wrapper .top_navbar .top_menu ul li a{
   display: flex;
-  margin: 0 10px;
+  margin: 0 20px;
   width: auto;
   height: auto;
   padding: 5px 15px;
