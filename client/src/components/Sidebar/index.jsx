@@ -1,4 +1,5 @@
 import './Sidebar.scss';
+import SideLink from './SideLink';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
 import WavesIcon from '@mui/icons-material/Waves';
@@ -7,51 +8,14 @@ import CasinoIcon from '@mui/icons-material/Casino';
 
 export default function Sidebar() {
   return (
-    <>
       <div className="sidebar">
         <ul>
-          <li>
-            <a href="/">
-              <span className="icon">
-                <i className="fas fa-fire"><TrendingUpIcon/></i>
-              </span>
-              <span className="title">Trending</span>
-            </a>
-          </li>
-          <li>
-            <a href="/">
-              <span className="icon">
-                <i className="fas fa-fire-extinguisher"><WhatshotIcon/></i>
-              </span>
-              <span className="title">Roast Me</span>
-            </a>
-          </li>
-          <li>
-            <a href="/">
-              <span className="icon">
-                <i className="fas fa-coffee"><WavesIcon/></i>
-              </span>
-              <span className="title">Deep Captions</span>
-            </a>
-          </li>
-          <li>
-            <a href="/" className="active">
-              <span className="icon">
-                <i className="fas fa-video"><OndemandVideoIcon/></i>
-              </span>
-              <span className="title">Videos</span>
-            </a>
-          </li>
-          <li>
-            <a href="/">
-              <span className="icon">
-                <i className="fas fa-dumpster-fire"><CasinoIcon/></i>
-              </span>
-              <span className="title">Random</span>
-            </a>
-          </li>
+          <SideLink href="/" icon={<TrendingUpIcon/>}>Trending</SideLink>
+          <SideLink href="/" icon={<WhatshotIcon/>}>Roast Me</SideLink>
+          <SideLink href="/" icon={<WavesIcon/>}>Deep Captions</SideLink>
+          <SideLink href="/" icon={<OndemandVideoIcon/>} className='active'>Videos</SideLink>
+          <SideLink href="/" icon={<CasinoIcon/>}>Random</SideLink>
         </ul>
       </div>
-    </>
   );
 }
