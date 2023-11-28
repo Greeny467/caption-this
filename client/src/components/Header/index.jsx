@@ -1,7 +1,7 @@
 import Hamburger from "./Hamburger";
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import PersonIcon from '@mui/icons-material/Person';
-import "./Header.css";
+import "./Header.scss";
 import { TextField } from "@mui/material";
 
 export default function Header({showSidebar}) {
@@ -21,11 +21,11 @@ export default function Header({showSidebar}) {
                 </a>
               </li>
               <li>
-                <a href="#"><PersonIcon className="icon"/>
+                <a href="/Dashboard"><PersonIcon className="icon"/>
                 </a>
               </li>
             </ul>
-          <Hamburger onClick={showSidebar}/>
+          {(window.innerWidth <= 900) ? <Hamburger onClick={showSidebar}/> : null}
           </div>
         </div>
     </>

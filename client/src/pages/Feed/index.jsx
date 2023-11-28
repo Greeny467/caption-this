@@ -1,4 +1,4 @@
-import './Feed.css'
+import './Feed.scss'
 import Post from '../../components/Post'
 
 export default function Feed() {
