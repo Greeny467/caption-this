@@ -1,20 +1,22 @@
+@use '../../assets/styling/variables' as *;
+
 .wrapper .sidebar{
   position: fixed;
   top: 70px;
   right: 0;
-  background: #2292A4;
-  width: 200px;
+  background-color: $main-color;
+  width: 250px;
   height: calc(100%);
   transition: all 0.3s ease;
+  border-left: solid 1px $dark-shades;
 }
 
 .wrapper .sidebar ul li a{
     display: block;
-    padding: 20px;
-    color: #000;
+    padding: 30px;
+    color: $dark-shades;
     position: relative;
     margin-bottom: 1px;
-    color: #000;
     white-space: nowrap;
 }
 
@@ -25,7 +27,6 @@
   left: 0;
   width: 3px;
   height: 100%;
-  background: #92a6e2;
   display: none;
 }
 
@@ -40,14 +41,14 @@
 
 .wrapper .sidebar ul li a:hover,
 .wrapper .sidebar ul li a.active{
-  background: rgb(1, 53, 61);
-  color: #fff;
+  background-color: $dark-shades;
+  color: $light-shades;
 }
 
 .wrapper .sidebar ul li a:hover:before,
 .wrapper .sidebar ul li a.active:before{
   display: block;
-  background-color: white;
+  background-color: $dark-accent;
 }
 
 .wrapper.collapse .sidebar{
@@ -60,7 +61,7 @@
 
 .wrapper.collapse .sidebar ul li a span.icon{
   margin: 0;
-  color: #d0d0d0;
+  color: $light-shades;
 }
 
 .wrapper.collapse .sidebar ul li a span.title{

@@ -1,4 +1,4 @@
-import './Sidebar.css';
+import './Sidebar.scss';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
 import WavesIcon from '@mui/icons-material/Waves';

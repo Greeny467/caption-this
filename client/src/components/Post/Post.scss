@@ -1,3 +1,5 @@
+@use '../../assets/styling/variables' as *;
+
 .post {
   display: flex;
   flex-direction: column;
@@ -8,8 +10,8 @@
   transition: all 0.3s ease-in-out;
   user-select: none;
   opacity: 0.93;
-  color: white;
-  background-color: #111;
+  color: $light-shades;
+  background-color: $light-accent;
   width: 700px;
   height: auto;
   border-radius: 15px;

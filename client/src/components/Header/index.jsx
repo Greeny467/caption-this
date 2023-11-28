@@ -1,7 +1,7 @@
 import Hamburger from "./Hamburger";
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import PersonIcon from '@mui/icons-material/Person';
-import "./Header.css";
+import "./Header.scss";
 import { TextField } from "@mui/material";
 
 export default function Header({showSidebar}) {

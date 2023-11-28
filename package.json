@@ -14,7 +14,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^8.2.0"
+    "concurrently": "^8.2.0",
+    "sass": "^1.69.5"
   },
   "dependencies": {
     "@apollo/client": "^3.8.7",

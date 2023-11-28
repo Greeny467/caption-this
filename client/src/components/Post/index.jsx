@@ -1,4 +1,4 @@
-import "./Post.css";
+import "./Post.scss";
 
 export default function Post({ children, img, href, ...props }) {
   if (img) {

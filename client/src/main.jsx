@@ -6,7 +6,7 @@ import App from './App';
 import Error from './pages/Error';
 import Feed from './pages/Feed';
 
-import './index.css'
+import './index.scss'
 
 
 const router = createBrowserRouter([
