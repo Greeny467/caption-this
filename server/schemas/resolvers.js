@@ -1,6 +1,7 @@
 const { request } = require('express');
 const { User, Post, Caption, Comment } = require('../models');
 const auth = require('../utils/auth');
+const s3 = require('../utils/s3');
 const {signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
@@ -49,6 +50,20 @@ const resolvers = {
                 console.error(error);
                 throw new Error('failed to find single caption entirely');
             }
+        },
+        image: async (parent, {imageURL}, context) => {
+            const params = {
+                Bucket: 'caption-this-bucket',
+                Key: imageURL
+            };
+
+            const result = await s3.getObject(params).promise();
+
+            if(!result){
+                throw new Error('failed to get image from s3');
+            };
+
+            return result.Body;
         }
     },
     Mutation: {
@@ -79,6 +94,21 @@ const resolvers = {
         addPost: async (parent, { post: postData }, context) => {
             try{
                 if(context.user) {
+
+                    const params = {
+                        Bucket: 'caption-this-bucket',
+                        Key: `images/${postData.imageURL.filename}`,
+                        Body: postData.imageURL.createReadStream(),
+                    };
+
+                    const result = await s3.upload(params).promise();
+
+                    if(!result){
+                        throw new Error('failed to upload image');
+                    };
+
+                    postData.imageURL = result.Key;
+
                     const post = await Post.create({ postData });
 
                     if(!post) {

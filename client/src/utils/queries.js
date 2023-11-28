@@ -76,3 +76,11 @@ export const SINGLE_CAPTION = gql`
         }
     }
 `;
+
+export const IMAGE = gql`
+    query image($imageURL: String!) {
+        image(imageURL: $imageURL) {
+            binaryData
+        }
+    }
+`;

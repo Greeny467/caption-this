@@ -50,6 +50,7 @@ const typeDefs = `
         singlePost(requestedPostId: ID!): Post
         user(requestedUserId: ID!): User
         singleCaption(captionId: ID!): Caption
+        image(imageURL: String!): Upload
     }
 
 
@@ -57,7 +58,7 @@ const typeDefs = `
     input postInput {
         _id: ID
         user: ID!
-        imageURL: String!
+        imageURL: Upload!
         createdAt: String
         caption: String
         captions: [ID]
