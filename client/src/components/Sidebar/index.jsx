@@ -11,7 +11,7 @@ export default function Sidebar() {
       <div className="sidebar">
         <ul>
           <li>
-            <a href="#">
+            <a href="/">
               <span className="icon">
                 <i className="fas fa-fire"><TrendingUpIcon/></i>
               </span>
@@ -19,7 +19,7 @@ export default function Sidebar() {
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="/">
               <span className="icon">
                 <i className="fas fa-fire-extinguisher"><WhatshotIcon/></i>
               </span>
@@ -27,7 +27,7 @@ export default function Sidebar() {
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="/">
               <span className="icon">
                 <i className="fas fa-coffee"><WavesIcon/></i>
               </span>
@@ -35,7 +35,7 @@ export default function Sidebar() {
             </a>
           </li>
           <li>
-            <a href="#" className="active">
+            <a href="/" className="active">
               <span className="icon">
                 <i className="fas fa-video"><OndemandVideoIcon/></i>
               </span>
@@ -43,7 +43,7 @@ export default function Sidebar() {
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="/">
               <span className="icon">
                 <i className="fas fa-dumpster-fire"><CasinoIcon/></i>
               </span>

@@ -21,7 +21,7 @@ export default function Header({showSidebar}) {
                 </a>
               </li>
               <li>
-                <a href="#"><PersonIcon className="icon"/>
+                <a href="/Dashboard"><PersonIcon className="icon"/>
                 </a>
               </li>
             </ul>
