@@ -2,22 +2,34 @@
 
 .wrapper .sidebar{
   position: fixed;
-  top: 70px;
+  top: $header-height;
   right: 0;
   background-color: $main-color;
-  width: 250px;
-  height: calc(100%);
+  width: $sidebar-width;
+  height: 100%;
   transition: all 0.3s ease;
   border-left: solid 1px $dark-shades;
 }
 
 .wrapper .sidebar ul li a{
-    display: block;
-    padding: 30px;
+    display: flex;
+    padding: 20px;
     color: $dark-shades;
     position: relative;
     margin-bottom: 1px;
     white-space: nowrap;
+    transition: all 0.3s ease;
+    align-items: center;
+    &.active{
+      background-color: $dark-shades;
+      color: $light-shades;
+    }
+    &:hover{
+      scale: 1.03;
+      box-shadow: 10px 10px 10px rgba(0,0,0,0.5);
+      background-color: $dark-accent;
+      color: $light-shades;
+    }
 }
 
 .wrapper .sidebar ul li a:before{
@@ -39,12 +51,6 @@
   display: inline-block;
 }
 
-.wrapper .sidebar ul li a:hover,
-.wrapper .sidebar ul li a.active{
-  background-color: $dark-shades;
-  color: $light-shades;
-}
-
 .wrapper .sidebar ul li a:hover:before,
 .wrapper .sidebar ul li a.active:before{
   display: block;
@@ -52,7 +58,7 @@
 }
 
 .wrapper.collapse .sidebar{
-  width: 70px;
+  width: $sidebar-width-collapsed;
 }
 
 .wrapper.collapse .sidebar ul li a{

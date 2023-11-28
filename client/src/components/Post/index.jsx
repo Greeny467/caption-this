@@ -12,7 +12,7 @@ export default function Post({ children, img, href, ...props }) {
 
   return (
     <a href={href} className="post" {...props}>
-      <img src={"https://placehold.co/800x400?text=Post"} alt="post_img" />
+      <img src={"https://placehold.co/800x600?text=Post"} alt="post_img" />
       <span className="postText">{`"${children}"`}</span>
     </a>
   );
