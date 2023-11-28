@@ -1,46 +1,42 @@
-const router = require('express').Router();
+// Login.js
 
-const { User } = require('../../models');
+import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { LOGIN_MUTATION } from './graphql/mutations'; // Your GraphQL mutation
 
-// Login
-// Route works!! 
-router.post('/login', async (req, res) => {
-    try {
-        const dbUserData = await User.findOne({
-            where: {
-                username: req.body.username,
-            },
-        });
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-        if (!dbUserData) {
-            res
-            .status(400)
-            .json({ message: 'Incorrect username or password. Please try again!'});
-        return;
-        }
+  const [login, { loading, error }] = useMutation(LOGIN_MUTATION, {
+    onCompleted: ({ login }) => {
+      // Handle successful login
+      console.log(login);
+    },
+  });
 
-        const userPassword = await dbUserData.checkPassword(req.body.password);
+  const handleLogin = () => {
+    login({ variables: { email, password } });
+  };
 
-        if (!userPassword) {
-            res
-            .status(400)
-            .json({ message: 'Incorrect username or password. Please try again!'});
-        return;
-        }
-        const userInfo = await dbUserData.get({ plain: true });
-        req.session.save(() => {
-            req.session.logged_in = true;
-            req.session.user_id = userInfo.id
-            req.session.username = req.body.username,
-            res
-            .status(200)
-            // .json({ user: dbUserData, message: 'You are now logged in!'})
-            .json(dbUserData);
-        });
-    } catch (err) {
-        console.log(err);
-        res.status(500).json(err);
-    }
-});
+  return (
+    <div>
+      <h2>Login</h2>
+      <form>
+        <label>Email:</label>
+        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
 
-module.exports = router;
+        <label>Password:</label>
+        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+
+        <button type="button" onClick={handleLogin} disabled={loading}>
+          Login
+        </button>
+
+        {error && <p>Error: {error.message}</p>}
+      </form>
+    </div>
+  );
+};
+
+export default Login;
