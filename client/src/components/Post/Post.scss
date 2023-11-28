@@ -1,4 +1,4 @@
-@use '../../assets/styling/variables' as *;
+@use "../../assets/styling/variables" as *;
 
 .post {
   display: flex;
@@ -16,8 +16,9 @@
   height: auto;
   border-radius: 15px;
   padding: 10px;
-  rotate: .3deg;
+  rotate: 0.3deg;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border: 1px outset $light-shades;
 }
 
 .post:hover {
@@ -30,9 +31,9 @@
   min-width: 300px;
   height: 450px;
   max-width: 650px;
-  padding-bottom: 5px;
   transition: all 0.3s ease-in-out;
   border-radius: 15px;
+  border: 2px inset $light-shades;
 }
 
 .postText {
@@ -44,38 +45,41 @@
   text-align: center;
 }
 
-
 @media screen and (max-width: 900px) {
-  .post {
-      margin: 10px 0;
-      width: 100vw;
-      height: auto;
-      overflow: hidden;
-      padding: 0 0 20px 0;
-      opacity: 1;
-      rotate: 0deg;
-      &:hover {
-          scale: 1;
-      }
+
+  .post:first-of-type {
+    margin-top: $header-height;
   }
-  
+
+  .post {
+    margin: 10px 0;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    padding: 0 0 10px 0;
+    opacity: 1;
+    rotate: 0deg;
+    border-radius: 0;
+    &:hover {
+      scale: 1;
+    }
+  }
+
   .post img {
-      width: 100%;
-      height: auto;
-      /* object-fit: cover; */
-      padding: 0;
-      transition: all 0.3s ease-in-out;
-      margin: 0 0 20px 0;
-      border-radius: 0;
+    width: calc(100vw - $sidebar-width-collapsed);
+    height: auto;
+    padding: 0;
+    transition: all 0.3s ease-in-out;
+    margin: 0 0 20px 0;
+    border-radius: 0;
   }
 
   .postText {
-      width: 100%;
-      height: auto;
-      padding: 10px;
-      font-size: 15px;
-      font-weight: 500;
-      text-align: center;
+    width: 100%;
+    height: auto;
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: center;
   }
-  
 }
