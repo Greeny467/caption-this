@@ -11,13 +11,16 @@
 }
 
 .wrapper .top_navbar .hamburger{
-  width: $sidebar-width-collapsed;
+  width: 70px;
   height: 100%;
   background-color: $main-color;
   padding: 15px 17px;
   cursor: pointer;
   flex-shrink: 0;
   border-left: solid 1px $dark-shades;
+  @media screen and (min-width: 900px) {
+    display: none;
+  }
 }
 
 .wrapper .top_navbar .hamburger div{

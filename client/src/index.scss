@@ -14,19 +14,17 @@ body{
   background-color: $main-background;
 }
 
-.wrapper .main_container{
-  width: calc(100% - $sidebar-width);
-  margin-top: 100px;
-  padding: 15px;
-  transition: all 0.3s ease;
+main {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: calc(100% - $sidebar-width);
+  height: 100vh;
+  margin-top: $header-height + 30px;
+
   @media screen and (max-width: 900px) {
-    width: calc(100% - $sidebar-width-collapsed);
+    width: calc(100%);
     margin: 0;
     padding: 0;
-
   }
 }
