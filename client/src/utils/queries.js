@@ -6,13 +6,12 @@ export const GET_ME = gql`
             _id
             username
             email
-            createdAt
             posts
             captions
             comments
             votes {
-                postId
-                captionId
+                votePost
+                voteCaption
             }
         }
     }
@@ -24,7 +23,6 @@ export const ALL_POSTS = gql`
             _id
             user
             imageURL
-            createdAt
             caption
             captions
             comments
@@ -38,7 +36,6 @@ export const SINGLE_POST = gql`
             _id
             user
             imageURL
-            createdAt
             caption
             captions
             comments
@@ -52,7 +49,6 @@ export const USER = gql`
             _id
             username
             email
-            createdAt
             posts
             captions
             comments
@@ -68,19 +64,11 @@ export const USER = gql`
 export const SINGLE_CAPTION = gql`
     query singleCaption($captionId: ID!) {
         singleCaption(captionId: $captionId){
+            _id
             text
             user 
             likes
-            createdAt
             postId
-        }
-    }
-`;
-
-export const IMAGE = gql`
-    query image($imageURL: String!) {
-        image(imageURL: $imageURL) {
-            binaryData
         }
     }
 `;

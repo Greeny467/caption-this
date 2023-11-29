@@ -1,10 +1,10 @@
-const { request } = require('express');
+
 const { User, Post, Caption, Comment } = require('../models');
 const auth = require('../utils/auth');
-const s3 = require('../utils/s3');
 const {signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
+
     Query: {
         me: async (parent, args, context) => {
             if(context.user) {
@@ -14,7 +14,7 @@ const resolvers = {
         },
         allPosts: async (parent, args, context) => {
             try {
-                return Post.find.populate(['user', 'captions', 'comments']);
+                return Post.find().populate(['user', 'captions', 'comments']);
             } catch (error) {
                 console.error(error);
                 throw new Error('failed to get all posts');
@@ -22,7 +22,7 @@ const resolvers = {
         },
         singlePost: async (parent, {requestedPostId}, context) => {
             try {
-                return Post.findOne({_id: requestedPostId}).populate(['user', 'captions', 'comments']);
+                return Post.findOne({_id: requestedPostId}).populate([ 'captions', 'comments']);
             } catch (error) {
                 console.error(error);
                 throw new Error('failed to get singular post');
@@ -38,7 +38,7 @@ const resolvers = {
         },
         singleCaption: async (parent, {captionId}, context) => {
             try{
-                const caption = await Caption.findById(captionId).populate(['user', 'postId']);
+                const caption = await Caption.findById(captionId);
 
                 if(!caption){
                     throw new Error('failed to find single caption');
@@ -50,20 +50,6 @@ const resolvers = {
                 console.error(error);
                 throw new Error('failed to find single caption entirely');
             }
-        },
-        image: async (parent, {imageURL}, context) => {
-            const params = {
-                Bucket: 'caption-this-bucket',
-                Key: imageURL
-            };
-
-            const result = await s3.getObject(params).promise();
-
-            if(!result){
-                throw new Error('failed to get image from s3');
-            };
-
-            return result.Body;
         }
     },
     Mutation: {
@@ -91,27 +77,13 @@ const resolvers = {
 
 
 
-        addPost: async (parent, { post: postData }, context) => {
+        addPost: async (parent, { post }, context) => {
             try{
                 if(context.user) {
 
-                    const params = {
-                        Bucket: 'caption-this-bucket',
-                        Key: `images/${postData.imageURL.filename}`,
-                        Body: postData.imageURL.createReadStream(),
-                    };
+                    const createdPost = await Post.create({ post });
 
-                    const result = await s3.upload(params).promise();
-
-                    if(!result){
-                        throw new Error('failed to upload image');
-                    };
-
-                    postData.imageURL = result.Key;
-
-                    const post = await Post.create({ postData });
-
-                    if(!post) {
+                    if(!createdPost) {
                         throw new AuthenticationError('failed to create post');
                     }
 
@@ -120,7 +92,7 @@ const resolvers = {
                         { $addToSet: {posts: post._id} }
                     );
 
-                    return post;
+                    return createdPost;
                 }
                 else {
                     throw new AuthenticationError('you need to be logged in');
@@ -131,30 +103,30 @@ const resolvers = {
                 throw new Error('failed to create post entirely');
             };
         },
-        addCaption: async (parent, { caption: captionData }, context) => {
+        addCaption: async (parent, { caption }, context) => {
             try {
                 if(context.user) {
-                    const caption = Caption.create({ captionData });
+                    const newCaption = await Caption.create({ caption });
 
-                    if(!caption) {
+                    if(!newCaption) {
                         throw new AuthenticationError('failed to create caption');
                     }
 
                     try {
                         await User.findOneAndUpdate(
                             { _id: context.user._id},
-                            { $addToSet: {captions: caption._id}}
+                            { $addToSet: {captions: newCaption._id}}
                         );
                         await Post.findOneAndUpdate(
-                            { _id: captionData.postId},
-                            { $addToSet: {captions: caption._id}}
+                            { _id: newCaption.postId},
+                            { $addToSet: {captions: newCaption._id}}
                         );
                     } catch (error) {
                         console.error(error);
                         throw new Error(error);
                     };
                     
-                    return caption;
+                    return newCaption;
                 }
                 else{
                     throw new AuthenticationError('you need to be logged in');
@@ -164,23 +136,23 @@ const resolvers = {
                 throw new Error('failed to create caption entirely');
             };
         },
-        addComment: async (parent, { comment: commentData }, context) => {
+        addComment: async (parent, { comment }, context) => {
             try {
                 if(context.user) {
-                    const comment = Comment.create({ commentData });
+                    const newComment = Comment.create({ comment });
 
-                    if(!comment) {
+                    if(!newComment) {
                         throw new AuthenticationError('failed to create comment');
                     }
 
                     try {
                         await User.findOneAndUpdate(
                             { _id: context.user._id},
-                            { $addToSet: {comments: comment._id}}
+                            { $addToSet: {comments: newComment._id}}
                         );
                         await Post.findOneAndUpdate(
-                            { _id: commentData.postId},
-                            { $addToSet: {comments: comment_id}}
+                            { _id: newComment.postId},
+                            { $addToSet: {comments: newComment._id}}
                         );
                     } catch (error) {
                         console.error(error);
@@ -188,7 +160,7 @@ const resolvers = {
                     };
 
 
-                    return comment;
+                    return newComment;
                 }
                 else{
                     throw new AuthenticationError('you need to be logged in');
@@ -200,19 +172,19 @@ const resolvers = {
         },
 
 
-        captionVote: async (parent, {caption: captionData, update}, context) => {
+        captionVote: async (parent, { caption, update}, context) => {
             try {
                 if(context.user){
                     let updateNumber;
                     if(update === 'increase'){
-                        updateNumber = captionData.likes + 1;
+                        updateNumber = caption.likes + 1;
                     }
                     else if (update === 'decrease'){
-                        updateNumber = captionData.likes - 1;
+                        updateNumber = caption.likes - 1;
                     };
 
-                    const updatedCaption = Caption.findOneAndUpdate(
-                        {_id: captionData._id},
+                    const updatedCaption = await Caption.findOneAndUpdate(
+                        {_id: caption._id},
                         {likes: updateNumber},
                         {new: true}
                     );
@@ -297,11 +269,13 @@ const resolvers = {
             } catch (error) {
                 console.error(error);
                 throw new Error('failed to remove vote entirely');
-            }
+            };
         }
 
 
         
 
     }
-}
+};
+
+module.exports = { resolvers };
