@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import App from './App';
+import Dashboard from './pages/Dashboard';
 import Error from './pages/Error';
 import Feed from './pages/Feed';
 
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Feed />,
+      },
+      {
+        path: 'Dashboard',
+        element: <Dashboard />
       },
       {
         path: '*',
