@@ -8,13 +8,29 @@ const resolvers = {
     Query: {
         me: async (parent, args, context) => {
             if(context.user) {
-                return User.findOne({ _id: context.user._id }).populate(['posts', 'captions', 'comments']);
+                const user = User.findOne({ _id: context.user._id }).populate(['posts', 'captions', 'comments']);
+
+
+                const response = {
+                    _id: user._id,
+                    username: user.username,
+                    email: user.email,
+                    posts: user.posts,
+                    captions: user.captions,
+                    comments: user.comments,
+                    votes: user.votes
+                };
+
+                return response;
             }
             throw new AuthenticationError('you need to be logged in');
         },
+
+
+
         allPosts: async (parent, args, context) => {
             try {
-                return Post.find().populate(['user', 'captions', 'comments']);
+                return Post.find().populate([ 'captions', 'comments']);
             } catch (error) {
                 console.error(error);
                 throw new Error('failed to get all posts');
@@ -28,6 +44,9 @@ const resolvers = {
                 throw new Error('failed to get singular post');
             }
         },
+
+
+
         user: async (parent, {requestedUserId}, context) => {
             try {
                 return User.findOne({_id: requestedUserId}).populate(['posts', 'captions', 'comments']);
@@ -126,7 +145,14 @@ const resolvers = {
                         throw new Error(error);
                     };
                     
-                    return newCaption;
+                    const response = {
+                        _id: newCaption._id,
+                        text: newCaption.text,
+                        user: newCaption.user,
+                        postId: newCaption.postId
+                    };
+
+                    return response;
                 }
                 else{
                     throw new AuthenticationError('you need to be logged in');
@@ -139,7 +165,7 @@ const resolvers = {
         addComment: async (parent, { comment }, context) => {
             try {
                 if(context.user) {
-                    const newComment = Comment.create({ comment });
+                    const newComment = await Comment.create({ comment });
 
                     if(!newComment) {
                         throw new AuthenticationError('failed to create comment');
@@ -160,7 +186,14 @@ const resolvers = {
                     };
 
 
-                    return newComment;
+                    const response = {
+                        _id: newComment._id,
+                        text: newComment.text,
+                        user: newComment.user,
+                        postId: newComment.postId
+
+                    }
+                    return response;
                 }
                 else{
                     throw new AuthenticationError('you need to be logged in');
@@ -278,4 +311,4 @@ const resolvers = {
     }
 };
 
-module.exports = { resolvers };
+module.exports = resolvers;
