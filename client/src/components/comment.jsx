@@ -35,7 +35,7 @@ export default function Comment ({item, type}) {
         return(
             <>
                 <div>
-                    <p>{item.user.name}</p>
+                    <p>{item.user.username}</p>
                     <p>{item.createdAt}</p>
                     <p>{item.text}</p>
                 </div>
@@ -46,7 +46,7 @@ export default function Comment ({item, type}) {
         return(
             <>
                 <div>
-                    <p>{item.user.name}</p>
+                    <p>{item.user.username}</p>
                     <p>{item.createdAt}</p>
                     <p>{item.text}</p>
                     <p>Votes: {item.likes}</p>
