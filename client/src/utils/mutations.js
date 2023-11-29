@@ -9,7 +9,7 @@ export const LOGIN_USER = gql`
                 _id
                 username
             }
-        })
+        }
     }
 `;
 
@@ -36,7 +36,6 @@ export const ADD_POST = gql`
             _id
             user
             imageURL
-            createdAt
             caption
             captions
             comments
@@ -52,7 +51,6 @@ export const ADD_CAPTION = gql`
             text
             user
             likes
-            createdAt
             postId
         }
     }
@@ -65,8 +63,6 @@ export const ADD_COMMENT = gql`
             _id
             text
             user
-            likes
-            createdAt
             postId
         }
     }
@@ -79,19 +75,17 @@ export const ADD_VOTE = gql`
             text
             user
             likes
-            createdAt
             postId    
         }
     }
 `;
 
 export const ADD_USER_VOTE = gql`
-    mutation addUserComment($postId: ID!, $captionId: ID!) {
-        addUserComment(postId: $postId, captionId: $captionId) {
+    mutation addUserVote($postId: ID!, $captionId: ID!) {
+        addUserVote(postId: $postId, captionId: $captionId) {
             _id
             username
             email
-            createdAt
             posts
             captions
             comments
@@ -104,12 +98,11 @@ export const ADD_USER_VOTE = gql`
 `;
 
 export const REMOVE_USER_VOTE = gql`
-    mutation removeUserComment($postId: ID!, $captionId: ID!) {
-        removeUserComment(postId: $postId, captionId: $captionId) {
+    mutation removeUserVote($postId: ID!, $captionId: ID!) {
+        removeUserVote(postId: $postId, captionId: $captionId) {
             _id
             username
             email
-            createdAt
             posts
             captions
             comments

@@ -1,9 +1,11 @@
-const typeDefs = `
+const { gql } = require('apollo-server-express');
+
+const typeDefs = gql`
+
     type User {
         _id: ID!
         username: String!
-        email: String!
-        createdAt: String
+        email: String
         posts: [ID]
         captions: [ID]
         comments: [ID]
@@ -13,8 +15,7 @@ const typeDefs = `
         _id: ID!
         user: ID!
         imageURL: String!
-        createdAt: String
-        caption: String
+        caption: ID
         captions: [ID]
         comments: [ID]
     }
@@ -22,7 +23,6 @@ const typeDefs = `
         _id: ID!
         text: String!
         user: ID!
-        createdAt: String
         postId: ID!
     }
     type Caption {
@@ -30,7 +30,6 @@ const typeDefs = `
         text: String!
         user: ID!
         likes: Int
-        createdAt: String
         postId: ID!
     }
     type Auth {
@@ -38,8 +37,8 @@ const typeDefs = `
         user: User
     }
     type Vote {
-        votePost: Post
-        voteCaption: Caption
+        votePost: ID
+        voteCaption: ID
     }
 
 
@@ -50,7 +49,6 @@ const typeDefs = `
         singlePost(requestedPostId: ID!): Post
         user(requestedUserId: ID!): User
         singleCaption(captionId: ID!): Caption
-        image(imageURL: String!): Upload
     }
 
 
@@ -58,9 +56,8 @@ const typeDefs = `
     input postInput {
         _id: ID
         user: ID!
-        imageURL: Upload!
-        createdAt: String
-        caption: String
+        imageURL: String!
+        caption: ID
         captions: [ID]
         comments: [ID]
     }
@@ -70,7 +67,6 @@ const typeDefs = `
         text: String!
         user: ID!
         likes: Int
-        createdAt: String
         postId: ID!
     }
 
@@ -78,7 +74,6 @@ const typeDefs = `
         _id: ID
         text: String!
         user: ID!
-        createdAt: String
         postId: ID!
     }
 
@@ -94,4 +89,8 @@ const typeDefs = `
         addUserVote(postId: ID!, captionId: ID!): User
         removeUserVote(postId: ID!, captionId: ID!): User
     }
-`
+`;
+
+
+module.exports = typeDefs;
+
