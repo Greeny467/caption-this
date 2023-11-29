@@ -16,20 +16,6 @@ function App() {
   
    const showSidebar = () => setSidebar(!sidebar);
 
-   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth <= 900) {
-        setSidebar(true);
-      } else {
-        setSidebar(false);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   return (
     <ApolloProvider client = {client}>

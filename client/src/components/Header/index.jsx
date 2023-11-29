@@ -24,9 +24,8 @@ export default function Header({ showSidebar }) {
               </a>
             </li>
           </ul>
-          {window.innerWidth <= 900 ? (
-            <Hamburger onClick={showSidebar} />
-          ) : null}
+          <Hamburger onClick={showSidebar} />
+
         </div>
       </div>
     </>
