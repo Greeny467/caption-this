@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { ADD_POST } from '../utils/mutations';
 import { GET_ME } from '../utils/queries';
+import uploadFile from '../../../server/utils/uploadFile';
 
 export default function CreatePost() {
   const [createPost, { error }] = useMutation(ADD_POST);
@@ -32,6 +33,8 @@ export default function CreatePost() {
       return;
     }
 
+    const key = await uploadFile(file);
+
     const formData = new FormData();
     formData.append('file', file);
     formData.append('timer', timer);
@@ -39,8 +42,9 @@ export default function CreatePost() {
     try {
       const response = await createPost({
         variables: {
-          file: formData,
-          timer,
+          user: user._id,
+          imageURL: key,
+          
         },
       });
 
@@ -69,7 +73,7 @@ export default function CreatePost() {
       </button>
       {tabState === 'open' && (
             <div>
-                <input type="file" accept="image/*" onChange={handleUpload} value={file || ''} />
+                <input type="file" accept="image/*" onChange={handleUpload} value={undefined} />
                 <input
                     type="number"
                     name="timer"
