@@ -35,7 +35,7 @@ export default function Comment ({item, type}) {
         return(
             <>
                 <div>
-                    <p>{item.user.username}</p>
+                    <a href={`/dashboard/${item.user._id}`}>{item.user.username}</a>
                     <p>{item.createdAt}</p>
                     <p>{item.text}</p>
                 </div>
