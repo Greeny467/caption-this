@@ -13,11 +13,11 @@ const typeDefs = gql`
     }
     type Post {
         _id: ID!
-        user: ID!
+        user: User!
         imageURL: String!
-        caption: ID
-        captions: [ID]
-        comments: [ID]
+        caption: Caption
+        captions: [Caption]
+        comments: [Comment]
     }
     type Comment {
         _id: ID!
