@@ -46,9 +46,11 @@ export default function postPage () {
     if(pageType === 'post') {
         return(
             <>
+                <a id='backbutton' href='/'>Back</a>
+                <input type='checkbox' id='pageTypeToggle' checked='pageType' onClick={handlePageTypeChange}>pageType</input>
                 <div>
                     <section>
-                        <h2>{post.user.username}</h2>
+                        <a href={`/dashboard/${post.user._id}`}>{post.user.username}</a>
                         <h3>Other info?</h3>
                     </section>
                     <section>
@@ -56,7 +58,7 @@ export default function postPage () {
                         <div>
                             {post.caption !== null ? ( 
                                 <>
-                                    <h3>{post.caption.user.username}</h3>
+                                    <a href={`/dashboard/${post.caption.user._id}`}>{post.caption.user.username}</a>
                                     <h4>{post.caption.text}</h4>
                                 </>
                                 ):(
@@ -79,23 +81,33 @@ export default function postPage () {
     if(pageType === 'vote') {
         return(
             <>
-                <h2>{post.user.username}</h2>
-                <h3>Other info?</h3>
-                <img src={post.imageURL}/>
-                {post.caption !== null ?
-                    (
-                        <div>
-                            <h3>{post.caption.user.username}</h3>
-                            <h4>{post.caption.text}</h4>
-                        </div>
-                    ) : (
-                        <div>
-                            <p>Caption hasn't been chosen yet</p>
-                        </div>
-                    )
-                }
-
-                <h1>Leaderboard component here</h1>
+                <div>
+                    <a href='/' id='backButton'>Back</a>
+                    <input type='checkbox' id='pageTypeToggle' checked='pageType' onChange={handlePageTypeChange}>pageType</input>
+                    <section>
+                        <a href={`/dashboard/${post.user._id}`}>{post.user.username}</a>
+                        <h3>Other info?</h3>
+                    </section>
+                    <section>
+                    <img src={post.imageURL}/>
+                    {post.caption !== null ?
+                        (
+                            <div>
+                                <a href={`/dashboard/${post.caption.user._id}`}>{post.caption.user.username}</a>
+                                <h4>{post.caption.text}</h4>
+                            </div>
+                        ) : (
+                            <div>
+                                <p>Caption hasn't been chosen yet</p>
+                            </div>
+                        )
+                    }
+                    </section>
+                    <section>
+                        <h1>leaderboard component here</h1>
+                    </section>
+                
+                </div>
             </>
         )
     }
