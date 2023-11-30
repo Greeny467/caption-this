@@ -1,6 +1,5 @@
 
 const { User, Post, Caption, Comment } = require('../models');
-const auth = require('../utils/auth');
 const {signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
@@ -114,7 +113,8 @@ const resolvers = {
                     return createdPost;
                 }
                 else {
-                    throw new AuthenticationError('you need to be logged in');
+                    const error = new AuthenticationError('Could not authenticate user.');
+                    
                 }
             }
             catch (error){
