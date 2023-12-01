@@ -1,0 +1,96 @@
+@use '../../assets/styling/variables' as *;
+
+.wrapper .top_navbar{
+  width: 100%;
+  height: $header-height;
+  display: flex;
+  position: fixed;
+  top: 0px;
+  z-index: 1000;
+  border-bottom: solid 1px black;
+}
+
+.wrapper .top_navbar .hamburger{
+  width: 70px;
+  height: 100%;
+  background-color: $main-color;
+  padding: 15px 17px;
+  cursor: pointer;
+  flex-shrink: 0;
+  border-left: solid 1px $dark-shades;
+  @media screen and (min-width: 900px) {
+    display: none;
+  }
+}
+
+.wrapper .top_navbar .hamburger div{
+  width: 35px;
+  height: 4px;
+  background-color: $light-shades;
+  margin: 5px 0;
+  border-radius: 5px;
+}
+
+.wrapper .top_navbar .top_menu{
+  width: 100%;
+  height: 100%;
+  background-color: $dark-shades;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+.wrapper .top_navbar .top_menu .logo{
+  color: $dark-accent;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.wrapper .top_navbar .top_menu ul{
+  display: flex;
+  margin: 0 2% 0 3%;
+  @media screen and (max-width: 900px) {
+    margin: 0;
+  }
+}
+
+.wrapper .top_navbar .top_menu ul li a{
+  display: flex;
+  margin: 0 15px;
+  width: auto;
+  height: auto;
+  padding: 5px 15px;
+  line-height: 35px;
+  text-align: center;
+  border: 1px solid $dark-accent;
+  border-radius: 15px;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.wrapper .top_navbar .top_menu ul li a:hover{
+  background-color: $dark-accent;
+  color: $light-shades;
+  transform: translateY(-2px);
+}
+
+.wrapper .top_navbar .top_menu ul li a:hover i{
+  color: $light-shades;
+}
+
+.icon{
+  scale: 1.3;
+}
+
+#searchForm {
+  width: 600px;
+  transition: all 0.5s ease;
+}
+
+#searchFormPad{
+  @media screen and (max-width: 900px) {
+    padding: 0 0 0 5px;
+  }
+}

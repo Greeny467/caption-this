@@ -1,0 +1,126 @@
+@use '../../assets/styling/variables' as *;
+
+.wrapper .sidebar{
+  position: fixed;
+  top: $header-height;
+  right: 0;
+  background-color: $main-color;
+  width: $sidebar-width;
+  height: 100%;
+  transition: all 0.3s ease;
+  border-left: solid 1px $dark-shades;
+  @media screen and (max-width: 900px) {
+    position: fixed;
+    right: 0;
+    top: 0;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  }
+}
+
+.wrapper .sidebar ul li a{
+    display: flex;
+    padding: 20px;
+    color: $dark-shades;
+    position: relative;
+    margin-bottom: 1px;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    align-items: center;
+    &.active{
+      background-color: $dark-shades;
+      color: $light-shades;
+    }
+    &:hover{
+      scale: 1.03;
+      box-shadow: 10px 10px 10px rgba(0,0,0,0.5);
+      background-color: $dark-accent;
+      color: $light-shades;
+    }
+}
+
+.wrapper .sidebar ul li a:before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  display: none;
+}
+
+.wrapper .sidebar ul li a span.icon{
+  margin-right: 15px;
+  display: inline-block;
+}
+
+.wrapper .sidebar ul li a span.title{
+  display: inline-block;
+}
+
+.wrapper .sidebar ul li a:hover:before,
+.wrapper .sidebar ul li a.active:before{
+  display: block;
+  background-color: $dark-accent;
+}
+
+.wrapper.collapse .sidebar{
+  transform: translateX(0);
+}
+
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  padding: 5px;
+}
+
+.image-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+  .upload-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 300px;
+    border: 2px dashed $dark-shades;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    color: $dark-shades;
+    font-size: 20px;
+    font-family: Arial, sans-serif;
+
+    &:hover {
+      border-color: $dark-accent;
+    }
+
+    img {
+      max-width: 100%;
+      max-height: 300px;
+      object-fit: contain;
+    }
+  }
+
+  button {
+    margin-top: 10px;
+    width: 100px;
+    height: 30px;
+    background-color: $dark-accent;
+    color: $light-shades;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    &:hover {
+      scale: 1.03;
+      box-shadow: 10px 10px 10px rgba(0,0,0,0.5);
+      background-color: $dark-shades;
+      color: $light-shades;
+    }
+  }
+}

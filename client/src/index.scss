@@ -1,0 +1,30 @@
+@use './assets/styling/variables' as *;
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+body{
+  background-color: $main-background;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: calc(100% - $sidebar-width);
+  height: 100vh;
+  margin-top: $header-height + 30px;
+
+  @media screen and (max-width: 900px) {
+    width: 100%;
+    margin-top: $header-height;
+  }
+}
+
