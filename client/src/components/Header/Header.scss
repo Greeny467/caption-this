@@ -90,12 +90,14 @@
   align-items: center;
   position: absolute;
   top: $header-height;
+  // min-height: auto;
   width: 400px;
-  height: 300px;
+  height: 275px;
   background-color: $post-color;
   border-bottom-right-radius: 15px;
   color: $light-shades;
   z-index: 1;
+  box-shadow: 10px 10px 10px rgba(0,0,0,0.2);
   @media screen and (max-width: 900px) {
     width: 100%;
     height: calc(100vh - $header-height);
@@ -104,9 +106,9 @@
   form {
     width: 70%;
     height: 100%;
-    margin-top: 20px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     & > * {
       margin: 5px 0;
     }
