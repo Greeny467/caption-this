@@ -23,18 +23,11 @@ export default function Feed() {
     }
   }, [data, error]);
 
-
-  const loggedInUser = Auth.loggedIn();
+  const userLoggedIn = Auth.loggedIn();
 
   return (
     <div className="feed_container">
-      {loggedInUser === true ? (
-        <>
-          <CreatePost/>
-        </>
-      ) : (
-        <Login/>
-      )}
+      {userLoggedIn !== true && <Login/>}
       {loading ? (
         <h1>Loading...</h1>
       ) : error ? (
