@@ -2,7 +2,7 @@ import './Feed.scss';
 import Auth from '../../utils/auth';
 
 import Post from '../../components/Post';
-import CreatePost from '../../components/createPost';
+import CreatePost from '../../components/Sidebar/CreatePost';
 import Login from '../../components/login';
 
 import { ALL_POSTS } from '../../utils/queries';
