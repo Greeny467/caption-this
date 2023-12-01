@@ -1,9 +1,12 @@
-@use '../../assets/styling/variables' as *;
+@use "../../assets/styling/variables" as *;
 
 // Todo: Fix sidebar content to be responsive with shorter height
 
-.wrapper .sidebar{
+.wrapper .sidebar {
   position: fixed;
+  align-items: center;
+  flex-direction: column;
+  display: flex;
   top: $header-height;
   right: 0;
   background-color: $main-color;
@@ -20,28 +23,28 @@
   }
 }
 
-.wrapper .sidebar ul li a{
-    display: flex;
-    padding: 20px;
-    color: $dark-shades;
-    position: relative;
-    margin-bottom: 1px;
-    white-space: nowrap;
-    transition: all 0.3s ease;
-    align-items: center;
-    &.active{
-      background-color: $dark-shades;
-      color: $light-shades;
-    }
-    &:hover{
-      scale: 1.03;
-      box-shadow: 10px 10px 10px rgba(0,0,0,0.5);
-      background-color: $dark-accent;
-      color: $light-shades;
-    }
+.wrapper .sidebar ul li a {
+  display: flex;
+  padding: 20px;
+  color: $dark-shades;
+  position: relative;
+  margin-bottom: 1px;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  align-items: center;
+  &.active {
+    background-color: $dark-shades;
+    color: $light-shades;
+  }
+  &:hover {
+    scale: 1.03;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+    background-color: $dark-accent;
+    color: $light-shades;
+  }
 }
 
-.wrapper .sidebar ul li a:before{
+.wrapper .sidebar ul li a:before {
   content: "";
   position: absolute;
   top: 0;
@@ -51,30 +54,41 @@
   display: none;
 }
 
-.wrapper .sidebar ul li a span.icon{
+.wrapper .sidebar ul li a span.icon {
   margin-right: 15px;
   display: inline-block;
 }
 
-.wrapper .sidebar ul li a span.title{
+.wrapper .sidebar ul li a span.title {
   display: inline-block;
 }
 
 .wrapper .sidebar ul li a:hover:before,
-.wrapper .sidebar ul li a.active:before{
+.wrapper .sidebar ul li a.active:before {
   display: block;
   background-color: $dark-accent;
 }
 
-.wrapper.collapse .sidebar{
+.wrapper.collapse .sidebar {
   transform: translateX(0);
 }
 
-.upload-form {
-  display: flex;
-  flex-direction: column;
-  margin-top: 20px;
-  padding: 5px;
+.tabToggle {
+  margin-top: 10px;
+  width: 100px;
+  height: 30px;
+  background-color: $dark-accent;
+  color: $light-shades;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  &:hover {
+    scale: 1.03;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+    background-color: $dark-shades;
+    color: $light-shades;
+  }
 }
 
 .image-upload-container {
@@ -97,7 +111,7 @@
     color: $dark-shades;
     font-size: 20px;
     font-family: Arial, sans-serif;
-    
+    user-select: none;
 
     &:hover {
       border-color: $dark-accent;
@@ -123,9 +137,28 @@
     transition: all 0.3s ease;
     &:hover {
       scale: 1.03;
-      box-shadow: 10px 10px 10px rgba(0,0,0,0.5);
+      box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
       background-color: $dark-shades;
       color: $light-shades;
     }
   }
+}
+
+#timeFormLabel {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: $dark-shades;
+}
+
+#timerForm {
+  //input for asking how much time
+    width: 80%;
+    height: 30px;
+    border: 1px solid $dark-shades;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 10px;
+    &:focus {
+      outline: none;
+    }
 }

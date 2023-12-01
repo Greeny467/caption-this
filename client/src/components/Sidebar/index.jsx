@@ -1,6 +1,7 @@
 import './Sidebar.scss';
 import SideLink from './SideLink';
-import UploadForm from './UploadForm';
+// import UploadForm from './UploadForm';
+import CreatePost from './CreatePost';
 
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
@@ -19,7 +20,7 @@ export default function Sidebar() {
           <SideLink href="/" icon={<CasinoIcon/>}>Random</SideLink>
         </ul>
         {/* TODO: Logic for UploadForm to only be displayed if logged in, otherwise login form */}
-        <UploadForm/>
+        <CreatePost/>
       </div>
   );
 }
