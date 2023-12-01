@@ -4,9 +4,10 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER, ADD_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
+import { TextField, ToggleButton, Button } from '@mui/material';
 
 const Login = () => {
-  const [drawerState, setDrawerState] = useState('closed');
+  const [drawerState, setDrawerState] = useState(true);
   const [formType, setFormType] = useState('login');
 
   const [email, setEmail] = useState('');
@@ -42,7 +43,7 @@ const Login = () => {
     }
   };
 
-  const handleSignup = async () => {
+  const handleSignup = async (e) => {
     const {data} = await signup({ variables: {username, email, password}});
 
     if(!data) {
@@ -54,12 +55,7 @@ const Login = () => {
   };
 
   const handleDrawerOpen = () => {
-    if(drawerState === 'closed') {
-      setDrawerState('open');
-    }
-    else{
-      setDrawerState('closed');
-    };
+    setDrawerState(!drawerState);
   };
 
   const handleFormType = () => {
@@ -73,57 +69,56 @@ const Login = () => {
 
   return (
     <div>
-      {drawerState === 'closed' ? (
-        <button onClick={handleDrawerOpen} id="drawerOpener">Login/Signup</button>
+      {!Auth.loggedIn() ?
+       (<ToggleButton
+        value="Login"
+        onClick={handleDrawerOpen} 
+        selected={!drawerState}
+        id="drawerToggle">
+        Login
+      </ToggleButton>)
+       : (
+       <ToggleButton
+        value="Logout"
+        onClick={()=>Auth.logout()} 
+        selected={!drawerState}
+        id="drawerToggle">
+        Logout
+      </ToggleButton>)}
+      {drawerState ? (""
       ):(
         <>
           {formType === 'login' ? (
-          <>
-            <div>
-              <h2>LOGIN</h2>
-              <button className="formSwitchButton" onClick={handleFormType}>
-                <h2>Signup</h2>
-              </button>
-              <button id="drawerCloser" onClick={handleDrawerOpen}>Close</button>
-            </div>
+          <div className='toggledContainer'>
             <form>
-              <label>Email:</label>
-              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+              <TextField label="Email" variant="standard" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+              <TextField label="password" variant='standard' type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
 
-              <label>Password:</label>
-              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-
-              <button type="button" onClick={handleLogin} disabled={loading}>
+              <Button variant='outlined' type="submit" onClick={handleLogin} disabled={loading}>
                 Login
-              </button>
+              </Button>
               {error && <p>Error: {error.message}</p>}
             </form>
-          </>
+              <a className="formSwitchButton" onClick={handleFormType}>
+                No Account? Click to Register
+              </a>
+          </div>
         ):(
-          <>
-            <div>
-              <button className="formSwitchButton" onClick={handleFormType}>
-                <h2>Login</h2>
-              </button>
-              <h2>SIGNUP</h2>
-              <button id="drawerCloser" onClick={handleDrawerOpen}>Close</button>
-            </div>
+          <div className='toggledContainer'>
             <form>
-              <label>Username:</label>
-              <input type="text" value={username} onChange={(e) => setUsername(e.target.value)}/>
+              <TextField label="Username" variant='standard' type="text" value={username} onChange={(e) => setUsername(e.target.value)}/>
+              <TextField label="Email" variant='standard' type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+              <TextField label="Password" variant='standard' type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
 
-              <label>Email:</label>
-              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-
-              <label>Password:</label>
-              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-
-              <button type="button" onClick={handleSignup} disabled={SUloading}>
-                Signup
-              </button>
+              <Button variant='outlined' type="submit" onClick={handleSignup} disabled={SUloading}>
+                Register
+              </Button>
               {SUerror && <p>Error: {SUerror.message}</p>}
             </form>
-          </>
+              <a className="formSwitchButton" onClick={handleFormType}>
+                Have an Account? Click to Login
+              </a>
+          </div>
         )}
         </>
       )}
