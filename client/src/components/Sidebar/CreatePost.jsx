@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { ADD_POST } from "../../utils/mutations";
 import { GET_ME } from "../../utils/queries";
-import uploadFile from "../../../../server/utils/uploadFile";
+import uploadFile from "../../utils/uploadFile";
 
 export default function CreatePost() {
   const [createPost, { error }] = useMutation(ADD_POST);

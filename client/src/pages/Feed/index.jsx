@@ -1,5 +1,9 @@
 import './Feed.scss';
+import Auth from '../../utils/auth';
+
 import Post from '../../components/Post';
+import CreatePost from '../../components/createPost';
+import Login from '../../components/login';
 
 import { ALL_POSTS } from '../../utils/queries';
 import { useQuery } from '@apollo/client';
@@ -19,8 +23,18 @@ export default function Feed() {
     }
   }, [data, error]);
 
+
+  const loggedInUser = Auth.loggedIn();
+
   return (
     <div className="feed_container">
+      {loggedInUser === true ? (
+        <>
+          <CreatePost/>
+        </>
+      ) : (
+        <Login/>
+      )}
       {loading ? (
         <h1>Loading...</h1>
       ) : error ? (
