@@ -43,14 +43,13 @@ const Login = () => {
   };
 
   const handleSignup = async () => {
-    const {data} = signup({ variables: {username, email, password}});
+    const {data} = await signup({ variables: {username, email, password}});
 
     if(!data) {
       console.log('something went wrong signup');
     };
-    console.log(data);
 
-    const {token, user} = data.login;
+    const {token, user} = data.addUser;
     Auth.login(token);
   };
 
