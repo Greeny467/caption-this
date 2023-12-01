@@ -92,7 +92,7 @@ const Login = () => {
           <div className='toggledContainer'>
             <form>
               <TextField label="Email" variant="standard" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-              <TextField label="password" variant='standard' type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+              <TextField label="Password" variant='standard' type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
 
               <Button variant='outlined' type="submit" onClick={handleLogin} disabled={loading}>
                 Login
