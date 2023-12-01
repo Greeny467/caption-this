@@ -28,7 +28,8 @@ export default function CreatePost() {
     setTimer(Number(e.target.value));
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     if (!user) {
       console.error("Error finding user");
       return;
