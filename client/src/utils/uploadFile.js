@@ -1,5 +1,5 @@
 
-export default uploadFile = async (file) => {
+export default async function uploadFile (file) {
     const { createReadStream, filename } = await file;
   
     const upload = {

@@ -2,13 +2,13 @@
 
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { LOGIN_MUTATION } from './graphql/mutations'; // Your GraphQL mutation
+import { LOGIN_USER } from '../utils/mutations';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const [login, { loading, error }] = useMutation(LOGIN_MUTATION, {
+  const [login, { loading, error }] = useMutation(LOGIN_USER, {
     onCompleted: ({ login }) => {
       // Handle successful login
       console.log(login);

@@ -2,18 +2,12 @@
 
 import React from 'react';
 import { useMutation } from '@apollo/client';
-import { LOGOUT_MUTATION } from './graphql/mutations'; //  GraphQL mutation
 
 const Logout = () => {
-  const [logout] = useMutation(LOGOUT_MUTATION, {
-    onCompleted: () => {
-      // Handle successful logout (e.g., redirect to login page)
-      console.log('Logged out successfully');
-    },
-  });
+ 
 
   const handleLogout = () => {
-    logout();
+    console.log('logout..?')
   };
 
   return (
