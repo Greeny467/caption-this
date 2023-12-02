@@ -11,7 +11,12 @@
 }
 
 body{
-  background-color: $main-background;
+  background: 
+    fixed 
+    $main-background 
+    url(
+      "https://www.transparenttextures.com/patterns/gray-sand.png"
+      );
 }
 
 main {

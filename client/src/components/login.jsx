@@ -97,7 +97,7 @@ const Login = () => {
               <Button variant='outlined' type="submit" onClick={handleLogin} disabled={loading}>
                 Login
               </Button>
-              {error && <p>Error: {error.message}</p>}
+              {error && <p>{error.message.toUpperCase()}</p>}
             </form>
               <a className="formSwitchButton" onClick={handleFormType}>
                 No Account? Click to Register
@@ -113,7 +113,7 @@ const Login = () => {
               <Button variant='outlined' type="submit" onClick={handleSignup} disabled={SUloading}>
                 Register
               </Button>
-              {SUerror && <p>Error: {SUerror.message}</p>}
+              {SUerror && <p>{SUerror.message.toUpperCase()}</p>}
             </form>
               <a className="formSwitchButton" onClick={handleFormType}>
                 Have an Account? Click to Login
