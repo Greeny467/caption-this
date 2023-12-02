@@ -41,7 +41,11 @@ const typeDefs = gql`
         voteCaption: ID
     }
 
-
+    type UploadResponse {
+    success: Boolean!
+    presignedUrl: String
+    error: String
+    }
 
     type Query {
         me: User
@@ -88,6 +92,8 @@ const typeDefs = gql`
         captionVote(caption: captionInput, update: String!): Caption
         addUserVote(postId: ID!, captionId: ID!): User
         removeUserVote(postId: ID!, captionId: ID!): User
+
+        getPresignedUrl(key: String!): UploadResponse
     }
 `;
 

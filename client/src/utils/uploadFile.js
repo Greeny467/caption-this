@@ -1,5 +1,5 @@
 
-export default async function uploadFile (file) {
+const uploadFile = async (file) => {
     const { createReadStream, filename } = await file;
   
     const upload = {
@@ -22,3 +22,5 @@ export default async function uploadFile (file) {
       });
     });
 }
+
+export default uploadFile;

@@ -1,12 +1,37 @@
-const AWS = require('aws-sdk');
-require('dotenv').config();
 
-AWS.config.update({
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    region: process.env.AWS_REGION
-});
+const { fromIni } = require("@aws-sdk/credential-providers");
+const {HttpRequest} = require('@smithy/protocol-http');
+const { S3RequestPresigner, getSignedUrl } = require('@aws-sdk/s3-request-presigner');
+const { parseUrl } = require('@smithy/url-parser');
+const { formatUrl } = require('@aws-sdk/util-format-url');
+const { Hash } = require('@smithy/hash-node');
 
-const s3 = new AWS.S3();
 
-module.exports = { s3 };
+ async function generatePresignedUrl (key) {
+  const createPresignedUrlWithoutClient = async ({ region, bucket, key }) => {
+    const url = parseUrl(`https://${bucket}.s3.${region}.amazonaws.com/${key}`);
+    const presigner = new S3RequestPresigner({
+      credentials: fromIni({
+        filepath: "./utils/aws-config.ini",
+      }),
+      region,
+      sha256: Hash.bind(null, "sha256"),
+    });
+  
+    const signedUrlObject = await presigner.presign(
+      new HttpRequest({ ...url, method: "PUT" }),
+    );
+
+    return formatUrl(signedUrlObject);
+  };
+
+  const clientURL = await createPresignedUrlWithoutClient({
+    region: 'us-west-1',
+    bucket: 'caption-this-url',
+    key: key
+  });
+
+  return(clientURL);
+};
+
+module.exports = generatePresignedUrl;

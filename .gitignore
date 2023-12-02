@@ -79,6 +79,11 @@ web_modules/
 .env.production.local
 .env.local
 
+# ini files
+*.ini
+/server/utils/aws-config.ini
+
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 .parcel-cache
