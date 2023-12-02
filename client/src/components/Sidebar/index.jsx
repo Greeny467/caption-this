@@ -1,7 +1,6 @@
 import './Sidebar.scss';
 import SideLink from './SideLink';
 import CreatePost from './createPost';
-import Login from '../Login';
 
 import auth from '../../utils/auth';
 
@@ -21,8 +20,7 @@ export default function Sidebar() {
           <SideLink href="/" icon={<OndemandVideoIcon/>} className='active'>Videos</SideLink>
           <SideLink href="/" icon={<CasinoIcon/>}>Random</SideLink>
         </ul>
-        {/* {auth.loggedIn() ? <CreatePost/> : <Login/>} */}
-        <CreatePost/>
+        {auth.loggedIn() && <CreatePost/>}
       </div>
   );
 }
