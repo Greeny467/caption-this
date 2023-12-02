@@ -22,16 +22,16 @@ export default function Header({ showSidebar }) {
           {/* <div id="searchFormPad"></div> */}
           {/* <TextField id="searchForm" label="Search" variant="outlined" /> */}
           <ul>
-            <li>
+            {/* <li>
               <a href="#">
                 <NotificationsActiveIcon className="icon" />
               </a>
-            </li>
-            <li>
+            </li> */}
+            {userLoggedIn && <li>
               <Link to="/Dashboard">
                 <PersonIcon className="icon" />
               </Link>
-            </li>
+            </li>}
           </ul>
           <Hamburger onClick={showSidebar} />
 

@@ -50,7 +50,6 @@
 
 .wrapper .top_navbar .top_menu ul{
   display: flex;
-  margin: 0 2% 0 3%;
   @media screen and (max-width: 900px) {
     margin: 0;
   }
@@ -138,6 +137,8 @@
 }
 
 #drawerToggle {
+  // position: relative;
+  // right: $sidebar-width;
   height: $header-height;
   width: 100px;
   font-size: 20px;
