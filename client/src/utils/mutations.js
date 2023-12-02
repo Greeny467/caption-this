@@ -109,3 +109,13 @@ export const REMOVE_USER_VOTE = gql`
         }
     }
 `;
+
+export const GET_PRESIGNED_URL = gql`
+    mutation getPresignedUrl($key: String!) {
+        getPresignedUrl(key: $key) {
+            success
+            presignedUrl
+            error
+        }
+    }
+`;

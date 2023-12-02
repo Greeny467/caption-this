@@ -1,31 +1,59 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
-import { ADD_POST } from "../../utils/mutations";
-import { GET_ME } from "../../utils/queries";
-import uploadFile from "../../utils/uploadFile";
+import { ADD_POST, GET_PRESIGNED_URL } from "../../utils/mutations";
+import Auth from '../../utils/auth';
+import uploadFileToS3 from "../../utils/awsUpload";
 
 export default function CreatePost() {
   const [createPost, { error }] = useMutation(ADD_POST);
+  const [getURL, {urlError}] = useMutation(GET_PRESIGNED_URL);
+
   const [file, setFile] = useState(null);
+  const [fileName, setFileName] = useState('');
+  const [displayFile, setDisplayFile] = useState(null);
+
   const [timer, setTimer] = useState(0);
   const [tabState, setTabState] = useState("closed");
 
-  const { loading, data } = useQuery(GET_ME);
+  const [user, setUser] = useState(undefined);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  useEffect(() => {
+    const fetch = async () => {
+      const userData = await Auth.getProfile();
+      setUser(userData);
+    };
 
-  const user = data ? data.me : null;
+    fetch();
+  }, [Auth]);
 
   const handleUpload = (e) => {
     if (e.target.files && e.target.files[0]) {
-      setFile(URL.createObjectURL(e.target.files[0]));
+      setFile(e.target.files[0]);
+      setFileName(e.target.files[0].name);
+      setDisplayFile(URL.createObjectURL(e.target.files[0]));
     }
   };
 
   const handleTimeSet = (e) => {
     setTimer(Number(e.target.value));
+  };
+
+  const uploadFile = async (key) => {
+    console.log(key);
+    const urlData = await getURL({
+      variables: {
+        key: key,
+      }
+    });
+    
+    console.log(urlData);
+
+    if(urlData.presignedUrl === null){
+      console.error(urlData.data.getPresignedUrl.error);
+    }
+    else{
+      return(urlData.data.getPresignedUrl.presignedUrl);
+    };
   };
 
   const handleSubmit = async (e) => {
@@ -34,8 +62,18 @@ export default function CreatePost() {
       console.error("Error finding user");
       return;
     }
+    const url = await uploadFile(fileName);
 
-    const key = await uploadFile(file);
+
+    if(!url){
+      return
+    };
+
+    const upload = await uploadFileToS3(url, file);
+
+    if(upload === false) {
+      return;
+    };
 
     const formData = new FormData();
     formData.append("file", file);
@@ -45,10 +83,14 @@ export default function CreatePost() {
       const response = await createPost({
         variables: {
           user: user._id,
-          imageURL: key,
+          imageURL: `https://caption-this-bucket.s3.us-west-1.amazonaws.com/${file.name}`,
         },
       });
+      if(!response){
+        console.log('failed to addPost');
+      }
 
+      setFileName('');
       setFile(null);
       setTimer(0);
 
@@ -96,7 +138,7 @@ export default function CreatePost() {
             onDrop={handleDrop}
           >
             {file ? (
-              <img src={file} alt="Uploaded" />
+              <img src={displayFile} alt="Uploaded" />
             ) : (
               "Click here or drag an image to upload"
             )}
