@@ -27,7 +27,6 @@ export default function Feed() {
 
   return (
     <div className="feed_container">
-      {userLoggedIn !== true && <Login/>}
       {loading ? (
         <h1>Loading...</h1>
       ) : error ? (

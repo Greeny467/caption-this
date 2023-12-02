@@ -1,17 +1,26 @@
 import Hamburger from "./Hamburger";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import PersonIcon from "@mui/icons-material/Person";
+// import { TextField } from "@mui/material";
 import "./Header.scss";
-import { TextField } from "@mui/material";
+import { Link } from "react-router-dom";
+import {useState} from "react";
+import Auth from '../../utils/auth';
+
+import Login from '../login';
 
 export default function Header({ showSidebar }) {
+
+  const userLoggedIn = Auth.loggedIn();
+
+
   return (
     <>
       <div className="top_navbar">
         <div className="top_menu">
-          <div className="logo">{/* <img src="logos/New logo.png" /> */}</div>
-          <div id="searchFormPad"></div>
-          <TextField id="searchForm" label="Search" variant="outlined" />
+          <Login/>
+          {/* <div id="searchFormPad"></div> */}
+          {/* <TextField id="searchForm" label="Search" variant="outlined" /> */}
           <ul>
             <li>
               <a href="#">
@@ -19,9 +28,9 @@ export default function Header({ showSidebar }) {
               </a>
             </li>
             <li>
-              <a href="/Dashboard">
+              <Link to="/Dashboard">
                 <PersonIcon className="icon" />
-              </a>
+              </Link>
             </li>
           </ul>
           <Hamburger onClick={showSidebar} />
