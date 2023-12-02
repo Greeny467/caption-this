@@ -6,10 +6,16 @@ const { expressMiddleware } = require('@apollo/server/express4');
 const cors = require('cors'); 
 const path = require('path');
 
-
 const { authMiddleware } = require('./utils/auth');
 const { typeDefs, resolvers } = require('./schemas/index');
 const db = require('./config/connection');
+
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  optionsSuccessStatus: 204,
+};
+
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -23,7 +29,10 @@ const server = new ApolloServer({
 const startApolloServer = async () => {
   await server.start();
 
-  app.use(cors()); 
+  app.use(cors(corsOptions));
+
+  app.options('*', cors());
+
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
 
