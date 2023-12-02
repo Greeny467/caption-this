@@ -1,6 +1,8 @@
-
+require('dotenv').config();
 const { User, Post, Caption, Comment } = require('../models');
 const {signToken, AuthenticationError } = require('../utils/auth');
+
+const generatePresignedUrl = require('../utils/s3');
 
 const resolvers = {
 
@@ -302,6 +304,33 @@ const resolvers = {
             } catch (error) {
                 console.error(error);
                 throw new Error('failed to remove vote entirely');
+            };
+        },
+        getPresignedUrl: async (parent, {key}, context) => {
+
+            try {
+                console.log('hello', process.env.TEST_THING);
+                const presignedUrl = await generatePresignedUrl(key);
+                if(!presignedUrl){
+                    throw new Error('failed to generate url');
+                }
+
+                const response = {
+                    success: true,
+                    presignedUrl: presignedUrl,
+                    error: null
+                };
+
+                return response;
+
+            } catch (error) {
+                console.error(error);
+                const response = {
+                    success: false,
+                    presignedUrl: null,
+                    error: error
+                };
+                return response;
             };
         }
 
