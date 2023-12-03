@@ -1,26 +1,26 @@
-
 const uploadFile = async (file) => {
-    const { createReadStream, filename } = await file;
-  
-    const upload = {
-      Bucket: process.env.AWS_BUCKET,
-      ACL: 'public-read',
-      ContentDisposition: 'inline',
-      Key: filename,
-      Body: createReadStream()
-    };
-  
-    return new Promise((resolve) => {
-      s3.upload(upload, (err, data) => {
-        if (err) {
-          console.log('There was an error uploading your photo: ', err);
-          throw new Error('There was an error uploading your photo: ', err);
-        } else {
-          console.log('Photo uploaded!.', data);
-          resolve(data.key);
-        }
-      });
+  const formData = new FormData();
+  formData.append("image", file);
+
+  console.log(formData);
+  console.log(file);
+
+  try {
+    const response = await fetch("https://api.imgur.com/3/image/", {
+      method: "post",
+      headers: {
+        Authorization: "Client-ID d21b50296cd5db7"
+      },
+      body: formData
     });
-}
+
+    const data = await response.json();
+
+    return data.data.link;
+  } catch (error) {
+    console.error("Error uploading file:", error);
+    throw error; // Rethrow the error for the calling function to handle
+  }
+};
 
 export default uploadFile;
