@@ -1,6 +1,6 @@
 require('dotenv').config();
 const { User, Post, Caption, Comment } = require('../models');
-const {signToken, AuthenticationError } = require('../utils/auth');
+const {signToken} = require('../utils/auth');
 
 const resolvers = {
 
@@ -22,7 +22,7 @@ const resolvers = {
 
                 return response;
             }
-            throw new AuthenticationError('you need to be logged in');
+            throw new Error('you need to be logged in');
         },
 
 
@@ -74,13 +74,13 @@ const resolvers = {
         login: async (parent, {email, password}) => {
             const user = await User.findOne({ email });
             if(!user) {
-                throw new AuthenticationError('no account under this email');
+                throw new Error('no account under this email');
             }
 
             const correctPw = await user.isCorrectPassword(password);
 
             if(!correctPw) {
-                throw new AuthenticationError('incorrect password');
+                throw new Error('incorrect password');
             }
 
             const token = signToken(user);
@@ -102,7 +102,7 @@ const resolvers = {
                     const createdPost = await Post.create({ post });
 
                     if(!createdPost) {
-                        throw new AuthenticationError('failed to create post');
+                        throw new Error('failed to create post');
                     }
 
                     await User.findOneAndUpdate(
@@ -113,7 +113,7 @@ const resolvers = {
                     return createdPost;
                 }
                 else {
-                    const error = new AuthenticationError('Could not authenticate user.');
+                    const error = new Error('Could not authenticate user.');
                     
                 }
             }
@@ -128,7 +128,7 @@ const resolvers = {
                     const newCaption = await Caption.create({ caption });
 
                     if(!newCaption) {
-                        throw new AuthenticationError('failed to create caption');
+                        throw new Error('failed to create caption');
                     }
 
                     try {
@@ -155,7 +155,7 @@ const resolvers = {
                     return response;
                 }
                 else{
-                    throw new AuthenticationError('you need to be logged in');
+                    throw new Error('you need to be logged in');
                 };
             } catch (error) {
                 console.error(error);
@@ -168,7 +168,7 @@ const resolvers = {
                     const newComment = await Comment.create({ comment });
 
                     if(!newComment) {
-                        throw new AuthenticationError('failed to create comment');
+                        throw new Error('failed to create comment');
                     }
 
                     try {
@@ -196,7 +196,7 @@ const resolvers = {
                     return response;
                 }
                 else{
-                    throw new AuthenticationError('you need to be logged in');
+                    throw new Error('you need to be logged in');
                 };
             } catch (error) {
                 console.error(error);
@@ -223,13 +223,13 @@ const resolvers = {
                     );
 
                     if(!updatedCaption) {
-                        throw new AuthenticationError('failed to update captionVote')
+                        throw new Error('failed to update captionVote')
                     }
 
                     return updatedCaption;
                 }
                 else{
-                    throw new AuthenticationError('you have to be logged in');
+                    throw new Error('you have to be logged in');
                 };
             } catch (error) {
                 console.error(error);
@@ -261,7 +261,7 @@ const resolvers = {
 
                 }
                 else{
-                    throw new AuthenticationError('you have to be logged in');
+                    throw new Error('you have to be logged in');Error
                 }
             } catch (error) {
                 console.error(error);
@@ -297,7 +297,7 @@ const resolvers = {
                     return updatedUser
                 }
                 else{
-                    throw new AuthenticationError('you have to be logged in');
+                    throw new Error('you have to be logged in');
                 }
             } catch (error) {
                 console.error(error);
