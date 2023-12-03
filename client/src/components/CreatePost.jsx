@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
-import { ADD_POST, GET_PRESIGNED_URL } from "../utils/mutations";
+// import { ADD_POST, GET_PRESIGNED_URL } from "../utils/mutations";
 import Auth from '../utils/auth';
 import uploadFileToS3 from "../utils/awsUpload";
 
 export default function CreatePost() {
-  const [createPost, { error }] = useMutation(ADD_POST);
-  const [getURL, {urlError}] = useMutation(GET_PRESIGNED_URL);
+  // const [createPost, { error }] = useMutation(ADD_POST);
+  // const [getURL, {urlError}] = useMutation(GET_PRESIGNED_URL);
 
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState('');
