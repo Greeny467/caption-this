@@ -44,7 +44,8 @@ const Login = () => {
   };
 
   const handleSignup = async (e) => {
-    const {data} = await signup({ variables: {username, email, password}});
+    try {
+      const {data} = await signup({ variables: {username, email, password}});
 
     if(!data) {
       console.log('something went wrong signup');
@@ -52,6 +53,9 @@ const Login = () => {
 
     const {token, user} = data.addUser;
     Auth.login(token);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleDrawerOpen = () => {
