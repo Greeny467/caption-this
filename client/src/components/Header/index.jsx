@@ -13,10 +13,15 @@ import Auth from '../../utils/auth';
 import Login from '../login';
 
 export default function Header({ showSidebar }) {
+  const [user, setUser] = useState(undefined);
 
   const userLoggedIn = Auth.loggedIn();
 
-  const userData = Auth.getProfile() && Auth.getProfile().data
+  useEffect(() => {
+    if(userLoggedIn) {
+      setUser(Auth.getProfile() && Auth.getProfile().data);
+    };
+  }, [userLoggedIn]);
 
   return (
     <>
@@ -32,8 +37,8 @@ export default function Header({ showSidebar }) {
               </a>
             </li> */}
             {userLoggedIn && <li>
-              <Link to={`/Dashboard/${userData && userData._id}`}>
-                <PersonIcon className="icon" /><p>{userData && userData.username}'s Profile</p>
+              <Link to={`/Dashboard/${user && user._id}`}>
+                <PersonIcon className="icon" /><p>{user && user.username}'s Profile</p>
               </Link>
             </li>}
           </ul>

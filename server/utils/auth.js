@@ -6,12 +6,11 @@ const expiration = 2 * 60 * 60;
 
 
 module.exports = {
-  AuthenticationError: class extends GraphQLError {
-    constructor(message, extensions) {
-      super(message, undefined, undefined, undefined, undefined, undefined, extensions);
-      this.name = 'AuthenticationError';
-    }
-  },
+  AuthenticationError: new GraphQLError('Could not authenticate user.', {
+    extensions: {
+      code: 'UNAUTHENTICATED',
+    },
+  }),
   authMiddleware: function ({ req }) {
     let token = req.body.token || req.query.token || req.headers.authorization;
 

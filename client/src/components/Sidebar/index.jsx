@@ -2,7 +2,7 @@ import './Sidebar.scss';
 import SideLink from './SideLink';
 import CreatePost from '../CreatePost.jsx';
 
-import auth from '../../utils/auth';
+import Auth from '../../utils/auth';
 
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
@@ -20,7 +20,7 @@ export default function Sidebar() {
           <SideLink href="/" icon={<OndemandVideoIcon/>} className='active'>Videos</SideLink>
           <SideLink href="/" icon={<CasinoIcon/>}>Random</SideLink>
         </ul>
-        {auth.loggedIn() && <CreatePost/>}
+        {Auth.loggedIn() && <CreatePost/>}
       </div>
   );
 }
