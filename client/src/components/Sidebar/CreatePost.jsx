@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
-import { ADD_POST, GET_PRESIGNED_URL } from "../../utils/mutations";
+import { ADD_POST } from "../../utils/mutations";
 import Auth from '../../utils/auth';
 import uploadFileToS3 from "../../utils/awsUpload";
 
 export default function CreatePost() {
   const [createPost, { error }] = useMutation(ADD_POST);
-  const [getURL, {urlError}] = useMutation(GET_PRESIGNED_URL);
 
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState('');
@@ -38,40 +37,17 @@ export default function CreatePost() {
     setTimer(Number(e.target.value));
   };
 
-  const uploadFile = async (key) => {
-    console.log(key);
-    const urlData = await getURL({
-      variables: {
-        key: key,
-      }
-    });
-    
-    console.log(urlData);
-
-    if(urlData.presignedUrl === null){
-      console.error(urlData.data.getPresignedUrl.error);
-    }
-    else{
-      return(urlData.data.getPresignedUrl.presignedUrl);
-    };
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!user) {
       console.error("Error finding user");
       return;
     }
-    const url = await uploadFile(fileName);
 
+    const upload = await uploadFileToS3(file, fileName);
 
-    if(!url){
-      return
-    };
-
-    const upload = await uploadFileToS3(url, file);
-
-    if(upload === false) {
+    if(!upload) {
+      console.log('something went wrong uploading the file');
       return;
     };
 

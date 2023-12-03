@@ -1,5 +1,6 @@
 const { gql } = require('apollo-server-express');
 
+
 const typeDefs = gql`
 
     type User {
@@ -39,12 +40,6 @@ const typeDefs = gql`
     type Vote {
         votePost: ID
         voteCaption: ID
-    }
-
-    type UploadResponse {
-    success: Boolean!
-    presignedUrl: String
-    error: String
     }
 
     type Query {
@@ -93,7 +88,6 @@ const typeDefs = gql`
         addUserVote(postId: ID!, captionId: ID!): User
         removeUserVote(postId: ID!, captionId: ID!): User
 
-        getPresignedUrl(key: String!): UploadResponse
     }
 `;
 
