@@ -6,10 +6,8 @@ import {
 import { setContext } from '@apollo/client/link/context';
 
 const httpLink = createHttpLink({
-    uri: process.env.URI || 'http://localhost:3001/graphql',
+    uri: 'https://caption-this-production.up.railway.app/' //Non-production: 'http://localhost:3001/graphql',
 });
-
-console.log(process.env.URI);
 
 const authLink = setContext((_, { headers }) => {
     const token = localStorage.getItem('id_token');
