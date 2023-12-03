@@ -4,8 +4,11 @@ import PersonIcon from "@mui/icons-material/Person";
 // import { TextField } from "@mui/material";
 import "./Header.scss";
 import { Link } from "react-router-dom";
-import {useState} from "react";
+import { useState,useEffect } from "react";
 import Auth from '../../utils/auth';
+// import { useQuery } from '@apollo/client';
+// import { GET_ME } from '../../utils/queries';
+
 
 import Login from '../login';
 
@@ -13,6 +16,7 @@ export default function Header({ showSidebar }) {
 
   const userLoggedIn = Auth.loggedIn();
 
+  const userData = Auth.getProfile() && Auth.getProfile().data
 
   return (
     <>
@@ -28,8 +32,8 @@ export default function Header({ showSidebar }) {
               </a>
             </li> */}
             {userLoggedIn && <li>
-              <Link to="/Dashboard">
-                <PersonIcon className="icon" />
+              <Link to={`/Dashboard/${userData && userData._id}`}>
+                <PersonIcon className="icon" /><p>{userData && userData.username}'s Profile</p>
               </Link>
             </li>}
           </ul>
