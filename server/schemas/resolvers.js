@@ -2,8 +2,6 @@ require('dotenv').config();
 const { User, Post, Caption, Comment } = require('../models');
 const {signToken, AuthenticationError } = require('../utils/auth');
 
-const generatePresignedUrl = require('../utils/s3');
-
 const resolvers = {
 
     Query: {

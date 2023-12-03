@@ -23,24 +23,6 @@ const startApolloServer = async () => {
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
 
-  app.post('/createPost', async (req, res) => {
-    try {
-      const { file, fileName } = req.body;
-      if (!file || !fileName) {
-        return res.status(400).send('Invalid request parameters');
-      }
-
-      const uploadResult = await uploadFileToS3(file, fileName);
-
-      if (uploadResult) {
-        return res.status(200).send(uploadResult);
-      }
-    } catch (error) {
-      console.error(error);
-      return res.status(500).send('Internal server error');
-    }
-  });
-
   app.use('/graphql', expressMiddleware(server));
 
   if (process.env.NODE_ENV === 'production') {

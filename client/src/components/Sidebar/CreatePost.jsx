@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { ADD_POST } from "../../utils/mutations";
 import Auth from '../../utils/auth';
-import uploadFileToS3 from "../../utils/awsUpload";
+import uploadFile from "../../utils/uploadFile";
 
 export default function CreatePost() {
   const [createPost, { error }] = useMutation(ADD_POST);
@@ -44,9 +44,9 @@ export default function CreatePost() {
       return;
     }
 
-    const upload = await uploadFileToS3(file, fileName);
+    const url = await uploadFile(file);
 
-    if(!upload) {
+    if(!url) {
       console.log('something went wrong uploading the file');
       return;
     };
@@ -59,7 +59,7 @@ export default function CreatePost() {
       const response = await createPost({
         variables: {
           user: user._id,
-          imageURL: `https://caption-this-bucket.s3.us-west-1.amazonaws.com/${file.name}`,
+          imageURL: url,
         },
       });
       if(!response){
