@@ -6,7 +6,7 @@ import {
 import { setContext } from '@apollo/client/link/context';
 
 const httpLink = createHttpLink({
-    uri: "https://caption-this-production.up.railway.app/graphql", 
+    uri: process.env.URI || 'http://localhost:3001/graphql',
 });
 
 console.log(process.env.URI);
