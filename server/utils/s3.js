@@ -1,37 +1,28 @@
+const AWS = require('aws-sdk');
+require('dotenv').config();
 
-const { fromIni } = require("@aws-sdk/credential-providers");
-const {HttpRequest} = require('@smithy/protocol-http');
-const { S3RequestPresigner, getSignedUrl } = require('@aws-sdk/s3-request-presigner');
-const { parseUrl } = require('@smithy/url-parser');
-const { formatUrl } = require('@aws-sdk/util-format-url');
-const { Hash } = require('@smithy/hash-node');
+var credentials = new AWS.SharedIniFileCredentials({profile: 'default', filename: './utils/aws-config.ini'});
+AWS.config.credentials = credentials;
 
-
- async function generatePresignedUrl (key) {
-  const createPresignedUrlWithoutClient = async ({ region, bucket, key }) => {
-    const url = parseUrl(`https://${bucket}.s3.${region}.amazonaws.com/${key}`);
-    const presigner = new S3RequestPresigner({
-      credentials: fromIni({
-        filepath: "./utils/aws-config.ini",
-      }),
-      region,
-      sha256: Hash.bind(null, "sha256"),
-    });
-  
-    const signedUrlObject = await presigner.presign(
-      new HttpRequest({ ...url, method: "PUT" }),
-    );
-
-    return formatUrl(signedUrlObject);
-  };
-
-  const clientURL = await createPresignedUrlWithoutClient({
-    region: 'us-west-1',
-    bucket: 'caption-this-url',
-    key: key
+const uploadFileToS3 = async (fileBody, key) => {
+  const s3 = new AWS.S3({
+    apiVersion: '2006-03-01',
+    region: process.env.AWS_REGION,
   });
 
-  return(clientURL);
+  const params = {
+    Bucket: AWS_BUCKET,
+    Key: key,
+    Body: fileBody // from <input>'s onchange handler, e.g. e.target.files[0]  
+  };
+  
+  try {
+    const data = await s3.upload(params).promise();
+    console.log('File uploaded to S3: ', data.Key);
+    return (key);
+  } catch (err) {
+    console.error('Error uploading file: ', err);
+  }
 };
 
-module.exports = generatePresignedUrl;
+module.exports = uploadFileToS3;
