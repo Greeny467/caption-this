@@ -1,6 +1,6 @@
 import './Sidebar.scss';
 import SideLink from './SideLink';
-import CreatePost from './createPost';
+import CreatePost from './createPost.jsx';
 
 import auth from '../../utils/auth';
 
