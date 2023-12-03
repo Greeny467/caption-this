@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
-import { ADD_POST, GET_PRESIGNED_URL } from "../../utils/mutations";
-import Auth from '../../utils/auth';
-import uploadFileToS3 from "../../utils/awsUpload";
+import { ADD_POST, GET_PRESIGNED_URL } from "../utils/mutations";
+import Auth from '../utils/auth';
+import uploadFileToS3 from "../utils/awsUpload";
 
 export default function CreatePost() {
   const [createPost, { error }] = useMutation(ADD_POST);
