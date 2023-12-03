@@ -17,7 +17,6 @@ export default function Header({ showSidebar }) {
   const userLoggedIn = Auth.loggedIn();
 
   const userData = Auth.getProfile() && Auth.getProfile().data
-  console.log(userData);
 
   return (
     <>
