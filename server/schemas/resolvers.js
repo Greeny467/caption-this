@@ -305,36 +305,7 @@ const resolvers = {
                 console.error(error);
                 throw new Error('failed to remove vote entirely');
             };
-        },
-        getPresignedUrl: async (parent, {key}, context) => {
-
-            try {
-                console.log('hello', process.env.TEST_THING);
-                const presignedUrl = await generatePresignedUrl(key);
-                if(!presignedUrl){
-                    throw new Error('failed to generate url');
-                }
-
-                const response = {
-                    success: true,
-                    presignedUrl: presignedUrl,
-                    error: null
-                };
-
-                return response;
-
-            } catch (error) {
-                console.error(error);
-                const response = {
-                    success: false,
-                    presignedUrl: null,
-                    error: error
-                };
-                return response;
-            };
         }
-
-
         
 
     }

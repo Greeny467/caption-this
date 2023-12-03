@@ -21,6 +21,7 @@
     "@smithy/protocol-http": "^3.0.10",
     "@smithy/url-parser": "^2.0.14",
     "apollo-server-express": "^3.13.0",
+    "aws-sdk": "^2.1510.0",
     "bcrypt": "^5.1.1",
     "dotenv": "^16.3.1",
     "express": "^4.17.1",
