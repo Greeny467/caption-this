@@ -16,7 +16,7 @@ export default function Header({ showSidebar }) {
 
   const userLoggedIn = Auth.loggedIn();
 
-  const userData = Auth.getProfile().data;
+  const userData = Auth.getProfile() && Auth.getProfile().data
   console.log(userData);
 
   return (
@@ -33,8 +33,8 @@ export default function Header({ showSidebar }) {
               </a>
             </li> */}
             {userLoggedIn && <li>
-              <Link to={`/Dashboard/${userData._id}`}>
-                <PersonIcon className="icon" /><p>{userData.username}'s Profile</p>
+              <Link to={`/Dashboard/${userData && userData._id}`}>
+                <PersonIcon className="icon" /><p>{userData && userData.username}'s Profile</p>
               </Link>
             </li>}
           </ul>
