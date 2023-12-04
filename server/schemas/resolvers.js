@@ -20,7 +20,7 @@ const resolvers = {
 
 
 
-        allPosts: async (parent, args, context) => {
+        allPosts: async (parent, args) => {
             try {
                 return Post.find().populate([ 'user', 'captions', 'comments']);
             } catch (error) {
@@ -28,7 +28,7 @@ const resolvers = {
                 throw new Error('failed to get all posts');
             }
         },
-        singlePost: async (parent, {requestedPostId}, context) => {
+        singlePost: async (parent, {requestedPostId}) => {
             try {
                 return Post.findOne({_id: requestedPostId}).populate([ 'captions', 'comments']);
             } catch (error) {
@@ -39,7 +39,7 @@ const resolvers = {
 
 
 
-        user: async (parent, {requestedUserId}, context) => {
+        user: async (parent, {requestedUserId}) => {
             try {
                 return User.findOne({_id: requestedUserId}).populate(['posts', 'captions', 'comments']);
             } catch (error) {
@@ -47,7 +47,7 @@ const resolvers = {
                 throw new Error('failed to find user');
             }
         },
-        singleCaption: async (parent, {captionId}, context) => {
+        singleCaption: async (parent, {captionId}) => {
             try{
                 const caption = await Caption.findById(captionId);
 
@@ -297,7 +297,7 @@ const resolvers = {
                 throw new Error('failed to remove vote entirely');
             };
         },
-        setTimedCaption: async (parent, {time, post}, context) => {
+        setTimedCaption: async (parent, {time, post}) => {
 
             const scheduleJob = async () => {
                 const timeInMilliseconds = time * 60 * 1000;
