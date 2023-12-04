@@ -8,6 +8,7 @@ import CommentSection from '../../components/commentSection';
 
 export default function PostPage () {
     const {postId} = useParams();
+    console.log(postId);
 
     const [post, setPost] = useState(undefined);
     const [pageType, setPageType] = useState('post');
@@ -19,7 +20,9 @@ export default function PostPage () {
     });
 
     useEffect(() => {
+        console.log('effect active')
         if (!loading && !error && data) {
+            console.log('queried');
             setPost(data.post);
             console.log(post);
         }
