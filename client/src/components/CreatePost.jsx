@@ -83,7 +83,7 @@ export default function CreatePost() {
         const timerSet = await setTimedCaption({
           variables: {
             time: timer,
-            post: response.data.createPost._id
+            post: response.data.addPost._id
           }
         });
 
