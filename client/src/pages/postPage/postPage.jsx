@@ -4,10 +4,9 @@ import { useEffect, useState } from 'react';
 import { SINGLE_POST } from '../../utils/queries';
 import { useQuery } from '@apollo/client';
 
-import Comment from '../../components/comment';
 import CommentSection from '../../components/commentSection';
 
-export default function postPage () {
+export default function PostPage () {
     const postId = useParams();
 
     const [post, setPost] = useState(undefined);
