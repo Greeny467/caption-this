@@ -11,7 +11,6 @@ import { sortCaptionsCommentSection } from '../utils/sortCaptions';
 
 export default function CommentSection(item) {
   const post = item;
-  const postId = item._id;
   const isComments = post.caption !== null;
 
   const [inputText, setInputText] = useState('');
@@ -28,7 +27,6 @@ export default function CommentSection(item) {
         }
         else{
           setUser(data.me);
-          console.log(data)
         };
       };
     };
@@ -40,13 +38,12 @@ export default function CommentSection(item) {
 
   const submitCaptionHandler = async (e) => {
     e.preventDefault();
-    console.log(post, postId, post._id, post.item);
     const newCaption = await addCaption({
       variables: {
         caption: {
           text: inputText,
           user: user._id,
-          postId: postId
+          postId: post.item._id
         }
       },
     });
@@ -60,13 +57,12 @@ export default function CommentSection(item) {
 
   const submitCommentHandler = async (e) => {
     e.preventDefault();
-    console.log(post, postId, post._id, post.item);
     const newComment = await addComment({
       variables: {
         comment: {
           text: inputText,
           user: user._id,
-          postId: postId,
+          postId: post.item._id,
         }
       },
     });
