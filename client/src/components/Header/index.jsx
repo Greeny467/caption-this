@@ -8,6 +8,7 @@ import { useState,useEffect } from "react";
 import Auth from '../../utils/auth';
 // import { useQuery } from '@apollo/client';
 // import { GET_ME } from '../../utils/queries';
+import logo from '../../assets/logos/captionlogo.png';
 
 
 import Login from '../login';
@@ -28,6 +29,7 @@ export default function Header({ showSidebar }) {
       <div className="top_navbar">
         <div className="top_menu">
           <Login/>
+          <Link to={'/'}><img className="logo" src={logo} alt="" /></Link>
           {/* <div id="searchFormPad"></div> */}
           {/* <TextField id="searchForm" label="Search" variant="outlined" /> */}
           <ul>

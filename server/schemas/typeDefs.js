@@ -92,7 +92,7 @@ const typeDefs = gql`
         addUserVote(postId: ID!, captionId: ID!): User
         removeUserVote(postId: ID!, captionId: ID!): User
 
-        setTimedCaption(time: Int!, post: String!): setTimerResponse
+        setTimedCaption(time: Int!, post: String!): SetTimerResponse
 
     }
 `;
