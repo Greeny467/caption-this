@@ -1,38 +1,51 @@
-
-import Comment from'./comment';
-
+import Comment from './comment';
 import { useState, useEffect } from 'react';
 import { sortCaptionsDescending } from '../utils/sortCaptions';
 
+export default function Leaderboard({ post, user }) {
+  const [captionType, setCaptionType] = useState('caption');
+  const [captions, setCaptions] = useState([]);
+  const [placement, setPlacement] = useState(0);
 
-export default function Leaderboard (post, user){
-    const [captionType, setCaptionType] = useState('caption');
-    const [captions, setCaptions] = useState([]);
+  const captionFilled = post.caption !== null;
+  const postCaptions = post.captions;
 
-    const captionFilled = post.caption !== null;
-    const postCaptions = post.captions;
+  useEffect(() => {
+    if (captionFilled) {
+      setCaptionType('comment');
+    }
 
-    useEffect(() => {
-        if(captionFilled === true) {
-            setCaptionType('comment');
-        };
+    setCaptions(sortCaptionsDescending(postCaptions));
+  }, [captionFilled, postCaptions]);
 
-        setCaptions(sortCaptionsDescending(postCaptions));
-    }, [captionFilled, postCaptions]);
+  const handleIncreasePlacement = () => {
+    setPlacement(placement + 10);
+  };
 
-    return(
-        <>
-            <div>
-                <h1>leaderboard</h1>
-                <section>
-                    {captions.map((caption, index) => (
-                        <div>
-                            <h4>{index}</h4>
-                            <Comment item={caption} type={captionType}/>
-                        </div>
-                    ))}
-                </section>
+  const handleDecreasePlacement = () => {
+    setPlacement(placement - 10);
+  };
+
+  return (
+    <>
+      <div>
+        <h1>leaderboard</h1>
+        <section>
+          {captions.slice(placement, placement + 10).map((caption, index) => (
+            <div key={caption._id}>
+              <h4>{index}</h4>
+              <Comment item={caption} type={captionType} />
             </div>
-        </>
-    )
+          ))}
+        </section>
+        <button onClick={() => setPlacement(0)}>Go to Top</button>
+        {placement >= 10 && (
+          <button onClick={handleDecreasePlacement}>up</button>
+        )}
+        {placement <= captions.length - 10 && (
+          <button onClick={handleIncreasePlacement}>down</button>
+        )}
+      </div>
+    </>
+  );
 }
