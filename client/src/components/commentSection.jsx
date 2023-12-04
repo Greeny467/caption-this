@@ -10,7 +10,8 @@ import { GET_ME } from '../utils/queries';
 import { sortCaptionsCommentSection } from '../utils/sortCaptions';
 
 export default function CommentSection(item) {
-  const post = item.post
+  const post = item;
+  const postId = item._id;
   const isComments = post.caption !== null;
 
   const [inputText, setInputText] = useState('');
@@ -44,7 +45,7 @@ export default function CommentSection(item) {
         caption: {
           text: inputText,
           user: user._id,
-          postId: post._id,
+          postId: postId
         }
       },
     });
@@ -58,13 +59,13 @@ export default function CommentSection(item) {
 
   const submitCommentHandler = async (e) => {
     e.preventDefault();
-
+    console.log(post, postId);
     const newComment = await addComment({
       variables: {
         comment: {
           text: inputText,
           user: user._id,
-          postId: post._id,
+          postId: postId,
         }
       },
     });
