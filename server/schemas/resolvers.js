@@ -103,7 +103,8 @@ const resolvers = {
                         { $addToSet: {posts: post._id} }
                     );
 
-                    return createdPost;
+                    const newPost = Post.findById(createdPost._id).populate('user');
+                    return newPost;
                 }
                 else {
                     throw new Error('Could not authenticate user.');
