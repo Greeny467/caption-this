@@ -24,6 +24,7 @@ export default function CreatePost() {
     };
 
     fetch();
+    console.log(user);
   }, [Auth]);
 
   const handleUpload = (e) => {
