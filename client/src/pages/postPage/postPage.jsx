@@ -16,7 +16,14 @@ export default function PostPage () {
         },
     });
 
-    const [post, setPost] = useState(null);
+    const [post, setPost] = useState({
+        user: {
+            _id: 404,
+            username:'placeholder'
+        },
+        imageURL: 'n/a',
+        caption: null,
+    });
     const [pageType, setPageType] = useState('post');
 
     
@@ -82,46 +89,6 @@ export default function PostPage () {
             </>
         );
     };
-
-    if(pageType === 'vote') {
-        return(
-            <>
-                {post !== undefined ? (
-                    <>
-                        <div>
-                            <a href='/' id='backButton'>Back</a>
-                            <input type='checkbox' id='pageTypeToggle' checked={pageType === 'vote'} onChange={handlePageTypeChange}>pageType</input>
-                            <section>
-                                <a href={`/dashboard/${post.user._id}`}>{post.user.username}</a>
-                                <h3>Other info?</h3>
-                            </section>
-                            <section>
-                            <img src={post.imageURL}/>
-                            {post.caption !== null ?
-                                (
-                                    <div>
-                                        <a href={`/dashboard/${post.caption.user._id}`}>{post.caption.user.username}</a>
-                                        <h4>{post.caption.text}</h4>
-                                    </div>
-                                ) : (
-                                    <div>
-                                        <p>Caption hasn't been chosen yet</p>
-                                    </div>
-                                )
-                            }
-                            </section>
-                            <section>
-                                <h1>leaderboard component here</h1>
-                            </section>
-                        
-                        </div>
-                    </>
-                ):(
-                    <h1>Post not loaded</h1>
-                )}
-            </>
-        )
-    }
 
     
 }
