@@ -28,6 +28,9 @@ export default function PostPage () {
         }
     }, [loading, error, data]);
 
+    useEffect(() => {
+        console.log('Updated post:', post);
+    }, [post]);
 
     const handlePageTypeChange = () => {
         if(pageType === 'post') {
