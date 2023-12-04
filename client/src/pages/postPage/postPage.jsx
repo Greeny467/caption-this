@@ -54,7 +54,7 @@ export default function PostPage () {
             {post !== undefined ? (
                 <>
                     <a id='backbutton' href='/'>Back</a>
-                    <button id='changePageType' onClick={handlePageTypeChange}>{pageType === 'post' ? (Vote): (Post)}</button>
+                    <button id='changePageType' onClick={handlePageTypeChange}>{pageType === 'post' ? (<>Vote</>): (<>Post</>)}</button>
                     <div>
                         <section>
                             <a href={`/dashboard/${post.user._id}`}>{post.user.username}</a>
@@ -76,7 +76,7 @@ export default function PostPage () {
                         </section>
                         
                         {pageType === 'post' ? (
-                            <CommentSection post={post}></CommentSection>
+                            <h1>CommentSection</h1>
                         ):(
                             <h1>Leaderboard</h1>
                         )}
