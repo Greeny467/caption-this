@@ -45,31 +45,37 @@ export default function PostPage () {
     if(pageType === 'post') {
         return(
             <>
-                <a id='backbutton' href='/'>Back</a>
-                <input type='checkbox' id='pageTypeToggle' checked='pageType' onClick={handlePageTypeChange}>pageType</input>
-                <div>
-                    <section>
-                        <a href={`/dashboard/${post.user._id}`}>{post.user.username}</a>
-                        <h3>Other info?</h3>
-                    </section>
-                    <section>
-                        <img src={post.imageURL}/>
+                {post !== undefined ? (
+                    <>
+                        <a id='backbutton' href='/'>Back</a>
+                        <input type='checkbox' id='pageTypeToggle' checked='pageType' onClick={handlePageTypeChange}>pageType</input>
                         <div>
-                            {post.caption !== null ? ( 
-                                <>
-                                    <a href={`/dashboard/${post.caption.user._id}`}>{post.caption.user.username}</a>
-                                    <h4>{post.caption.text}</h4>
-                                </>
-                                ):(
-                                    <p>Caption hasn't been chosesn yet</p>
-                                )
-                            }
+                            <section>
+                                <a href={`/dashboard/${post.user._id}`}>{post.user.username}</a>
+                                <h3>Other info?</h3>
+                            </section>
+                            <section>
+                                <img src={post.imageURL}/>
+                                <div>
+                                    {post.caption !== null ? ( 
+                                        <>
+                                            <a href={`/dashboard/${post.caption.user._id}`}>{post.caption.user.username}</a>
+                                            <h4>{post.caption.text}</h4>
+                                        </>
+                                        ):(
+                                            <p>Caption hasn't been chosesn yet</p>
+                                        )
+                                    }
+                                </div>
+                            </section>
+                            
+        
+                            <CommentSection post={post} />
                         </div>
-                    </section>
-                    
-
-                    <CommentSection post={post} />
-                </div>
+                    </>
+                ):(
+                    <h1>Post Not Loaded</h1>
+                )}
             
             
             
@@ -80,33 +86,39 @@ export default function PostPage () {
     if(pageType === 'vote') {
         return(
             <>
-                <div>
-                    <a href='/' id='backButton'>Back</a>
-                    <input type='checkbox' id='pageTypeToggle' checked='pageType' onChange={handlePageTypeChange}>pageType</input>
-                    <section>
-                        <a href={`/dashboard/${post.user._id}`}>{post.user.username}</a>
-                        <h3>Other info?</h3>
-                    </section>
-                    <section>
-                    <img src={post.imageURL}/>
-                    {post.caption !== null ?
-                        (
-                            <div>
-                                <a href={`/dashboard/${post.caption.user._id}`}>{post.caption.user.username}</a>
-                                <h4>{post.caption.text}</h4>
-                            </div>
-                        ) : (
-                            <div>
-                                <p>Caption hasn't been chosen yet</p>
-                            </div>
-                        )
-                    }
-                    </section>
-                    <section>
-                        <h1>leaderboard component here</h1>
-                    </section>
-                
-                </div>
+                {post !== undefined ? (
+                    <>
+                        <div>
+                            <a href='/' id='backButton'>Back</a>
+                            <input type='checkbox' id='pageTypeToggle' checked='pageType' onChange={handlePageTypeChange}>pageType</input>
+                            <section>
+                                <a href={`/dashboard/${post.user._id}`}>{post.user.username}</a>
+                                <h3>Other info?</h3>
+                            </section>
+                            <section>
+                            <img src={post.imageURL}/>
+                            {post.caption !== null ?
+                                (
+                                    <div>
+                                        <a href={`/dashboard/${post.caption.user._id}`}>{post.caption.user.username}</a>
+                                        <h4>{post.caption.text}</h4>
+                                    </div>
+                                ) : (
+                                    <div>
+                                        <p>Caption hasn't been chosen yet</p>
+                                    </div>
+                                )
+                            }
+                            </section>
+                            <section>
+                                <h1>leaderboard component here</h1>
+                            </section>
+                        
+                        </div>
+                    </>
+                ):(
+                    <h1>Post not loaded</h1>
+                )}
             </>
         )
     }
