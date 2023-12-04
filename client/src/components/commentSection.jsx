@@ -41,7 +41,7 @@ export default function CommentSection(post) {
       variables: {
         caption: {
           text: inputText,
-          user: user,
+          user: user._id,
           postId: post._id,
         }
       },
@@ -60,7 +60,7 @@ export default function CommentSection(post) {
       variables: {
         comment: {
           text: inputText,
-          user: user,
+          user: user._id,
           postId: post._id,
         }
       },
