@@ -98,10 +98,14 @@ const resolvers = {
                         throw new Error('failed to create post');
                     }
 
-                    await User.findOneAndUpdate(
+                    const updateUser = await User.findOneAndUpdate(
                         { _id: context.user._id},
                         { $addToSet: {posts: post._id} }
                     );
+
+                    if(!updateUser) {
+                        throw new Error(`failed to update user ${context.user._id}`);
+                    }
 
                     const newPost = Post.findById(createdPost._id).populate('user');
                     return newPost;
