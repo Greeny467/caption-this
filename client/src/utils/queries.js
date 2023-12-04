@@ -43,19 +43,28 @@ export const ALL_POSTS = gql`
             caption {
                 _id
                 text
-                user
+                user {
+                    _id
+                    username
+                }
                 postId
             }
             captions {
                 _id
                 text
-                user
+                user {
+                    _id
+                    username
+                }
                 postId
             }
             comments {
                 _id
                 text
-                user
+                user {
+                    _id
+                    username
+                }
                 postId
             }
         }
