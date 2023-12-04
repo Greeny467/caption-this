@@ -12,7 +12,7 @@ import { createTheme, ThemeProvider } from "@mui/material";
 const darkTheme = createTheme({ palette: { mode: "dark" } });
 
 const httpLink = createHttpLink({
-  uri: 'https://caption-this-production.up.railway.app/1/graphql',
+  uri: 'https://caption-this-production.up.railway.app/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
