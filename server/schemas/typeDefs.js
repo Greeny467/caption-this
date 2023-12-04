@@ -7,9 +7,9 @@ const typeDefs = gql`
         _id: ID!
         username: String!
         email: String
-        posts: [ID]
-        captions: [ID]
-        comments: [ID]
+        posts: [Post]
+        captions: [Caption]
+        comments: [Comment]
         votes: [Vote]
     }
     type Post {
@@ -23,13 +23,13 @@ const typeDefs = gql`
     type Comment {
         _id: ID!
         text: String!
-        user: ID!
+        user: User!
         postId: ID!
     }
     type Caption {
         _id: ID!
         text: String!
-        user: ID!
+        user: User!
         likes: Int
         postId: ID!
     }
@@ -46,7 +46,7 @@ const typeDefs = gql`
         me: User
         allPosts: [Post]
         singlePost(requestedPostId: ID!): Post
-        user(requestedUserId: ID!): User
+        user(requestedUserId: String!): User
         singleCaption(captionId: ID!): Caption
     }
 
