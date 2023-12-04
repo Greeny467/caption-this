@@ -92,7 +92,10 @@ export const SINGLE_POST = gql`
             caption {
                 _id
                 text
-                user
+                user {
+                    _id
+                    username
+                }
                 postId
             }
             captions {
