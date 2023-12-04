@@ -76,7 +76,7 @@ export default function PostPage () {
                         </section>
                         
                         {pageType === 'post' ? (
-                            <CommentSection post={post}/>
+                            <CommentSection item={post}/>
                         ):(
                             <h1>Leaderboard</h1>
                         )}

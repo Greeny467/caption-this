@@ -9,7 +9,8 @@ import { GET_ME } from '../utils/queries';
 
 import { sortCaptionsCommentSection } from '../utils/sortCaptions';
 
-export default function CommentSection(post) {
+export default function CommentSection(item) {
+  const post = item.post
   const isComments = post.caption !== null;
 
   const [inputText, setInputText] = useState('');
@@ -57,7 +58,7 @@ export default function CommentSection(post) {
 
   const submitCommentHandler = async (e) => {
     e.preventDefault();
-    console.log('here:', post, post._id);
+
     const newComment = await addComment({
       variables: {
         comment: {
