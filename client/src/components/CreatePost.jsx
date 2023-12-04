@@ -23,12 +23,15 @@ export default function CreatePost() {
 
   useEffect(() => {
     if(Auth.loggedIn){
-      if (!loading && !error) {
-        setUser(data);
-        console.log(user);
-      }
+      console.log('logged in');
+      const fetch = async () => {
+        console.log(await Auth.getProfile());
+        setUser(await Auth.getProfile());
+      };
+
+      fetch();
     }
-  }, [loading, userError, data]);
+  }, [Auth]);
 
 
   const handleUpload = (e) => {
