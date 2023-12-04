@@ -103,7 +103,7 @@ const resolvers = {
             try{
                 if(context.user) {
 
-                    const createdPost = await Post.create({ post });
+                    const createdPost = await Post.create(post);
 
                     if(!createdPost) {
                         throw new Error('failed to create post');
@@ -117,7 +117,7 @@ const resolvers = {
                     return createdPost;
                 }
                 else {
-                    const error = new Error('Could not authenticate user.');
+                    throw new Error('Could not authenticate user.');
                     
                 }
             }
