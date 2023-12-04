@@ -1,54 +1,51 @@
-// document.addEventListener('DOMContentLoaded', function () {
-//     const leaderboardList = document.getElementById('leaderboard-list');
-  
-//     // Sample data (replace with your data)
-//     const leaderboardData = [
-//       { name: 'Player 1', score: 150 },
-//       { name: 'Player 2', score: 120 },
-//       { name: 'Player 3', score: 180 },
-//       // Add more entries as needed
-//     ];
-  
-//     // Sort the data by score in descending order
-//     leaderboardData.sort((a, b) => b.score - a.score);
-  
-//     // Display the leaderboard
-//     leaderboardData.forEach((entry, index) => {
-//       const listItem = document.createElement('li');
-//       listItem.innerHTML = `
-//         <span>${index + 1}</span>
-//         <span>${entry.name}</span>
-//         <span>${entry.score} points</span>
-//       `;
-//       leaderboardList.appendChild(listItem);
-//     });
-//   });
-
-import Comment from'./comment';
-
-import { loggedIn} from '../utils/auth';
-
+import Comment from './comment';
 import { useState, useEffect } from 'react';
-import { useMutation, useQuery} from '@apollo/client';
+import { sortCaptionsDescending } from '../utils/sortCaptions';
 
+export default function Leaderboard({ post, user }) {
+  const [captionType, setCaptionType] = useState('caption');
+  const [captions, setCaptions] = useState([]);
+  const [placement, setPlacement] = useState(0);
 
-export default function Leaderboard (post, user){
-    const captionFilled = post.caption !== null;
-    const postCaptions = post.captions;
+  const captionFilled = post.caption !== null;
+  const postCaptions = post.captions;
 
-    return(
-        <>
-            <div>
-                <h1>leaderboard</h1>
-                <section>
-                    {postCaptions.map((caption, index) => (
-                        <div>
-                            <h4>{index}</h4>
-                            <Comment item={caption} type='caption'/>
-                        </div>
-                    ))}
-                </section>
+  useEffect(() => {
+    if (captionFilled) {
+      setCaptionType('comment');
+    }
+
+    setCaptions(sortCaptionsDescending(postCaptions));
+  }, [captionFilled, postCaptions]);
+
+  const handleIncreasePlacement = () => {
+    setPlacement(placement + 10);
+  };
+
+  const handleDecreasePlacement = () => {
+    setPlacement(placement - 10);
+  };
+
+  return (
+    <>
+      <div>
+        <h1>leaderboard</h1>
+        <section>
+          {captions.slice(placement, placement + 10).map((caption, index) => (
+            <div key={caption._id}>
+              <h4>{index}</h4>
+              <Comment item={caption} type={captionType} />
             </div>
-        </>
-    )
+          ))}
+        </section>
+        <button onClick={() => setPlacement(0)}>Go to Top</button>
+        {placement >= 10 && (
+          <button onClick={handleDecreasePlacement}>up</button>
+        )}
+        {placement <= captions.length - 10 && (
+          <button onClick={handleIncreasePlacement}>down</button>
+        )}
+      </div>
+    </>
+  );
 }

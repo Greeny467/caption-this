@@ -1,12 +1,13 @@
 import Comment from './comment';
 
-import { loggedIn } from '../utils/auth';
+import Auth from '../utils/auth';
 
 import { useState, useEffect } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { ADD_CAPTION, ADD_COMMENT } from '../utils/mutations';
 import { GET_ME } from '../utils/queries';
 
+import { sortCaptionsCommentSection } from '../utils/sortCaptions';
 
 export default function CommentSection(post) {
   const isComments = post.caption !== null;
@@ -17,8 +18,10 @@ export default function CommentSection(post) {
   const { loading, error, data } = useQuery(GET_ME);
 
   useEffect(() => {
-    if (!loading && !error) {
-      setUser(data);
+    if(Auth.loggedIn){
+      if (!loading && !error) {
+        setUser(data);
+      }
     }
   }, [loading, error, data]);
 
@@ -59,7 +62,7 @@ export default function CommentSection(post) {
   };
 
   const commentForm = () => {
-    const loggedInUser = loggedIn();
+    const loggedInUser = Auth.loggedIn();
 
     if (loggedInUser) {
       return (
@@ -78,7 +81,7 @@ export default function CommentSection(post) {
     }
 
     if (!loggedInUser) {
-      return <h1>Login Component</h1>;
+      return <h1>Login to add a comment</h1>;
     }
   };
 
@@ -86,11 +89,9 @@ export default function CommentSection(post) {
     const loggedInUser = loggedIn();
 
     if (loggedInUser) {
-      const hasCaption = user.captions.some((caption) => {
-        return caption.postId === post._id;
-      });
+      const hasCaption = user.captions.some((caption) => ( caption.postId === post._id));
 
-      if (hasCaption) {
+      if (!hasCaption) {
         return (
           <form>
             <input
@@ -110,9 +111,13 @@ export default function CommentSection(post) {
     }
 
     if (!loggedInUser) {
-      return <h1>Login Component</h1>;
+      return <h1>Login to create a caption</h1>;
     }
   };
+
+
+
+  const sortedCaptions = sortCaptionsCommentSection(post.captions, user._id);
 
   if (!isComments) {
     return (
@@ -128,7 +133,7 @@ export default function CommentSection(post) {
         </div>
       </>
     );
-  }
+  };
 
   if (isComments) {
     return (
@@ -137,13 +142,13 @@ export default function CommentSection(post) {
         <div>
           {captionForm()}
           <section>
-            {post.captions.map((caption) => (
+            {sortedCaptions.map((caption) => (
               <Comment key={caption.id} item={caption} type="caption" />
             ))}
           </section>
         </div>
       </>
     );
-  }
-}
+  };
+};
   

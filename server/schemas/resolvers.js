@@ -1,8 +1,10 @@
 require('dotenv').config();
+const schedule = require('node-schedule');
 const { default: mongoose } = require('mongoose');
 const { User, Post, Caption, Comment } = require('../models');
 require('mongoose');
 const {signToken} = require('../utils/auth');
+const findTopCaption = require('../utils/findTopCaption');
 
 const resolvers = {
 
@@ -305,6 +307,46 @@ const resolvers = {
                 console.error(error);
                 throw new Error('failed to remove vote entirely');
             };
+        },
+        setTimedCaption: async (parent, {time, post}, context) => {
+
+            const scheduleJob = async () => {
+                const timeInMilliseconds = time * 60 * 1000;
+                schedule.scheduleJob({ start: Date.now() + timeInMilliseconds}, async () => {
+                    const currentPost = await Post.findById(post).populate('captions');
+                    const captions = currentPost.captions;
+                    
+                    if(captions.length === 0){
+                        scheduleJob();
+                    }
+                    else{
+                        const topCaption = findTopCaption(captions);
+
+                        const updatedPost = await Post.findByIdAndUpdate(post, { $set: { caption: topCaption._id } });
+
+                        if(!updatedPost) {
+                            console.log('failed to update post with new caption. Post in question:', post);
+                        }
+                        else{
+                            console.log('succeeded in updating post with new caption. Post in question:', post);
+                        };
+                    };
+
+                });
+            };
+            try {
+                scheduleJob();
+                return({
+                    success: true,
+                    message: 'succeeded in setting timed caption update'
+                });
+            } catch (error) {
+                console.error(error);
+                return({
+                    success: false,
+                    message: error
+                });
+            }
         }
         
 
