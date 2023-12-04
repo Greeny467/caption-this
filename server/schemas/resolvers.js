@@ -30,7 +30,7 @@ const resolvers = {
         },
         singlePost: async (parent, {requestedPostId}) => {
             try {
-                return Post.findOne({_id: requestedPostId}).populate([ 'captions', 'comments']);
+                return Post.findOne({_id: requestedPostId}).populate(['user', 'captions', 'comments']);
             } catch (error) {
                 console.error(error);
                 throw new Error('failed to get singular post');
