@@ -81,6 +81,7 @@ export default function CreatePost() {
       };
 
       try {
+        console.log(response);
         const timerSet = await setTimedCaption({
           variables: {
             time: timer,
