@@ -25,7 +25,8 @@ export default function CommentSection(post) {
           console.error('commentSection user query got bad response');
         }
         else{
-          setUser(data);
+          setUser(data.me);
+          console.log(data)
         };
       };
     };
