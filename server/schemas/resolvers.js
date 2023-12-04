@@ -11,20 +11,9 @@ const resolvers = {
     Query: {
         me: async (parent, args, context) => {
             if(context.user) {
-                const user = User.findOne({ _id: context.user._id }).populate(['posts', 'captions', 'comments']);
+                const user = await User.findOne({ _id: context.user._id }).populate(['posts', 'captions', 'comments']);
 
-
-                const response = {
-                    _id: user._id,
-                    username: user.username,
-                    email: user.email,
-                    posts: user.posts,
-                    captions: user.captions,
-                    comments: user.comments,
-                    votes: user.votes
-                };
-
-                return response;
+                return user;
             }
             throw new Error('you need to be logged in');
         },
@@ -33,7 +22,7 @@ const resolvers = {
 
         allPosts: async (parent, args, context) => {
             try {
-                return Post.find().populate([ 'captions', 'comments']);
+                return Post.find().populate([ 'user', 'captions', 'comments']);
             } catch (error) {
                 console.error(error);
                 throw new Error('failed to get all posts');
