@@ -39,9 +39,11 @@ export default function CommentSection(post) {
     e.preventDefault();
     const newCaption = await addCaption({
       variables: {
-        text: inputText,
-        user: user,
-        postId: post._id,
+        caption: {
+          text: inputText,
+          user: user,
+          postId: post._id,
+        }
       },
     });
 
@@ -56,9 +58,11 @@ export default function CommentSection(post) {
     e.preventDefault();
     const newComment = await addComment({
       variables: {
-        text: inputText,
-        user: user,
-        postId: post._id,
+        comment: {
+          text: inputText,
+          user: user,
+          postId: post._id,
+        }
       },
     });
 
