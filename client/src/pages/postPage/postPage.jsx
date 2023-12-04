@@ -21,13 +21,11 @@ export default function PostPage () {
 
     useEffect(() => {
         if (!loading && !error && data) {
+            console.log(data.singlePost)
             setPost(data.singlePost);
         }
     }, [loading, error, data]);
 
-    useEffect(() => {
-        console.log('Updated post:', post);
-    }, [post]);
 
     const handlePageTypeChange = () => {
         if(pageType === 'post') {
