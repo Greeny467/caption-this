@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
-//import { ADD_POST } from "../utils/mutations";
+import { ADD_POST, SET_TIMED_CAPTION } from "../utils/mutations";
 import Auth from '../utils/auth';
 import uploadFile from "../utils/uploadFile";
 
 export default function CreatePost() {
-  //const [createPost, { error }] = useMutation(ADD_POST);
+  const [createPost, { error }] = useMutation(ADD_POST);
+  const [setTimedCaption, {timerError}] = useMutation(SET_TIMED_CAPTION);
 
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState('');
@@ -48,6 +49,7 @@ export default function CreatePost() {
 
 
     if(!url){
+      console.log('failed to upload to imgur');
       return
     };
 
@@ -64,6 +66,25 @@ export default function CreatePost() {
       });
       if(!response){
         console.log('failed to addPost');
+      };
+
+      try {
+        const timerSet = await setTimedCaption({
+          variables: {
+            time: timer,
+            post: response.data.createPost._id
+          }
+        });
+
+        if(timerSet.success === false) {
+          console.error('failed to set timer', timerSet.message);
+        }
+        else{
+          console.log(timerSet.message);
+        };
+
+      } catch (error) {
+        console.error('failed to set timer', error);
       }
 
       setFileName('');
@@ -119,7 +140,7 @@ export default function CreatePost() {
               "Click here or drag an image to upload"
             )}
           </label>
-          <label htmlFor="timerForm" id="timeFormLabel">Set Time</label>
+          <label htmlFor="timerForm" id="timeFormLabel">Set Time in Minutes</label>
           <input
           id="timerForm"
             type="number"
