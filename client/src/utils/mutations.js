@@ -109,3 +109,12 @@ export const REMOVE_USER_VOTE = gql`
         }
     }
 `;
+
+export const SET_TIMED_CAPTION = gql`
+    mutation setTimedCaption($time: Int!, $post: String!) {
+        setTimedCaption(time: $time, post: $post) {
+            success
+            message
+        }
+    }
+`;
