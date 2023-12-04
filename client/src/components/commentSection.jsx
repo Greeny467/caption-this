@@ -35,7 +35,8 @@ export default function CommentSection(post) {
     setInputText(e.target.value);
   };
 
-  const submitCaptionHandler = async () => {
+  const submitCaptionHandler = async (e) => {
+    e.preventDefault();
     const newCaption = await addCaption({
       variables: {
         text: inputText,
@@ -51,7 +52,8 @@ export default function CommentSection(post) {
     setInputText('');
   };
 
-  const submitCommentHandler = async () => {
+  const submitCommentHandler = async (e) => {
+    e.preventDefault();
     const newComment = await addComment({
       variables: {
         text: inputText,
