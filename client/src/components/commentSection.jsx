@@ -87,7 +87,7 @@ export default function CommentSection(post) {
   };
 
   const captionForm = () => {
-    const loggedInUser = loggedIn();
+    const loggedInUser = Auth.loggedIn();
 
     if (loggedInUser) {
       const hasCaption = user.captions.some((caption) => ( caption.postId === post._id));
