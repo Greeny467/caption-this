@@ -55,7 +55,6 @@ export default function PostPage () {
                 {post !== undefined ? (
                     <>
                         <a id='backbutton' href='/'>Back</a>
-                        <input type='checkbox' id='pageTypeToggle' checked={pageType === 'vote'} onChange={handlePageTypeChange}>pageType</input>
                         <div>
                             <section>
                                 <a href={`/dashboard/${post.user._id}`}>{post.user.username}</a>
