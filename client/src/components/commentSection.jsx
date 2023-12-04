@@ -19,11 +19,16 @@ export default function CommentSection(post) {
   const { loading, error, data } = useQuery(GET_ME);
 
   useEffect(() => {
-    if(Auth.loggedIn){
+    if(Auth.loggedIn()){
       if (!loading && !error) {
-        setUser(data);
-      }
-    }
+        if(!data || data === undefined) {
+          console.error('commentSection user query got bad response');
+        }
+        else{
+          setUser(data);
+        };
+      };
+    };
   }, [loading, error, data]);
 
   const textHandler = (e) => {
@@ -62,94 +67,71 @@ export default function CommentSection(post) {
     setInputText('');
   };
 
-  const commentForm = () => {
-    const loggedInUser = Auth.loggedIn();
 
-    if (loggedInUser) {
-      return (
-        <form>
-          <input
-            onChange={textHandler}
-            id="commentText"
-            name="commentText"
-            value={inputText}
-          ></input>
-          <button name="submit" id="submit" onClick={submitCommentHandler}>
-            Submit
-          </button>
-        </form>
-      );
-    }
-
-    if (!loggedInUser) {
-      return <h1>Login to add a comment</h1>;
-    }
-  };
-
-  const captionForm = () => {
-    const loggedInUser = Auth.loggedIn();
-
-    if (loggedInUser) {
-      const hasCaption = user.captions.some((caption) => ( caption.postId === post._id));
-
-      if (!hasCaption) {
-        return (
-          <form>
-            <input
-              onChange={textHandler}
-              id="captionText"
-              name="captionText"
-              value={inputText}
-            ></input>
-            <button name="submit" id="submit" onClick={submitCaptionHandler}>
-              Submit
-            </button>
-          </form>
-        );
-      }
-
-      return null;
-    }
-
-    if (!loggedInUser) {
-      return <h1>Login to create a caption</h1>;
-    }
-  };
-
-
-
-  //const sortedCaptions = sortCaptionsCommentSection(post.captions, user._id);
-
-  if (!isComments) {
-    return (
-      <>
-        <h2>Comments</h2>
-        <div>
-          {commentForm()}
+  return(
+    <>
+      {isComments ? (
+        <>
+          {Auth.loggedIn() ?
+            ( 
+              <form>
+                <input
+                  onChange={textHandler}
+                  id='commentText'
+                  name='commentText'
+                  value={inputText}
+                ></input>
+                <button name='submit' id='submit' onClick={submitCommentHandler}>Submit</button>
+              </form>
+            ):(
+              <h1>Login to add a comment</h1>
+            )
+          }
           <section>
             {post.comments.map((comment) => (
               <Comment key={comment.id} item={comment} type="comment" />
             ))}
           </section>
-        </div>
-      </>
-    );
-  };
 
-  if (isComments) {
-    return (
-      <>
-        <h2>Captions</h2>
-        <div>
-          {captionForm()}
+        </>
+      ):(
+        <>
+          {Auth.loggedIn() ? (
+            <>
+              {user.captions.some((caption)=> caption.postId === post._id) === false ? (
+                <>
+                  <form>
+                    <input
+                      onChange={textHandler}
+                      id="captionText"
+                      name="captionText"
+                      value={inputText}
+                    ></input>
+                    <button name="submit" id="submit" onClick={submitCaptionHandler}>
+                      Submit
+                    </button>
+                  </form>
+                </>
+              ):(
+                <>
+                  <h3>You already made a caption for this post</h3>
+                </>
+              )}
+            </>
+          ):(
+            <>
+              <h3>Login to make a caption</h3>
+            </>
+          )}
           <section>
             {post.captions.map((caption) => (
               <Comment key={caption.id} item={caption} type="caption" />
             ))}
           </section>
-        </div>
-      </>
-    );
-  };
+
+        </>
+      )}
+    </>
+  );
 };
   
