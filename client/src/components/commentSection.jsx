@@ -7,6 +7,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import { ADD_CAPTION, ADD_COMMENT } from '../utils/mutations';
 import { GET_ME } from '../utils/queries';
 
+import { sortCaptionsCommentSection } from '../utils/sortCaptions';
 
 export default function CommentSection(post) {
   const isComments = post.caption !== null;
@@ -114,6 +115,10 @@ export default function CommentSection(post) {
     }
   };
 
+
+
+  const sortedCaptions = sortCaptionsCommentSection(post.captions, user._id);
+
   if (!isComments) {
     return (
       <>
@@ -128,7 +133,7 @@ export default function CommentSection(post) {
         </div>
       </>
     );
-  }
+  };
 
   if (isComments) {
     return (
@@ -137,13 +142,13 @@ export default function CommentSection(post) {
         <div>
           {captionForm()}
           <section>
-            {post.captions.map((caption) => (
+            {sortedCaptions.map((caption) => (
               <Comment key={caption.id} item={caption} type="caption" />
             ))}
           </section>
         </div>
       </>
     );
-  }
-}
+  };
+};
   
