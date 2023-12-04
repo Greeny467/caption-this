@@ -70,7 +70,7 @@ export default function PostPage () {
                             </section>
                             
         
-                            <CommentSection post={post} />
+
                         </div>
                     </>
                 ):(
