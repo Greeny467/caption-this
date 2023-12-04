@@ -49,7 +49,10 @@ export const ADD_CAPTION = gql`
         addCaption(caption: $caption) {
             _id
             text
-            user
+            user {
+                _id
+                username
+            }
             postId
         }
     }
@@ -61,7 +64,10 @@ export const ADD_COMMENT = gql`
         addComment(comment: $comment) {
             _id
             text
-            user
+            user {
+                _id
+                username
+            }
             postId
         }
     }
@@ -72,7 +78,10 @@ export const ADD_VOTE = gql`
         captionVote(caption: $caption, update: $update) {
             _id
             text
-            user
+            user {
+                _id
+                username
+            }
             likes
             postId    
         }

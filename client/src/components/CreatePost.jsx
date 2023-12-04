@@ -60,8 +60,10 @@ export default function CreatePost() {
     try {
       const response = await createPost({
         variables: {
-          user: user._id,
-          imageURL: url,
+          post: {
+            user: user._id,
+            imageURL: url,
+          }
         },
       });
       if(!response){
