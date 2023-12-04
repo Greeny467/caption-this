@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { ADD_POST, SET_TIMED_CAPTION } from "../utils/mutations";
+import { GET_ME } from '../utils/queries';
+
 import Auth from '../utils/auth';
 import uploadFile from "../utils/uploadFile";
 
 export default function CreatePost() {
+  const { loading, userError, data } = useQuery(GET_ME);
+
   const [createPost, { error }] = useMutation(ADD_POST);
   const [setTimedCaption, {timerError}] = useMutation(SET_TIMED_CAPTION);
 
@@ -18,14 +22,14 @@ export default function CreatePost() {
   const [user, setUser] = useState(undefined);
 
   useEffect(() => {
-    const fetch = async () => {
-      const userData = await Auth.getProfile();
-      setUser(userData);
-      console.log(user);
-    };
+    if(Auth.loggedIn){
+      if (!loading && !error) {
+        setUser(data);
+        console.log(user);
+      }
+    }
+  }, [loading, userError, data]);
 
-    fetch();
-  }, [Auth]);
 
   const handleUpload = (e) => {
     if (e.target.files && e.target.files[0]) {
