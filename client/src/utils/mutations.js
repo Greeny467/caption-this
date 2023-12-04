@@ -36,6 +36,7 @@ export const ADD_POST = gql`
             _id
             user{
                 _id
+                username
             }
             imageURL
         }
