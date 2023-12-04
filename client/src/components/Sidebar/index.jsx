@@ -21,7 +21,7 @@ export default function Sidebar() {
       <div className="sidebar">
         <ul>
         <SideLink to="/trending" icon={<TrendingUpIcon/>} className={isActive('/trending')}>Trending</SideLink>
-        <SideLink to="/hot" icon={<WhatshotIcon/>} className={isActive('/hot')}>Roast Me</SideLink>
+        <SideLink to="/roast" icon={<WhatshotIcon/>} className={isActive('/roast')}>Roast Me</SideLink>
         <SideLink to="/deep" icon={<WavesIcon/>} className={isActive('/deep')}>Deep Captions</SideLink>
         <SideLink to="/videos" icon={<OndemandVideoIcon/>} className={isActive('/videos')}>Videos</SideLink>
         <SideLink to="/random" icon={<CasinoIcon/>} className={isActive('/random')}>Random</SideLink>
