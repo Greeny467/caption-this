@@ -31,8 +31,12 @@ export default function PostPage() {
     return <p>Loading...</p>; 
   }
 
-  if (error || !post) {
-    return <h1>Error loading post</h1>;
+  if (error) {
+    return <h1>Error loading post: {error}</h1>;
+  }
+
+  if(!post){
+    return <h1>No post..?</h1>
   }
 
   return (
