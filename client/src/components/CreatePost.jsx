@@ -21,10 +21,10 @@ export default function CreatePost() {
     const fetch = async () => {
       const userData = await Auth.getProfile();
       setUser(userData);
+      console.log(user);
     };
 
     fetch();
-    console.log(user);
   }, [Auth]);
 
   const handleUpload = (e) => {
