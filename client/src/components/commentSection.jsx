@@ -60,7 +60,7 @@ export default function CommentSection(item) {
 
   const submitCommentHandler = async (e) => {
     e.preventDefault();
-    console.log(post, postId);
+    console.log(post, postId, post._id, post.item);
     const newComment = await addComment({
       variables: {
         comment: {
