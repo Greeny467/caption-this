@@ -21,8 +21,7 @@ export default function PostPage () {
 
     useEffect(() => {
         if (!loading && !error && data) {
-            setPost(data.post);
-            console.log(data.post);
+            setPost(data.singlePost);
         }
     }, [loading, error, data]);
 
