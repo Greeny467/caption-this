@@ -12,24 +12,18 @@ export default function PostPage () {
     const [post, setPost] = useState(undefined);
     const [pageType, setPageType] = useState('post');
 
+    const { loading, error, data } = useQuery(SINGLE_POST, {
+        variables: {
+          requestedPostId: postId
+        },
+    });
+
     useEffect(() => {
-        const fetchData = async () => {
-            try{
-                const { data } = await useQuery(SINGLE_POST, {
-                    variables: {
-                        requestedPostId: postId
-                    },
-                });
-
-                setPost(data.post);
-            }
-            catch (error){
-                console.error('Error fetching post data:', error);
-            };
-        };
-
-        fetchData();
-    }, [postId]);
+        if (!loading && !error && data) {
+            setPost(data.post);
+            console.log(post);
+        }
+    }, [loading, error, data]);
 
 
     const handlePageTypeChange = () => {
