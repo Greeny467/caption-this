@@ -40,6 +40,7 @@ export default function CommentSection(item) {
 
   const submitCaptionHandler = async (e) => {
     e.preventDefault();
+    console.log(post, postId, post._id, post.item);
     const newCaption = await addCaption({
       variables: {
         caption: {
