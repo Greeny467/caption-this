@@ -20,11 +20,9 @@ export default function PostPage () {
     });
 
     useEffect(() => {
-        console.log('effect active')
         if (!loading && !error && data) {
-            console.log('queried');
             setPost(data.post);
-            console.log(post);
+            console.log(data.post);
         }
     }, [loading, error, data]);
 
@@ -48,7 +46,7 @@ export default function PostPage () {
                 {post !== undefined ? (
                     <>
                         <a id='backbutton' href='/'>Back</a>
-                        <input type='checkbox' id='pageTypeToggle' checked='pageType' onClick={handlePageTypeChange}>pageType</input>
+                        <input type='checkbox' id='pageTypeToggle' checked={pageType === 'vote'} onClick={handlePageTypeChange}>pageType</input>
                         <div>
                             <section>
                                 <a href={`/dashboard/${post.user._id}`}>{post.user.username}</a>
@@ -90,7 +88,7 @@ export default function PostPage () {
                     <>
                         <div>
                             <a href='/' id='backButton'>Back</a>
-                            <input type='checkbox' id='pageTypeToggle' checked='pageType' onChange={handlePageTypeChange}>pageType</input>
+                            <input type='checkbox' id='pageTypeToggle' checked={pageType === 'vote'} onChange={handlePageTypeChange}>pageType</input>
                             <section>
                                 <a href={`/dashboard/${post.user._id}`}>{post.user.username}</a>
                                 <h3>Other info?</h3>
