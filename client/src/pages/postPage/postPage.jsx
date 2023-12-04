@@ -10,7 +10,6 @@ export default function PostPage() {
   const { postId } = useParams();
   console.log(postId);
 
-  const [post, setPost] = useState(undefined);
   const [pageType, setPageType] = useState('post');
 
   const { loading, error, data } = useQuery(SINGLE_POST, {
@@ -35,7 +34,7 @@ export default function PostPage() {
     return <h1>Error loading post: {error}</h1>;
   }
 
-  if(!post){
+  if(!data){
     return <h1>No post..?</h1>
   }
 
