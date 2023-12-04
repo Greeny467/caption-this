@@ -27,7 +27,7 @@ export default function CreatePost() {
       const fetch = async () => {
         console.log(await Auth.getProfile());
         const profile = await Auth.getProfile();
-        setUser(profile.data);
+        setUser(profile.data).then(() => console.log(user));
       };
 
       fetch();
