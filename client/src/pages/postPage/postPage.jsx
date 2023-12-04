@@ -7,7 +7,7 @@ import { useQuery } from '@apollo/client';
 import CommentSection from '../../components/commentSection';
 
 export default function PostPage () {
-    const postId = useParams();
+    const {postId} = useParams();
 
     const [post, setPost] = useState(undefined);
     const [pageType, setPageType] = useState('post');
