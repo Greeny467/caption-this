@@ -11,6 +11,11 @@ import { sortCaptionsCommentSection } from '../utils/sortCaptions';
 
 export default function CommentSection(post) {
   const isComments = post.caption !== null;
+
+  const hasComments = post.comments.length !== 0;
+  const hasCaptions = post.captions.length !== 0;
+
+
   const [inputText, setInputText] = useState('');
   const [user, setUser] = useState({});
   const [addCaption, { captionError }] = useMutation(ADD_CAPTION);
@@ -126,7 +131,7 @@ export default function CommentSection(post) {
         <div>
           {commentForm()}
           <section>
-            {post.comments.map((comment) => (
+            {hasComments === true && post.comments.map((comment) => (
               <Comment key={comment.id} item={comment} type="comment" />
             ))}
           </section>
@@ -142,7 +147,7 @@ export default function CommentSection(post) {
         <div>
           {captionForm()}
           <section>
-            {sortedCaptions.map((caption) => (
+            {hasCaptions === true && sortedCaptions.map((caption) => (
               <Comment key={caption.id} item={caption} type="caption" />
             ))}
           </section>
