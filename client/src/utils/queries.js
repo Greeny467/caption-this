@@ -100,7 +100,7 @@ export const SINGLE_POST = gql`
 `;
 
 export const USER = gql`
-    query user($requestedUserId: ID!) {
+    query user($requestedUserId: String!) {
         user(requestedUserId: $requestedUserId){
             _id
             username
@@ -132,8 +132,8 @@ export const USER = gql`
                 postId
             }
             votes {
-                postId
-                captionId
+                votePost
+                voteCaption
             }
         }
     }

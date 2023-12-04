@@ -1,5 +1,7 @@
 require('dotenv').config();
+const { default: mongoose } = require('mongoose');
 const { User, Post, Caption, Comment } = require('../models');
+require('mongoose');
 const {signToken} = require('../utils/auth');
 
 const resolvers = {

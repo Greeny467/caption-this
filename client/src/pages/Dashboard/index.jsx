@@ -10,53 +10,62 @@ import Comment from '../../components/comment';
 
 export default function Dashboard() {
   const { userId } = useParams();
-
+  
   const [dashboardUser, setDashboardUser] = useState(undefined);
+  const { loading, error, data } = useQuery(USER, {
+    variables: {
+      requestedUserId: userId,
+    },
+  });
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await useQuery(USER, {
-          variables: {
-            requestedUserId: userId,
-          },
-        });
-  
-        setDashboardUser(data.user);
+        if (!loading && !error && data) {
+          setDashboardUser(data.user);
+          console.log(dashboardUser);
+        }
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
     };
   
     fetchData(); 
-  }, [userId]);
+  }, [data, loading, error]);
 
 
 
-  return (
-    <>
-      <div className="dashboard">
-        <h1>{dashboardUser.username}'s Dashboard</h1>
-        <div id='mainholder'>
-          <section>
-            <p> User info?</p>
-          </section>
-          <section>
-            <div>
-              <h3>Posts:</h3>
-              {dashboardUser.posts.map((post) => (
-                <Post post={post} user={dashboardUser}/>
-              ))}
-            </div>
-            <div>
-              <h3>Captions:</h3>
-              {dashboardUser.captions.map((caption) => (
-                <Comment item={caption} type='caption'/>
-              ))}
-            </div>
-          </section>
+  if(dashboardUser !== undefined) {
+    return (
+      <>
+        <div className="dashboard">
+          <h1>{dashboardUser.username}'s Dashboard</h1>
+          <div id='mainholder'>
+            <section>
+              <p> User info?</p>
+            </section>
+            <section>
+              <div>
+                <h3>Posts:</h3>
+                {dashboardUser.posts.map((post) => (
+                  <Post post={post} user={dashboardUser}/>
+                ))}
+              </div>
+              <div>
+                <h3>Captions:</h3>
+                {dashboardUser.captions.map((caption) => (
+                  <Comment item={caption} type='caption'/>
+                ))}
+              </div>
+            </section>
+          </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  }
+  else {
+    return (
+      <h1>User not found</h1>
+    )
+  }
 };
