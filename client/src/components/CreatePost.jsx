@@ -67,6 +67,7 @@ export default function CreatePost() {
     formData.append("timer", timer);
 
     try {
+      console.log('userData:', user);
       const response = await createPost({
         variables: {
           post: {
