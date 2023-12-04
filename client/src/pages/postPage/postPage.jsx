@@ -49,45 +49,48 @@ export default function PostPage () {
     };
 
 
-    if(pageType === 'post') {
-        return(
-            <>
-                {post !== undefined ? (
-                    <>
-                        <a id='backbutton' href='/'>Back</a>
-                        <div>
-                            <section>
-                                <a href={`/dashboard/${post.user._id}`}>{post.user.username}</a>
-                                <h3>Other info?</h3>
-                            </section>
-                            <section>
-                                <img src={post.imageURL}/>
-                                <div>
-                                    {post.caption !== null ? ( 
-                                        <>
-                                            <a href={`/dashboard/${post.caption.user._id}`}>{post.caption.user.username}</a>
-                                            <h4>{post.caption.text}</h4>
-                                        </>
-                                        ):(
-                                            <p>Caption hasn't been chosesn yet</p>
-                                        )
-                                    }
-                                </div>
-                            </section>
-                            
-        
+    return(
+        <>
+            {post !== undefined ? (
+                <>
+                    <a id='backbutton' href='/'>Back</a>
+                    <button id='changePageType' onClick={handlePageTypeChange}>{pageType === 'post' ? (Vote): (Post)}</button>
+                    <div>
+                        <section>
+                            <a href={`/dashboard/${post.user._id}`}>{post.user.username}</a>
+                            <h3>Other info?</h3>
+                        </section>
+                        <section>
+                            <img src={post.imageURL}/>
+                            <div>
+                                {post.caption !== null ? ( 
+                                    <>
+                                        <a href={`/dashboard/${post.caption.user._id}`}>{post.caption.user.username}</a>
+                                        <h4>{post.caption.text}</h4>
+                                    </>
+                                    ):(
+                                        <p>Caption hasn't been chosesn yet</p>
+                                    )
+                                }
+                            </div>
+                        </section>
+                        
+                        {pageType === 'post' ? (
+                            <CommentSection post={post}></CommentSection>
+                        ):(
+                            <h1>Leaderboard</h1>
+                        )}
 
-                        </div>
-                    </>
-                ):(
-                    <h1>Post Not Loaded</h1>
-                )}
-            
-            
-            
-            </>
-        );
-    };
+                    </div>
+                </>
+            ):(
+                <h1>Post Not Loaded</h1>
+            )}
+        
+        
+        
+        </>
+    );
 
     
 }
