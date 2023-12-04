@@ -10,6 +10,7 @@ import Comment from '../../components/comment';
 
 export default function Dashboard() {
   const { userId } = useParams();
+
   
   const [dashboardUser, setDashboardUser] = useState(undefined);
   const { loading, error, data } = useQuery(USER, {
