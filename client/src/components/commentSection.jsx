@@ -118,7 +118,7 @@ export default function CommentSection(post) {
 
 
 
-  const sortedCaptions = sortCaptionsCommentSection(post.captions, user._id);
+  //const sortedCaptions = sortCaptionsCommentSection(post.captions, user._id);
 
   if (!isComments) {
     return (
@@ -143,7 +143,7 @@ export default function CommentSection(post) {
         <div>
           {captionForm()}
           <section>
-            {sortedCaptions.map((caption) => (
+            {post.captions.map((caption) => (
               <Comment key={caption.id} item={caption} type="caption" />
             ))}
           </section>
