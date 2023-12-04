@@ -16,7 +16,7 @@ export default function PostPage () {
         },
     });
 
-    const [post, setPost] = useState(undefined);
+    const [post, setPost] = useState(null);
     const [pageType, setPageType] = useState('post');
 
     
