@@ -34,7 +34,10 @@ export const ADD_POST = gql`
     mutation addPost($post: postInput!) {
         addPost(post: $post) {
             _id
-            user
+            user{
+                _id
+                username
+            }
             imageURL
         }
     }
