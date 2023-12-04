@@ -12,8 +12,13 @@ import { sortCaptionsCommentSection } from '../utils/sortCaptions';
 export default function CommentSection(post) {
   const isComments = post.caption !== null;
 
-  const hasComments = post.comments.length !== 0;
-  const hasCaptions = post.captions.length !== 0;
+  let hasComments 
+  let hasCaptions
+
+  if(post !== undefined) {
+    hasComments = post.comments.length > 0;
+    hasCaptions = post.captions.length > 0;
+  };
 
 
   const [inputText, setInputText] = useState('');

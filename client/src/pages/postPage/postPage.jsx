@@ -19,13 +19,6 @@ export default function PostPage() {
     },
   });
 
-  useEffect(() => {
-    if (!loading && !error && data) {
-      console.log(data.singlePost);
-      setPost(data.singlePost);
-    }
-  }, [loading, error, data]);
-
   const handlePageTypeChange = () => {
     if (pageType === 'post') {
       setPageType('vote');
@@ -35,7 +28,7 @@ export default function PostPage() {
   };
 
   if (loading) {
-    return <p>Loading...</p>; // You can replace this with a loading spinner or any other loading indicator
+    return <p>Loading...</p>; 
   }
 
   if (error || !post) {
@@ -56,25 +49,25 @@ export default function PostPage() {
       {pageType === 'post' && (
         <div>
           <section>
-            <a href={`/dashboard/${post.user._id}`}>{post.user.username}</a>
+            <a href={`/dashboard/${data.singlePost.user._id}`}>{data.singlePost.user.username}</a>
             <h3>Other info?</h3>
           </section>
           <section>
-            <img src={post.imageURL} />
+            <img src={data.singlePost.imageURL} />
             <div>
-              {post.caption !== null ? (
+              {data.singlePost.caption !== null ? (
                 <>
-                  <a href={`/dashboard/${post.caption.user._id}`}>
-                    {post.caption.user.username}
+                  <a href={`/dashboard/${data.singlePost.caption.user._id}`}>
+                    {data.singlePost.caption.user.username}
                   </a>
-                  <h4>{post.caption.text}</h4>
+                  <h4>{data.singlePost.caption.text}</h4>
                 </>
               ) : (
                 <p>Caption hasn't been chosen yet</p>
               )}
             </div>
           </section>
-          <CommentSection post={post} />
+          <CommentSection post={data.singlePost} />
         </div>
       )}
       {pageType === 'vote' && (
@@ -89,17 +82,17 @@ export default function PostPage() {
             onChange={handlePageTypeChange}
           />
           <section>
-            <a href={`/dashboard/${post.user._id}`}>{post.user.username}</a>
+            <a href={`/dashboard/${data.singlePost.user._id}`}>{data.singlePost.user.username}</a>
             <h3>Other info?</h3>
           </section>
           <section>
-            <img src={post.imageURL} />
-            {post.caption !== null ? (
+            <img src={data.singlePost.imageURL} />
+            {data.singlePost.caption !== null ? (
               <div>
-                <a href={`/dashboard/${post.caption.user._id}`}>
-                  {post.caption.user.username}
+                <a href={`/dashboard/${data.singlePost.caption.user._id}`}>
+                  {data.singlePost.caption.user.username}
                 </a>
-                <h4>{post.caption.text}</h4>
+                <h4>{data.singlePost.caption.text}</h4>
               </div>
             ) : (
               <div>
