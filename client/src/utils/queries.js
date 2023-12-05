@@ -8,19 +8,28 @@ export const GET_ME = gql`
             email
             posts {
                 _id
-                user
+                user {
+                    _id
+                    username
+                }
                 imageURL
             }
             captions {
                 _id
                 text
-                user
+                user {
+                    _id
+                    username
+                }
                 postId
             }
             comments {
                 _id
                 text
-                user
+                user {
+                    _id
+                    username
+                }
                 postId
             }
             votes {
@@ -43,19 +52,28 @@ export const ALL_POSTS = gql`
             caption {
                 _id
                 text
-                user
+                user {
+                    _id
+                    username
+                }
                 postId
             }
             captions {
                 _id
                 text
-                user
+                user {
+                    _id
+                    username
+                }
                 postId
             }
             comments {
                 _id
                 text
-                user
+                user {
+                    _id
+                    username
+                }
                 postId
             }
         }
@@ -74,7 +92,10 @@ export const SINGLE_POST = gql`
             caption {
                 _id
                 text
-                user
+                user {
+                    _id
+                    username
+                }
                 postId
             }
             captions {

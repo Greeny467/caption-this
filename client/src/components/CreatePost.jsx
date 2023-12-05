@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
-//import { ADD_POST } from "../utils/mutations";
+import { ADD_POST, SET_TIMED_CAPTION } from "../utils/mutations";
+
 import Auth from '../utils/auth';
 import uploadFile from "../utils/uploadFile";
 
 export default function CreatePost() {
-  //const [createPost, { error }] = useMutation(ADD_POST);
+
+  const [createPost, { error }] = useMutation(ADD_POST);
+  const [setTimedCaption, {timerError}] = useMutation(SET_TIMED_CAPTION);
 
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState('');
@@ -17,13 +20,18 @@ export default function CreatePost() {
   const [user, setUser] = useState(undefined);
 
   useEffect(() => {
-    const fetch = async () => {
-      const userData = await Auth.getProfile();
-      setUser(userData);
-    };
+    if(Auth.loggedIn){
+      console.log('logged in');
+      const fetch = async () => {
+        const profile = await Auth.getProfile();
+        console.log(profile, profile.data);
+        setUser(profile.data);
+      };
 
-    fetch();
+      fetch();
+    }
   }, [Auth]);
+
 
   const handleUpload = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -48,6 +56,7 @@ export default function CreatePost() {
 
 
     if(!url){
+      console.log('failed to upload to imgur');
       return
     };
 
@@ -56,14 +65,37 @@ export default function CreatePost() {
     formData.append("timer", timer);
 
     try {
+      console.log('userData:', user);
       const response = await createPost({
         variables: {
-          user: user._id,
-          imageURL: url,
+          post: {
+            user: user._id,
+            imageURL: url,
+          }
         },
       });
       if(!response){
         console.log('failed to addPost');
+      };
+
+      try {
+        console.log(response);
+        const timerSet = await setTimedCaption({
+          variables: {
+            time: timer,
+            post: response.data.addPost._id
+          }
+        });
+
+        if(timerSet.success === false) {
+          console.error('failed to set timer', timerSet.message);
+        }
+        else{
+          console.log(timerSet.message);
+        };
+
+      } catch (error) {
+        console.error('failed to set timer', error);
       }
 
       setFileName('');
@@ -119,7 +151,7 @@ export default function CreatePost() {
               "Click here or drag an image to upload"
             )}
           </label>
-          <label htmlFor="timerForm" id="timeFormLabel">Set Time</label>
+          <label htmlFor="timerForm" id="timeFormLabel">Set Time in Minutes</label>
           <input
           id="timerForm"
             type="number"

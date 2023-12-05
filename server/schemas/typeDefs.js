@@ -41,6 +41,10 @@ const typeDefs = gql`
         votePost: ID
         voteCaption: ID
     }
+    type SetTimerResponse {
+        success: Boolean!
+        message: String
+    }
 
     type Query {
         me: User
@@ -87,6 +91,8 @@ const typeDefs = gql`
         captionVote(caption: captionInput, update: String!): Caption
         addUserVote(postId: ID!, captionId: ID!): User
         removeUserVote(postId: ID!, captionId: ID!): User
+
+        setTimedCaption(time: Int!, post: String!): SetTimerResponse
 
     }
 `;

@@ -34,7 +34,10 @@ export const ADD_POST = gql`
     mutation addPost($post: postInput!) {
         addPost(post: $post) {
             _id
-            user
+            user{
+                _id
+                username
+            }
             imageURL
         }
     }
@@ -46,7 +49,10 @@ export const ADD_CAPTION = gql`
         addCaption(caption: $caption) {
             _id
             text
-            user
+            user {
+                _id
+                username
+            }
             postId
         }
     }
@@ -58,7 +64,10 @@ export const ADD_COMMENT = gql`
         addComment(comment: $comment) {
             _id
             text
-            user
+            user {
+                _id
+                username
+            }
             postId
         }
     }
@@ -69,7 +78,10 @@ export const ADD_VOTE = gql`
         captionVote(caption: $caption, update: $update) {
             _id
             text
-            user
+            user {
+                _id
+                username
+            }
             likes
             postId    
         }
@@ -106,6 +118,15 @@ export const REMOVE_USER_VOTE = gql`
                 postId
                 captionId
             }
+        }
+    }
+`;
+
+export const SET_TIMED_CAPTION = gql`
+    mutation setTimedCaption($time: Int!, $post: String!) {
+        setTimedCaption(time: $time, post: $post) {
+            success
+            message
         }
     }
 `;

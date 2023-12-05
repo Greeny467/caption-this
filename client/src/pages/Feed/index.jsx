@@ -1,5 +1,7 @@
 import './Feed.scss';
 import Auth from '../../utils/auth';
+import { useParams } from 'react-router-dom';
+
 
 import Post from '../../components/Post';
 
@@ -10,6 +12,8 @@ import { useState, useEffect } from 'react';
 export default function Feed() {
   const { loading, error, data } = useQuery(ALL_POSTS);
   const [feedData, setFeedData] = useState([]);
+  const { filter } = useParams();
+  console.log(filter);
 
   useEffect(() => {
     if (error) {

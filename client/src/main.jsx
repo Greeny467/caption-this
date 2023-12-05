@@ -6,6 +6,7 @@ import App from './App';
 import Dashboard from './pages/Dashboard';
 import Error from './pages/Error';
 import Feed from './pages/Feed';
+import PostPage from './pages/postPage/postPage';
 
 import './index.scss'
 
@@ -21,8 +22,15 @@ const router = createBrowserRouter([
         element: <Feed />,
       },
       {
+        path: '/:filter',
+        element: <Feed />
+      },
+      {
         path: 'dashboard/:userId',
         element: <Dashboard />
+      },
+      {path: 'posts/:postId',
+        element: <PostPage/>
       },
       {
         path: '*',

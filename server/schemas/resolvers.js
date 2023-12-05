@@ -1,45 +1,36 @@
 require('dotenv').config();
+const schedule = require('node-schedule');
 const { default: mongoose } = require('mongoose');
 const { User, Post, Caption, Comment } = require('../models');
 require('mongoose');
 const {signToken} = require('../utils/auth');
+const findTopCaption = require('../utils/findTopCaption');
 
 const resolvers = {
 
     Query: {
         me: async (parent, args, context) => {
             if(context.user) {
-                const user = User.findOne({ _id: context.user._id }).populate(['posts', 'captions', 'comments']);
+                const user = await User.findOne({ _id: context.user._id }).populate(['posts', 'captions', 'comments']);
 
-
-                const response = {
-                    _id: user._id,
-                    username: user.username,
-                    email: user.email,
-                    posts: user.posts,
-                    captions: user.captions,
-                    comments: user.comments,
-                    votes: user.votes
-                };
-
-                return response;
+                return user;
             }
             throw new Error('you need to be logged in');
         },
 
 
 
-        allPosts: async (parent, args, context) => {
+        allPosts: async (parent, args) => {
             try {
-                return Post.find().populate([ 'captions', 'comments']);
+                return Post.find().populate([ 'user', 'captions', 'comments']);
             } catch (error) {
                 console.error(error);
                 throw new Error('failed to get all posts');
             }
         },
-        singlePost: async (parent, {requestedPostId}, context) => {
+        singlePost: async (parent, {requestedPostId}) => {
             try {
-                return Post.findOne({_id: requestedPostId}).populate([ 'captions', 'comments']);
+                return Post.findOne({_id: requestedPostId}).populate(['user', 'captions', 'comments']);
             } catch (error) {
                 console.error(error);
                 throw new Error('failed to get singular post');
@@ -48,7 +39,7 @@ const resolvers = {
 
 
 
-        user: async (parent, {requestedUserId}, context) => {
+        user: async (parent, {requestedUserId}) => {
             try {
                 return User.findOne({_id: requestedUserId}).populate(['posts', 'captions', 'comments']);
             } catch (error) {
@@ -56,7 +47,7 @@ const resolvers = {
                 throw new Error('failed to find user');
             }
         },
-        singleCaption: async (parent, {captionId}, context) => {
+        singleCaption: async (parent, {captionId}) => {
             try{
                 const caption = await Caption.findById(captionId);
 
@@ -101,21 +92,26 @@ const resolvers = {
             try{
                 if(context.user) {
 
-                    const createdPost = await Post.create({ post });
+                    const createdPost = await Post.create(post);
 
                     if(!createdPost) {
                         throw new Error('failed to create post');
                     }
 
-                    await User.findOneAndUpdate(
+                    const updateUser = await User.findOneAndUpdate(
                         { _id: context.user._id},
                         { $addToSet: {posts: post._id} }
                     );
 
-                    return createdPost;
+                    if(!updateUser) {
+                        throw new Error(`failed to update user ${context.user._id}`);
+                    }
+
+                    const newPost = Post.findById(createdPost._id).populate('user');
+                    return newPost;
                 }
                 else {
-                    const error = new Error('Could not authenticate user.');
+                    throw new Error('Could not authenticate user.');
                     
                 }
             }
@@ -305,6 +301,46 @@ const resolvers = {
                 console.error(error);
                 throw new Error('failed to remove vote entirely');
             };
+        },
+        setTimedCaption: async (parent, {time, post}) => {
+
+            const scheduleJob = async () => {
+                const timeInMilliseconds = time * 60 * 1000;
+                schedule.scheduleJob({ start: Date.now() + timeInMilliseconds}, async () => {
+                    const currentPost = await Post.findById(post).populate('captions');
+                    const captions = currentPost.captions;
+                    
+                    if(captions.length === 0){
+                        scheduleJob();
+                    }
+                    else{
+                        const topCaption = findTopCaption(captions);
+
+                        const updatedPost = await Post.findByIdAndUpdate(post, { $set: { caption: topCaption._id } });
+
+                        if(!updatedPost) {
+                            console.log('failed to update post with new caption. Post in question:', post);
+                        }
+                        else{
+                            console.log('succeeded in updating post with new caption. Post in question:', post);
+                        };
+                    };
+
+                });
+            };
+            try {
+                scheduleJob();
+                return({
+                    success: true,
+                    message: 'succeeded in setting timed caption update'
+                });
+            } catch (error) {
+                console.error(error);
+                return({
+                    success: false,
+                    message: error
+                });
+            }
         }
         
 

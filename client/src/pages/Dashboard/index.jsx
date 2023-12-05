@@ -10,6 +10,7 @@ import Comment from '../../components/comment';
 
 export default function Dashboard() {
   const { userId } = useParams();
+
   
   const [dashboardUser, setDashboardUser] = useState(undefined);
   const { loading, error, data } = useQuery(USER, {
@@ -23,7 +24,8 @@ export default function Dashboard() {
       try {
         if (!loading && !error && data) {
           setDashboardUser(data.user);
-          console.log(dashboardUser);
+          console.log('user:', dashboardUser);
+          console.log('data:', data.user)
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
