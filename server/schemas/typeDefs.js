@@ -54,7 +54,15 @@ const typeDefs = gql`
         singleCaption(captionId: ID!): Caption
     }
 
-
+    input userData {
+        _id: ID!
+        username: String!
+        email: String
+        posts: [Post]
+        captions: [Caption]
+        comments: [Comment]
+        votes: [Vote]
+    }
 
     input postInput {
         _id: ID
@@ -68,7 +76,7 @@ const typeDefs = gql`
     input captionInput {
         _id: ID
         text: String!
-        user: User!
+        user: userData!
         likes: Int
         postId: ID!
     }
@@ -76,7 +84,7 @@ const typeDefs = gql`
     input commentInput {
         _id: ID
         text: String!
-        user: User!
+        user: userData!
         postId: ID!
     }
 
