@@ -121,6 +121,7 @@ const resolvers = {
             };
         },
         addCaption: async (parent, { caption }, context) => {
+            console.log(caption)
             try {
                 if(context.user) {
                     const newCaption = await Caption.create({ caption });
@@ -131,11 +132,11 @@ const resolvers = {
 
                     try {
                         await User.findOneAndUpdate(
-                            { _id: context.user._id},
+                            { _id: caption.user},
                             { $addToSet: {captions: newCaption._id}}
                         );
                         await Post.findOneAndUpdate(
-                            { _id: newCaption.postId},
+                            { _id: caption.postId},
                             { $addToSet: {captions: newCaption._id}}
                         );
                     } catch (error) {
