@@ -124,7 +124,7 @@ const resolvers = {
             console.log(caption)
             try {
                 if(context.user) {
-                    const newCaption = await Caption.create({ caption });
+                    const newCaption = await Caption.create(caption);
 
                     if(!newCaption) {
                         throw new Error('failed to create caption');
@@ -162,9 +162,10 @@ const resolvers = {
             };
         },
         addComment: async (parent, { comment }, context) => {
+            console.log(comment);
             try {
                 if(context.user) {
-                    const newComment = await Comment.create({ comment });
+                    const newComment = await Comment.create(comment);
 
                     if(!newComment) {
                         throw new Error('failed to create comment');
@@ -172,11 +173,11 @@ const resolvers = {
 
                     try {
                         await User.findOneAndUpdate(
-                            { _id: context.user._id},
+                            { _id: comment.user},
                             { $addToSet: {comments: newComment._id}}
                         );
                         await Post.findOneAndUpdate(
-                            { _id: newComment.postId},
+                            { _id: comment.postId},
                             { $addToSet: {comments: newComment._id}}
                         );
                     } catch (error) {
