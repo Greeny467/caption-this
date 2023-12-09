@@ -54,14 +54,20 @@ const typeDefs = gql`
         singleCaption(captionId: ID!): Caption
     }
 
+
+    input voteInput {
+        votePost: ID
+        voteCaption: ID
+    }
+
     input userData {
         _id: ID!
         username: String!
         email: String
-        posts: [Post]
-        captions: [Caption]
-        comments: [Comment]
-        votes: [Vote]
+        posts: [postInput]
+        captions: [captionInput]
+        comments: [commentInput]
+        votes: [voteInput]
     }
 
     input postInput {
