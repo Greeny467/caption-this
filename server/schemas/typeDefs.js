@@ -68,7 +68,7 @@ const typeDefs = gql`
     input captionInput {
         _id: ID
         text: String!
-        user: ID!
+        user: User!
         likes: Int
         postId: ID!
     }
@@ -76,7 +76,7 @@ const typeDefs = gql`
     input commentInput {
         _id: ID
         text: String!
-        user: ID!
+        user: User!
         postId: ID!
     }
 

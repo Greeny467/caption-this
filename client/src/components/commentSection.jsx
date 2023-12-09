@@ -63,7 +63,7 @@ export default function CommentSection(item) {
       variables: {
         comment: {
           text: inputText,
-          user: user._id,
+          user: user,
           postId: post.item._id,
         }
       },
