@@ -3,7 +3,7 @@ const userSchema = require('./User');
 
 const captionSchema = new Schema({
   text: { type: String, required: true },
-  user: { type: userSchema, ref: 'User', required: true },
+  user: { type: userSchema, required: true },
   likes: { type: Number, default: 0 },
   postId: { type: Schema.Types.ObjectId, ref: 'Post', required: true}
 });
