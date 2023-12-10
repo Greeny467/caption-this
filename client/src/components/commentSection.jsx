@@ -100,8 +100,12 @@ export default function CommentSection(item) {
             )
           }
           <section>
+            {console.log(post.comments)}
             {post.comments && Array.isArray(post.comments) && post.comments.map((comment) => (
-              <Comment key={comment.id} item={comment} type="comment" />
+              <>
+                <Comment key={comment.id} item={comment} type="comment" />
+                {console.log(comment)}
+              </>
             ))}
           </section>
 

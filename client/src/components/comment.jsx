@@ -30,29 +30,20 @@ export default function Comment ({item, type}) {
 
     const [voteStyle, setVoteStyle] = useState(voteStyleFinder(user, item));
     
+    return(
+        <>
+            <div>
+                <a href={`/dashboard/${item.user._id}`}>{item.user.username}</a>
+                <p>CreatedAt here</p>
+                <p>{item.text}</p>
+                {type === 'caption' && (
+                    <>
+                        <p>Votes: {item.likes}</p>
+                        <button className={voteStyle} onClick={voteHandler}>Vote</button>
+                    </>
+                )}
+            </div>
+        </>
+    )
 
-    if(type === 'comment') {
-        return(
-            <>
-                <div>
-                    <a href={`/dashboard/${item.user._id}`}>{item.user.username}</a>
-                    <p>{item.createdAt}</p>
-                    <p>{item.text}</p>
-                </div>
-            </>
-        );
-    }
-    else if(type === 'caption') {
-        return(
-            <>
-                <div>
-                    <p>{item.user.username}</p>
-                    <p>{item.createdAt}</p>
-                    <p>{item.text}</p>
-                    <p>Votes: {item.likes}</p>
-                    <button className={voteStyle} onClick={voteHandler} >Vote</button>
-                </div>
-            </>
-        );
-    };
 };
