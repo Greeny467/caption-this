@@ -76,8 +76,13 @@ export default async function vote (user, caption) {
     const captionId = caption._id;
     const postId = caption.postId;
 
-    const voteExists = user.votes.some((vote) => vote.votePost === postId && vote.voteCaption === captionId);
-    const hasVote = user.votes.some((vote) => vote.votePost === postId);
+    let voteExists = false;
+    let hasVote = false;
+
+    if(user.votes.length > 0) {
+        voteExists = user.votes.some((vote) => vote.votePost === postId && vote.voteCaption === captionId);
+        hasVote = user.votes.some((vote) => vote.votePost === postId);
+    }
 
     if(voteExists){
         const {downVoteData} = await changeVote(caption, 'decrease');

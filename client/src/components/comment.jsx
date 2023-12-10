@@ -36,14 +36,19 @@ export default function Comment ({item, type}) {
     }), [loading, error, data, user];
 
     const voteHandler = () => {
-        const updatedUser = vote(user, item);
+        if(user && user.votes && Array.isArray(user.votes)) {
+            const updatedUser = vote(user, item);
         
-        if(!updatedUser) {
-            console.error('something went wrong voting: failed to vote');
+            if(!updatedUser) {
+                console.error('something went wrong voting: failed to vote');
+            }
+            else {
+                setUser(updatedUser);
+            };
         }
-        else {
-            setUser(updatedUser);
-        };
+        else{
+            console.error('issue with user.votes Array');
+        }
     };
 
     
