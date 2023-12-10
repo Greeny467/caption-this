@@ -163,11 +163,11 @@ export default async function vote (user, caption) {
 };
 
 export const voteStyleFinder = async (user, caption) => {
-    const existingVote = user.votes.find((vote) => vote.votePost === postId);
-    if(existingVote) {
-        return('voteBtnOn');
+    for (i = 0; i < user.votes.length; i++) {
+        if(user.votes[i].votePost === caption.postId){
+            return('voteBtnOff');
+        };
     };
-    if(!existingVote) {
-        return('voteBtnOff');
-    };
+
+    return('voteBtnOff');
 };
