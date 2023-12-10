@@ -3,7 +3,10 @@ const userSchema = require('./User');
 
 const commentSchema = new Schema({
   text: { type: String, required: true },
-  user: { type: userSchema, required: true },
+  user: {
+    _id: {type: Schema.Types.ObjectId, ref:'User', required: true},
+    username: {type: String, required: true}
+  },
   postId: { type: Schema.Types.ObjectId, ref:'Post', required: true },
 });
 

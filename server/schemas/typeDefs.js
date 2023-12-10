@@ -55,19 +55,9 @@ const typeDefs = gql`
     }
 
 
-    input voteInput {
-        votePost: ID
-        voteCaption: ID
-    }
-
     input userData {
         _id: ID!
         username: String!
-        email: String
-        posts: [postInput]
-        captions: [captionInput]
-        comments: [commentInput]
-        votes: [voteInput]
     }
 
     input postInput {
