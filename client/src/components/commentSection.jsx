@@ -113,7 +113,7 @@ export default function CommentSection(item) {
         <>
           {Auth.loggedIn() ? (
             <>
-              {user.captions.some((caption)=> caption.postId === post._id) === false ? (
+              {user.captions && Array.isArray(user.captions) && !user.captions.some((caption)=> caption.postId === post._id) ? (
                 <>
                   <form>
                     <input
