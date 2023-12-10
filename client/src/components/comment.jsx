@@ -14,7 +14,7 @@ export default function Comment ({item, type}) {
 
     useEffect(() => {
         const fetchData = async () => {
-          setUser(data);
+          setUser(data.me);
         };
         
         if(!loading && !error && data){
@@ -47,7 +47,6 @@ export default function Comment ({item, type}) {
             };
         }
         else{
-            console.log(user, user.user);
             console.error('issue with user.votes Array');
         }
     };
