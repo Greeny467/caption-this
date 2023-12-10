@@ -7,15 +7,21 @@ import { GET_ME } from '../utils/queries';
 export default function Comment ({item, type}) {
 
     const [user, setUser] = useState({});
-    const currentUser = useQuery(GET_ME);
+    const {loading, error, data} = useQuery(GET_ME);
+
     useEffect(() => {
         const fetchData = async () => {
-          const currentUserData = await currentUser;
-          setUser(currentUserData);
+          setUser(data);
         };
-    
-        fetchData();
-    }, [currentUser]);
+        
+        if(!loading && !error && data){
+            fetchData();
+        }
+        else if (error){
+            console.log(error);
+        };
+
+    }, [loading, error, data]);
 
     const voteHandler = () => {
         const updatedUser = vote(currentUser, item);
