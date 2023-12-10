@@ -11,7 +11,7 @@ import { sortCaptionsCommentSection } from '../utils/sortCaptions';
 
 export default function CommentSection(item) {
   const post = item;
-  const isComments = post.caption !== null;
+  const isComments = post.item.caption !== null;
 
   const [inputText, setInputText] = useState('');
   const [user, setUser] = useState({});
