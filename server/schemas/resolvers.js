@@ -30,7 +30,7 @@ const resolvers = {
         },
         singlePost: async (parent, {requestedPostId}) => {
             try {
-                const post = Post.findOne({_id: requestedPostId});
+                const post = await Post.findOne({_id: requestedPostId});
                 console.log(post);
 
                 return Post.findOne({_id: requestedPostId}).populate(['user', 'captions', 'comments']);
