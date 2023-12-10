@@ -42,7 +42,10 @@ export default function CommentSection(item) {
       variables: {
         caption: {
           text: inputText,
-          user: user._id,
+          user: {
+            _id: user._id,
+            username:user. username
+          },
           postId: post.item._id
         }
       },
