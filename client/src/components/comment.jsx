@@ -8,6 +8,8 @@ import { GET_ME } from '../utils/queries';
 export default function Comment ({item, type}) {
 
     const [user, setUser] = useState({});
+    const [voteStyle, setVoteStyle] = useState('');
+
     const {loading, error, data} = useQuery(GET_ME);
 
     useEffect(() => {
@@ -24,8 +26,14 @@ export default function Comment ({item, type}) {
 
     }, [loading, error, data]);
 
+    useEffect(() => {
+        if (!loading && !error && data) {
+            setVoteStyle(voteStyleFinder(user, item));
+        };
+    }), [loading, error, data, user];
+
     const voteHandler = () => {
-        const updatedUser = vote(currentUser, item);
+        const updatedUser = vote(user, item);
         
         if(!updatedUser) {
             console.error('something went wrong voting: failed to vote');
@@ -35,7 +43,7 @@ export default function Comment ({item, type}) {
         };
     };
 
-    const [voteStyle, setVoteStyle] = useState(voteStyleFinder(user, item));
+    
     
     return(
         <>
