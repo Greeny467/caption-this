@@ -28,7 +28,10 @@ export default function Comment ({item, type}) {
 
     useEffect(() => {
         if (!loading && !error && data) {
-            setVoteStyle(voteStyleFinder(user, item));
+            console.log('USER', user, data, item);
+            if (user && user.votes && Array.isArray(user.votes) && user.votes.length > 0) {
+                setVoteStyle(voteStyleFinder(user, item));
+            }
         };
     }), [loading, error, data, user];
 
