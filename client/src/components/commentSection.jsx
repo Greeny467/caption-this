@@ -142,7 +142,7 @@ export default function CommentSection(item) {
             </>
           )}
           <section>
-            {post.captions && Array.isArray(post.captions) && post.captions.map((caption) => (
+            {post.item.captions && Array.isArray(post.item.captions) && post.item.captions.map((caption) => (
               <Comment key={caption.id} item={caption} type="caption" />
             ))}
           </section>
