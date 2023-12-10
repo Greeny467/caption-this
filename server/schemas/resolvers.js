@@ -41,7 +41,9 @@ const resolvers = {
 
         user: async (parent, {requestedUserId}) => {
             try {
-                return User.findOne({_id: requestedUserId}).populate(['posts captions comments']);
+                const user = await User.findOne({_id: requestedUserId}).populate(['posts captions comments']);
+                console.log(user);
+                return user;
             } catch (error) {
                 console.error(error);
                 throw new Error('failed to find user');
