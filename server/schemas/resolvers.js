@@ -41,6 +41,9 @@ const resolvers = {
 
         user: async (parent, {requestedUserId}) => {
             try {
+                const simpleUser = await User.findOne({_id: requestedUserId});
+                console.log(simpleUser);
+                
                 const user = await User.findOne({_id: requestedUserId}).populate(['posts', 'captions', 'comments']);
                 console.log(user);
                 return user;
