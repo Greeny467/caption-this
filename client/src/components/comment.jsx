@@ -2,7 +2,7 @@ import vote from '../utils/vote';
 import { voteStyleFinder } from '../utils/vote';
 
 import { useState } from 'react';
-import { useQuery } from '@apollo/client';
+import { useQuery, useEffect } from '@apollo/client';
 import { GET_ME } from '../utils/queries';
 
 export default function Comment ({item, type}) {
