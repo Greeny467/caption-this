@@ -163,7 +163,7 @@ export default async function vote (user, caption) {
 };
 
 export const voteStyleFinder = async (user, caption) => {
-    for (i = 0; i < user.votes.length; i++) {
+    for (let i = 0; i < user.votes.length; i++) {
         if(user.votes[i].votePost === caption.postId){
             return('voteBtnOff');
         };
