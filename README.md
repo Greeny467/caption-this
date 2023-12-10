@@ -17,7 +17,8 @@ Social media where users post pictures along with a specified amount of time, in
 ## Deployment
 
 The application is deployed and can be accessed through the following link: 
-<!-- add deployed application link here -->
+https://caption-this-production.up.railway.app/
+
 
 ## Installation
 
