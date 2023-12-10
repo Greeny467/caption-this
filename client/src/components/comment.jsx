@@ -47,6 +47,7 @@ export default function Comment ({item, type}) {
             };
         }
         else{
+            console.log(user, user.user);
             console.error('issue with user.votes Array');
         }
     };
