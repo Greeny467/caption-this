@@ -1,5 +1,4 @@
 import client from '../apollo';
-import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 
 import { ADD_USER_VOTE, REMOVE_USER_VOTE, ADD_VOTE } from './mutations';
 import { SINGLE_CAPTION } from './queries';
@@ -7,7 +6,7 @@ import { SINGLE_CAPTION } from './queries';
 
 const addUserVote = async (postId, captionId) => {
     try {
-        const { data } = await client.mutation({
+        const { data } = await client.mutate({
             mutate: ADD_USER_VOTE,
             variables: {
                 postId: postId,
@@ -24,7 +23,7 @@ const addUserVote = async (postId, captionId) => {
 
 const removeUserVote = async (postId, captionId) => {
     try {
-        const { data } = await client.mutation({
+        const { data } = await client.mutate({
             mutate: REMOVE_USER_VOTE,
             variables: {
                 postId: postId,
@@ -41,7 +40,7 @@ const removeUserVote = async (postId, captionId) => {
 
 const changeVote = async (caption, update) => {
     try {
-        const { data } = await client.mutation({
+        const { data } = await client.mutate({
             mutate: ADD_VOTE,
             variables: { 
                 caption: caption,
