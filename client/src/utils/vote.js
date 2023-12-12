@@ -7,7 +7,7 @@ import { SINGLE_CAPTION } from './queries';
 const addUserVote = async (postId, captionId) => {
     try {
         const { data } = await client.mutate({
-            mutate: ADD_USER_VOTE,
+            mutation: ADD_USER_VOTE,
             variables: {
                 postId: postId,
                 captionId: captionId
@@ -24,7 +24,7 @@ const addUserVote = async (postId, captionId) => {
 const removeUserVote = async (postId, captionId) => {
     try {
         const { data } = await client.mutate({
-            mutate: REMOVE_USER_VOTE,
+            mutation: REMOVE_USER_VOTE,
             variables: {
                 postId: postId,
                 captionId: captionId
@@ -41,7 +41,7 @@ const removeUserVote = async (postId, captionId) => {
 const changeVote = async (caption, update) => {
     try {
         const { data } = await client.mutate({
-            mutate: ADD_VOTE,
+            mutation: ADD_VOTE,
             variables: { 
                 caption: caption,
                 update: update
