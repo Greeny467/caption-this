@@ -66,6 +66,7 @@ export const ALL_POSTS = gql`
                     _id
                     username
                 }
+                likes
                 postId
             }
             comments {

@@ -30,7 +30,7 @@ const typeDefs = gql`
         _id: ID!
         text: String!
         user: User!
-        likes: Int
+        likes: Int!
         postId: ID!
     }
     type Auth {
