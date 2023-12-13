@@ -212,7 +212,10 @@ const resolvers = {
             try {
                 if(context.user){
                     let updateNumber;
-                    if(update === 'increase'){
+                    if(caption.likes === null) {
+                        updateNumber = 1;
+                    }
+                    else if(update === 'increase'){
                         updateNumber = caption.likes + 1;
                     }
                     else if (update === 'decrease'){
