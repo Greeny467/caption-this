@@ -30,6 +30,7 @@ export default function Comment ({item, type}) {
         if (!loading && !error && data) {
             console.log('USER', user, data, item);
             if (user && user.votes && Array.isArray(user.votes) && user.votes.length > 0) {
+                console.log(voteStyleFinder(user, item))
                 setVoteStyle(voteStyleFinder(user, item));
             }
         }
@@ -62,7 +63,7 @@ export default function Comment ({item, type}) {
                 {type === 'caption' && (
                     <>
                         <p>Votes: {item.likes}</p>
-                        
+
                         { voteStyle === 'voteBtnOn' && (
                             <button onClick={voteHandler}>Vote</button>
                         )}
