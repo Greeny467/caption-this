@@ -108,6 +108,7 @@ export const SINGLE_POST = gql`
                     _id
                     username
                 }
+                votes
                 postId
             }
             comments {

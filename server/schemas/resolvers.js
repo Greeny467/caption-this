@@ -269,7 +269,7 @@ const resolvers = {
 
                 }
                 else{
-                    throw new Error('you have to be logged in');Error
+                    throw new Error('you have to be logged in');
                 }
             } catch (error) {
                 console.error(error);
