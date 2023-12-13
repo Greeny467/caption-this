@@ -71,7 +71,9 @@ const findCaption = async (id) => {
     try {
         const { data } = await client.query({
             query: SINGLE_CAPTION,
-            variables: { id },
+            variables: {
+                captionId: id
+            },
         });
 
         return data;
