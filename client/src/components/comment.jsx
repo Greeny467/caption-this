@@ -32,12 +32,12 @@ export default function Comment ({item, type}) {
             if (user && user.votes && Array.isArray(user.votes) && user.votes.length > 0) {
                 setVoteStyle(voteStyleFinder(user, item));
             }
-        };
+        }
     }), [loading, error, data, user];
 
-    const voteHandler = () => {
+    const voteHandler = async () => {
         if(user && user.votes && Array.isArray(user.votes)) {
-            const updatedUser = vote(user, item);
+            const updatedUser = await vote(user, item);
         
             if(!updatedUser) {
                 console.error('something went wrong voting: failed to vote');
