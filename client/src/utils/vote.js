@@ -43,7 +43,10 @@ const changeVote = async (caption, update) => {
     const mutationCaption = {
         _id : caption._id,
         text : caption.text,
-        user : caption.user,
+        user : {
+            _id: caption.user._id,
+            username: caption.user._id
+        },
         postId : caption.postId,
     }
     try {
