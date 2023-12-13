@@ -62,7 +62,11 @@ export default function Comment ({item, type}) {
                 {type === 'caption' && (
                     <>
                         <p>Votes: {item.likes}</p>
-                        <button className={voteStyle} onClick={voteHandler}>Vote</button>
+                        
+                        { voteStyle === 'voteBtnOn' && (
+                            <button onClick={voteHandler}>Vote</button>
+                        )}
+                        
                     </>
                 )}
             </div>
