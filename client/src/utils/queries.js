@@ -21,6 +21,7 @@ export const GET_ME = gql`
                     _id
                     username
                 }
+                likes
                 postId
             }
             comments {
@@ -96,6 +97,7 @@ export const SINGLE_POST = gql`
                     _id
                     username
                 }
+                likes
                 postId
             }
             captions {
@@ -141,6 +143,7 @@ export const USER = gql`
                     _id
                     username
                 }
+                likes
                 postId
             }
             comments {

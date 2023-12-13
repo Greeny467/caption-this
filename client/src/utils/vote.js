@@ -47,6 +47,7 @@ const changeVote = async (caption, update) => {
             _id: caption.user._id,
             username: caption.user._id
         },
+        likes: caption.likes,
         postId : caption.postId,
     }
     try {

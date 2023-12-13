@@ -109,6 +109,7 @@ export const ADD_USER_VOTE = gql`
                     _id
                     username
                 }
+                likes
                 postId
             }
             comments {
@@ -149,6 +150,7 @@ export const REMOVE_USER_VOTE = gql`
                     _id
                     username
                 }
+                likes
                 postId
             }
             comments {
