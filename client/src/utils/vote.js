@@ -161,7 +161,7 @@ export default async function vote (user, caption) {
             throw new Error('failed to create userVote');
         };
 
-        const {upVoteData} = await changeVote(caption, 'increase');
+        const upVoteData = await changeVote(caption, 'increase');
 
         if(!upVoteData) {
             throw new Error('failed to increase caption vote for initial vote.');
