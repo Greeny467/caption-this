@@ -39,6 +39,13 @@ const removeUserVote = async (postId, captionId) => {
 };
 
 const changeVote = async (caption, update) => {
+
+    const mutationCaption = {
+        _id : caption._id,
+        text : caption.text,
+        user : caption.user,
+        postId : caption.postId,
+    }
     try {
         const { data } = await client.mutate({
             mutation: ADD_VOTE,
