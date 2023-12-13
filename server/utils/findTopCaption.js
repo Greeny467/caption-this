@@ -1,7 +1,7 @@
 const findTopCaption = (captions) => {
     let topCaption = captions[0];
     captions.forEach(caption => {
-        if(caption.likes > topCaption.likes){
+        if(caption.votes > topCaption.votes){
             topCaption = caption;
         };
     });

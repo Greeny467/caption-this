@@ -214,19 +214,19 @@ const resolvers = {
             try {
                 if(context.user){
                     let updateNumber;
-                    if(caption.likes === null) {
+                    if(caption.votes === null) {
                         updateNumber = 1;
                     }
                     else if(update === 'increase'){
-                        updateNumber = caption.likes + 1;
+                        updateNumber = caption.votes + 1;
                     }
                     else if (update === 'decrease'){
-                        updateNumber = caption.likes - 1;
+                        updateNumber = caption.votes - 1;
                     };
 
                     const updatedCaption = await Caption.findOneAndUpdate(
                         {_id: caption._id},
-                        {likes: updateNumber},
+                        {votes: updateNumber},
                         {new: true}
                     );
 

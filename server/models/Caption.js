@@ -7,7 +7,7 @@ const captionSchema = new Schema({
     _id: {type: Schema.Types.ObjectId, ref: 'User', required: true},
     username: {type: String, required: true}
   },
-  likes: { type: Number, default: 0 },
+  votes: { type: Number, default: 0 },
   postId: { type: Schema.Types.ObjectId, ref: 'Post', required: true}
 });
 

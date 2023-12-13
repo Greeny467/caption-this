@@ -18,7 +18,7 @@ function mergeDescending(left, right) {
     let rightIndex = 0;
 
     while (leftIndex < left.length && rightIndex < right.length) {
-        if (left[leftIndex].likes > right[rightIndex].likes) {
+        if (left[leftIndex].votes > right[rightIndex].votes) {
             result.push(left[leftIndex]);
             leftIndex++;
         } else {

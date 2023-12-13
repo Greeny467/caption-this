@@ -21,7 +21,7 @@ export const GET_ME = gql`
                     _id
                     username
                 }
-                likes
+                votes
                 postId
             }
             comments {
@@ -66,7 +66,7 @@ export const ALL_POSTS = gql`
                     _id
                     username
                 }
-                likes
+                votes
                 postId
             }
             comments {
@@ -98,7 +98,7 @@ export const SINGLE_POST = gql`
                     _id
                     username
                 }
-                likes
+                votes
                 postId
             }
             captions {
@@ -144,7 +144,7 @@ export const USER = gql`
                     _id
                     username
                 }
-                likes
+                votes
                 postId
             }
             comments {
@@ -171,7 +171,7 @@ export const SINGLE_CAPTION = gql`
             _id
             text
             user 
-            likes
+            votes
             postId
         }
     }
