@@ -171,7 +171,10 @@ export const SINGLE_CAPTION = gql`
         singleCaption(captionId: $captionId){
             _id
             text
-            user 
+            user{
+                _id
+                username
+            }
             votes
             postId
         }
