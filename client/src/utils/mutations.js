@@ -94,12 +94,12 @@ export const ADD_USER_VOTE = gql`
             _id
             username
             email
-            posts
-            captions
-            comments
+            posts {...}
+            captions {...}
+            comments {...}
             votes {
-                postId
-                captionId
+                votePost
+                voteCaption
             }
         }
     }
@@ -111,12 +111,12 @@ export const REMOVE_USER_VOTE = gql`
             _id
             username
             email
-            posts
-            captions
-            comments
+            posts {...}
+            captions {...}
+            comments {...}
             votes {
-                postId
-                captionId
+                votePost
+                voteCaption
             }
         }
     }
