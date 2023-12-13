@@ -94,9 +94,32 @@ export const ADD_USER_VOTE = gql`
             _id
             username
             email
-            posts {...}
-            captions {...}
-            comments {...}
+            posts {
+                _id
+                user {
+                    _id
+                    username
+                }
+                imageURL
+            }
+            captions {
+                _id
+                text
+                user {
+                    _id
+                    username
+                }
+                postId
+            }
+            comments {
+                _id
+                text
+                user {
+                    _id
+                    username
+                }
+                postId
+            }
             votes {
                 votePost
                 voteCaption
@@ -111,9 +134,32 @@ export const REMOVE_USER_VOTE = gql`
             _id
             username
             email
-            posts {...}
-            captions {...}
-            comments {...}
+            posts {
+                _id
+                user {
+                    _id
+                    username
+                }
+                imageURL
+            }
+            captions {
+                _id
+                text
+                user {
+                    _id
+                    username
+                }
+                postId
+            }
+            comments {
+                _id
+                text
+                user {
+                    _id
+                    username
+                }
+                postId
+            }
             votes {
                 votePost
                 voteCaption
