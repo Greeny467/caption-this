@@ -50,7 +50,7 @@ const changeVote = async (caption, update) => {
         const { data } = await client.mutate({
             mutation: ADD_VOTE,
             variables: { 
-                caption: caption,
+                caption: mutationCaption,
                 update: update
              },
         });
