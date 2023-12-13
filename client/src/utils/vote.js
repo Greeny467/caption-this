@@ -173,5 +173,5 @@ export const voteStyleFinder = async (user, caption) => {
         };
     };
 
-    return('voteBtnOff');
+    return('voteBtnOn');
 };
