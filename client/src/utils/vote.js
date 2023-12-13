@@ -151,7 +151,7 @@ export default async function vote (user, caption) {
     };
 
     if(!hasVote){
-        const {addUserVoteData} = await addUserVote(postId, captionId);
+        const addUserVoteData = await addUserVote(postId, captionId);
 
         if(!addUserVoteData) {
             throw new Error('failed to create userVote');
