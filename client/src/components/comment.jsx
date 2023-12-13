@@ -33,7 +33,7 @@ export default function Comment ({item, type}) {
                 setVoteStyle(voteStyleFinder(user, item));
             }
         }
-    }), [loading, error, data, user];
+    }, [loading, error, data, user]);
 
     const voteHandler = async () => {
         if(user && user.votes && Array.isArray(user.votes)) {
