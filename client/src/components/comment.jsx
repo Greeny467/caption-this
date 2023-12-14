@@ -27,17 +27,19 @@ export default function Comment ({item, type}) {
     }, [loading, error, data]);
 
     useEffect(() => {
-        if (!loading && !error && data) {
-            console.log('USER', user, data, item);
+        if (user !== null) {
             if (user && user.votes && Array.isArray(user.votes) && user.votes.length > 0) {
-                setVoteStyle(voteStyleFinder(user, item));
-                console.log('styleCheck:', voteStyleFinder(user,item));
+                const setVote = async () => {
+                    const newVoteStyle = await voteStyleFinder(user, item);
+                    setVoteStyle(newVoteStyle)
+                };
+
+                setVote();
             }
             else if (user && user.votes && Array.isArray(user.votes) && user.votes.length === 0){
                 setVoteStyle('voteBtnOn');
             };
         }
-        console.log('voteStyle:', voteStyle)
     }, [loading, error, data, user]);
 
     const voteHandler = async () => {
