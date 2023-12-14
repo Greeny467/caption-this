@@ -21,7 +21,7 @@ export default function Comment ({item, type}) {
             fetchData();
         }
         else if (error){
-            console.log(error);
+            console.error(error);
         };
 
     }, [loading, error, data]);
@@ -73,9 +73,7 @@ export default function Comment ({item, type}) {
                         { voteStyle === 'voteBtnOn' ? (
                             <button className={voteStyle} onClick={voteHandler}>Vote</button>
                         ):(
-                            <>
-                                <p>votebutton</p>
-                            </>
+                            <button className={voteStyle} onClick={voteHandler}>Remove Vote</button>
                         )}
                         
                     </>

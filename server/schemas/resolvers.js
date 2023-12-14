@@ -280,13 +280,11 @@ const resolvers = {
             try {
                 if(context.user){
                     const user = await User.findById(context.user._id);
-                    console.log('BACKEND:',user);
 
                     if(!user){
                         throw Error('failed to find user');
                     }
 
-                    console.log('BACKEND:', user.votes, JSON.stringify(user.votes[0].votePost), JSON.stringify(user.votes[0].voteCaption), captionId, postId, user.votes.some((vote) => vote.votePost === postId && vote.voteCaption === captionId))
                     if(!user.votes.some((vote) => JSON.stringify(vote.votePost) === JSON.stringify(postId) && JSON.stringify(vote.voteCaption) === JSON.stringify(captionId))){
                         throw Error('vote does not exist');
                     }

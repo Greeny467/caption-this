@@ -17,14 +17,12 @@ const Login = () => {
   const [login, { loading, error }] = useMutation(LOGIN_USER, {
     onCompleted: ({ login }) => {
       // Handle successful login
-      console.log(login);
     },
   });
 
   const [signup, {SUloading, SUerror}] = useMutation(ADD_USER, {
     onCompleted: ({ signup }) => {
       // Handle successful signup
-      console.log(signup);
     }
   })
 
@@ -33,13 +31,13 @@ const Login = () => {
       const {data} = await login({ variables: { email, password } });
 
       if(!data){
-        console.log('Something went wrong logging in');
+        console.error('Something went wrong logging in');
       };
 
       const {token, user} = data.login;
       Auth.login(token);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -48,7 +46,7 @@ const Login = () => {
       const {data} = await signup({ variables: {username, email, password}});
 
     if(!data) {
-      console.log('something went wrong signup');
+      console.error('something went wrong signup');
     };
 
     const {token, user} = data.addUser;

@@ -61,7 +61,6 @@ export default function CommentSection(item) {
   const submitCommentHandler = async (e) => {
     e.preventDefault();
 
-    console.log(inputText, user._id, post.item._id, user, post)
     const newComment = await addComment({
       variables: {
         comment: {
@@ -106,7 +105,6 @@ export default function CommentSection(item) {
             {post.item.comments && Array.isArray(post.item.comments) && post.item.comments.map((comment) => (
               <>
                 <Comment key={comment.id} item={comment} type="comment" />
-                {console.log(comment)}
               </>
             ))}
           </section>

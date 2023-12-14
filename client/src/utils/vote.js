@@ -103,7 +103,7 @@ export default async function vote (user, caption) {
             throw new Error('failed to remove vote from caption');
         }
 
-        const {removeUserVoteData} = await removeUserVote(postId, captionId);
+        const removeUserVoteData = await removeUserVote(postId, captionId);
 
         if(!removeUserVoteData) {
             throw new Error('failed to remove vote from user');
@@ -116,7 +116,6 @@ export default async function vote (user, caption) {
         const existingVote = user.votes.find((vote) => vote.votePost === postId);
         const oldCaption = await findCaption(existingVote.voteCaption);
 
-        console.log(oldCaption);
         if(!oldCaption){
             throw new Error('failed to get old caption');
         }
@@ -158,7 +157,7 @@ export default async function vote (user, caption) {
             throw new Error('failed to create userVote');
         };
 
-        const {upVoteData} = await changeVote(caption, 'increase');
+        const upVoteData = await changeVote(caption, 'increase');
 
         if(!upVoteData) {
             throw new Error('failed to increase caption vote for initial vote.');
