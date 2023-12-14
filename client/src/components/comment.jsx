@@ -31,11 +31,13 @@ export default function Comment ({item, type}) {
             console.log('USER', user, data, item);
             if (user && user.votes && Array.isArray(user.votes) && user.votes.length > 0) {
                 setVoteStyle(voteStyleFinder(user, item));
+                console.log('styleCheck:', voteStyleFinder(user,item));
             }
             else if (user && user.votes && Array.isArray(user.votes) && user.votes.length === 0){
                 setVoteStyle('voteBtnOn');
             };
         }
+        console.log('voteStyle:', voteStyle)
     }, [loading, error, data, user]);
 
     const voteHandler = async () => {
