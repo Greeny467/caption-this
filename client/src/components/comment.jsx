@@ -40,14 +40,14 @@ export default function Comment ({item, type}) {
 
     const voteHandler = async () => {
         if(user && user.votes && Array.isArray(user.votes)) {
-            const updatedUser = await vote(user, item);
-        
-            if(!updatedUser) {
-                console.error('something went wrong voting: failed to vote');
+            const userVote = await vote(user, item);
+
+            if(userVote === true) {
+                return;
             }
-            else {
-                setUser(updatedUser);
-            };
+            else{
+                console.error('something went wrong voting');
+            }
         }
         else{
             console.error('issue with user.votes Array');
@@ -62,7 +62,7 @@ export default function Comment ({item, type}) {
                 <a href={`/dashboard/${item.user._id}`}>{item.user.username}</a>
                 <p>CreatedAt here</p>
                 <p>{item.text}</p>
-                {type === 'caption' && (
+                {type === 'caption' ? (
                     <>
                         <p>Votes: {item.votes}</p>
 
@@ -70,6 +70,10 @@ export default function Comment ({item, type}) {
                             <button onClick={voteHandler}>Vote</button>
                         )}
                         
+                    </>
+                ):(
+                    <>
+                        <button>Voted</button>
                     </>
                 )}
             </div>

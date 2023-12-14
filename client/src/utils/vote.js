@@ -71,9 +71,7 @@ const findCaption = async (id) => {
     try {
         const { data } = await client.query({
             query: SINGLE_CAPTION,
-            variables: {
-                captionId: id 
-            },
+            variables: { id },
         });
 
         return data;
@@ -109,13 +107,7 @@ export default async function vote (user, caption) {
             throw new Error('failed to remove vote from user');
         };
 
-        const updatedCaption = await findCaption(captionId);
-
-        if(!updatedCaption) {
-            throw new Error('failed to find downvoted caption');
-        };
-
-        return updatedCaption;
+        return true;
     }
 
     if(hasVote){
@@ -146,14 +138,8 @@ export default async function vote (user, caption) {
             throw new Error('failed to increase caption vote');
         }
 
+        return true;
 
-        const newCaption = await findCaption(captionId);
-
-        if(!newCaption) {
-            throw new Error('failed to find new caption');
-        };
-
-        return newCaption;
     };
 
     if(!hasVote){
@@ -163,19 +149,13 @@ export default async function vote (user, caption) {
             throw new Error('failed to create userVote');
         };
 
-        const upVoteData = await changeVote(caption, 'increase');
+        const {upVoteData} = await changeVote(caption, 'increase');
 
         if(!upVoteData) {
             throw new Error('failed to increase caption vote for initial vote.');
         };
 
-        const newCaption = await findCaption(captionId);
-
-        if(!newCaption) {
-            throw new Error('failed to find updated caption');
-        };
-
-        return newCaption;
+        return true;
     }
 };
 
@@ -184,7 +164,7 @@ export const voteStyleFinder = async (user, caption) => {
         return('voteBtnOn');
     };
     for (let i = 0; i < user.votes.length; i++) {
-        if(user.votes[i].votePost === caption.postId){
+        if(user.votes[i].voteCaption === caption._id){
             return('voteBtnOff');
         };
     };
