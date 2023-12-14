@@ -76,7 +76,7 @@ const findCaption = async (id) => {
             },
         });
 
-        return data;
+        return data.singleCaption;
     } catch (error) {
         console.error(error);
         return null; 
@@ -121,31 +121,33 @@ export default async function vote (user, caption) {
             throw new Error('failed to get old caption');
         }
 
-        const downVoteData = await changeVote(oldCaption, 'decrease');
+        if(oldCaption && oldCaption != undefined){
+            const downVoteData = await changeVote(oldCaption, 'decrease');
 
-        if(!downVoteData) {
-            throw new Error('failed to decrease caption vote');
-        };
+            if(!downVoteData) {
+                throw new Error('failed to decrease caption vote');
+            };
 
-        const {removeUserVoteData} = await removeUserVote(existingVote.votePost, existingVote.voteCaption);
+            const {removeUserVoteData} = await removeUserVote(existingVote.votePost, existingVote.voteCaption);
 
-        if(!removeUserVoteData) {
-            throw new Error('failed to remove vote from user');
+            if(!removeUserVoteData) {
+                throw new Error('failed to remove vote from user');
+            }
+
+            const {addUserVoteData} = await addUserVote(postId, captionId);
+
+            if(!addUserVoteData) {
+                throw new Error('failed to add new vote to user');
+            };
+
+            const {upVoteData} = await changeVote(caption, 'increase');
+
+            if(!upVoteData) {
+                throw new Error('failed to increase caption vote');
+            }
+
+            return true;
         }
-
-        const {addUserVoteData} = await addUserVote(postId, captionId);
-
-        if(!addUserVoteData) {
-            throw new Error('failed to add new vote to user');
-        };
-
-        const {upVoteData} = await changeVote(caption, 'increase');
-
-        if(!upVoteData) {
-            throw new Error('failed to increase caption vote');
-        }
-
-        return true;
 
     };
 
