@@ -62,18 +62,18 @@ export default function Comment ({item, type}) {
                 <a href={`/dashboard/${item.user._id}`}>{item.user.username}</a>
                 <p>CreatedAt here</p>
                 <p>{item.text}</p>
-                {type === 'caption' ? (
+                {type === 'caption' && (
                     <>
                         <p>Votes: {item.votes}</p>
 
-                        { voteStyle === 'voteBtnOn' && (
-                            <button onClick={voteHandler}>Vote</button>
+                        { voteStyle === 'voteBtnOn' ? (
+                            <button className={voteStyle} onClick={voteHandler}>Vote</button>
+                        ):(
+                            <>
+                                <p>votebutton</p>
+                            </>
                         )}
                         
-                    </>
-                ):(
-                    <>
-                        <button>Voted</button>
                     </>
                 )}
             </div>
