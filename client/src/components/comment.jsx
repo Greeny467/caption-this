@@ -1,6 +1,8 @@
 import vote from '../utils/vote';
 import { voteStyleFinder } from '../utils/vote';
 
+import AUTH from '../utils/auth';
+
 import { useState, useEffect} from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_ME } from '../utils/queries';
@@ -70,10 +72,16 @@ export default function Comment ({item, type}) {
                     <>
                         <p>Votes: {item.votes}</p>
 
-                        { voteStyle === 'voteBtnOn' ? (
-                            <button className={voteStyle} onClick={voteHandler}>Vote</button>
+                        {AUTH.loggedIn() ? (
+                            <>
+                                { voteStyle === 'voteBtnOn' ? (
+                                    <button className={voteStyle} onClick={voteHandler}>Vote</button>
+                                ):(
+                                    <button className={voteStyle} onClick={voteHandler}>Remove Vote</button>
+                                )}
+                            </>
                         ):(
-                            <button className={voteStyle} onClick={voteHandler}>Remove Vote</button>
+                            <p>Login to vote!</p>
                         )}
                         
                     </>
