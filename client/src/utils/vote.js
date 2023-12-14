@@ -97,7 +97,7 @@ export default async function vote (user, caption) {
     }
 
     if(voteExists){
-        const {downVoteData} = await changeVote(caption, 'decrease');
+        const downVoteData = await changeVote(caption, 'decrease');
 
         if(!downVoteData){
             throw new Error('failed to remove vote from caption');
@@ -116,7 +116,12 @@ export default async function vote (user, caption) {
         const existingVote = user.votes.find((vote) => vote.votePost === postId);
         const oldCaption = await findCaption(existingVote.voteCaption);
 
-        const {downVoteData} = await changeVote(oldCaption, 'decrease');
+        console.log(oldCaption);
+        if(!oldCaption){
+            throw new Error('failed to get old caption');
+        }
+
+        const downVoteData = await changeVote(oldCaption, 'decrease');
 
         if(!downVoteData) {
             throw new Error('failed to decrease caption vote');
