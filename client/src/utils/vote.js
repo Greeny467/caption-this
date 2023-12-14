@@ -72,7 +72,7 @@ const findCaption = async (id) => {
         const { data } = await client.query({
             query: SINGLE_CAPTION,
             variables: {
-                captionId: id
+                captionId: id 
             },
         });
 
@@ -108,6 +108,14 @@ export default async function vote (user, caption) {
         if(!removeUserVoteData) {
             throw new Error('failed to remove vote from user');
         };
+
+        const updatedCaption = await findCaption(captionId);
+
+        if(!updatedCaption) {
+            throw new Error('failed to find downvoted caption');
+        };
+
+        return updatedCaption;
     }
 
     if(hasVote){
@@ -138,6 +146,14 @@ export default async function vote (user, caption) {
             throw new Error('failed to increase caption vote');
         }
 
+
+        const newCaption = await findCaption(captionId);
+
+        if(!newCaption) {
+            throw new Error('failed to find new caption');
+        };
+
+        return newCaption;
     };
 
     if(!hasVote){
@@ -153,6 +169,13 @@ export default async function vote (user, caption) {
             throw new Error('failed to increase caption vote for initial vote.');
         };
 
+        const newCaption = await findCaption(captionId);
+
+        if(!newCaption) {
+            throw new Error('failed to find updated caption');
+        };
+
+        return newCaption;
     }
 };
 
