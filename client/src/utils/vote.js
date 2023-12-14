@@ -128,19 +128,19 @@ export default async function vote (user, caption) {
                 throw new Error('failed to decrease caption vote');
             };
 
-            const {removeUserVoteData} = await removeUserVote(existingVote.votePost, existingVote.voteCaption);
+            const removeUserVoteData = await removeUserVote(existingVote.votePost, existingVote.voteCaption);
 
             if(!removeUserVoteData) {
                 throw new Error('failed to remove vote from user');
             }
 
-            const {addUserVoteData} = await addUserVote(postId, captionId);
+            const addUserVoteData = await addUserVote(postId, captionId);
 
             if(!addUserVoteData) {
                 throw new Error('failed to add new vote to user');
             };
 
-            const {upVoteData} = await changeVote(caption, 'increase');
+            const upVoteData = await changeVote(caption, 'increase');
 
             if(!upVoteData) {
                 throw new Error('failed to increase caption vote');
