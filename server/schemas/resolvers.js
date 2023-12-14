@@ -286,7 +286,7 @@ const resolvers = {
                         throw Error('failed to find user');
                     }
 
-                    console.log('BACKEND:', user.votes, captionId, postId)
+                    console.log('BACKEND:', user.votes, captionId, postId, user.votes.some((vote) => vote.votePost === postId && vote.voteCaption === captionId))
                     if(!user.votes.some((vote) => vote.votePost === postId && vote.voteCaption === captionId)){
                         throw Error('vote does not exist');
                     }
