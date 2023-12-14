@@ -280,11 +280,13 @@ const resolvers = {
             try {
                 if(context.user){
                     const user = await User.findById(context.user._id);
+                    console.log('BACKEND:',user);
 
                     if(!user){
                         throw Error('failed to find user');
                     }
 
+                    console.log('BACKEND:', user.votes, captionId, postId)
                     if(!user.votes.some((vote) => vote.votePost === postId && vote.voteCaption === captionId)){
                         throw Error('vote does not exist');
                     }
