@@ -31,7 +31,6 @@ const resolvers = {
         singlePost: async (parent, {requestedPostId}) => {
             try {
                 const post = await Post.findOne({_id: requestedPostId}).populate(['user', 'captions', 'comments']);
-                console.log(post);
                 return post
             } catch (error) {
                 console.error(error);
@@ -45,7 +44,6 @@ const resolvers = {
             try {
 
                 const user = await User.findOne({_id: requestedUserId}).populate(['posts', 'captions', 'comments']);
-                console.log(user);
                 return user;
             } catch (error) {
                 console.error(error);
@@ -104,12 +102,12 @@ const resolvers = {
                     }
 
                     const updateUser = await User.findOneAndUpdate(
-                        { _id: context.user._id},
+                        { _id: post.user._id},
                         { $addToSet: {posts: post._id} }
                     );
 
                     if(!updateUser) {
-                        throw new Error(`failed to update user ${context.user._id}`);
+                        throw new Error(`failed to update user ${post.user._id}`);
                     }
 
                     const newPost = Post.findById(createdPost._id).populate('user');
@@ -329,10 +327,10 @@ const resolvers = {
                         const updatedPost = await Post.findByIdAndUpdate(post, { $set: { caption: topCaption._id } });
 
                         if(!updatedPost) {
-                            console.log('failed to update post with new caption. Post in question:', post);
+                            console.error('failed to update post with new caption. Post in question:', post);
                         }
                         else{
-                            console.log('succeeded in updating post with new caption. Post in question:', post);
+                            console.error('succeeded in updating post with new caption. Post in question:', post);
                         };
                     };
 

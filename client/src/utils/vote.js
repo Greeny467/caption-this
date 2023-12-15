@@ -168,7 +168,6 @@ export default async function vote (user, caption) {
 };
 
 export const voteStyleFinder = async (user, caption) => {
-    console.log(caption.user._id, user._id, 'here')
     if(caption.user._id === user._id){
         return('voteBtnDisabled');
     };

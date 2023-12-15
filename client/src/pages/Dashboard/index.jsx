@@ -23,8 +23,6 @@ export default function Dashboard() {
     const fetchData = async () => {
       try {
         if (!loading && !error && data) {
-          setDashboardUser(data.user);
-          console.log('user:', dashboardUser);
           console.log('data:', data.user)
         }
       } catch (error) {
@@ -50,13 +48,17 @@ export default function Dashboard() {
               <div>
                 <h3>Posts:</h3>
                 {dashboardUser.posts.map((post) => (
-                  <Post post={post} user={dashboardUser}/>
+                  <a href={`/posts/${post._id}`}>
+                    <Post post={post} user={dashboardUser}/>
+                  </a>
                 ))}
               </div>
               <div>
                 <h3>Captions:</h3>
                 {dashboardUser.captions.map((caption) => (
-                  <Comment item={caption} type='caption'/>
+                  <a href={`/posts/${caption.postId}`}>
+                    <Comment item={caption} type='caption'/>
+                  </a>
                 ))}
               </div>
             </section>
