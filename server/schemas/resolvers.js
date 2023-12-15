@@ -95,9 +95,8 @@ const resolvers = {
             try{
                 if(context.user) {
 
-                    console.log(post);
                     const createdPost = await Post.create(post);
-
+                    console.log(createdPost)
                     if(!createdPost) {
                         throw new Error('failed to create post');
                     }
