@@ -95,6 +95,7 @@ const resolvers = {
             try{
                 if(context.user) {
 
+                    console.log(post);
                     const createdPost = await Post.create(post);
 
                     if(!createdPost) {

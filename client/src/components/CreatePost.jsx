@@ -56,7 +56,7 @@ export default function CreatePost() {
 
 
     if(!url){
-      console.log('failed to upload to imgur');
+      console.error('failed to upload to imgur');
       return
     };
 
@@ -75,11 +75,10 @@ export default function CreatePost() {
         },
       });
       if(!response){
-        console.log('failed to addPost');
+        console.error('failed to addPost');
       };
 
       try {
-        console.log(response);
         const timerSet = await setTimedCaption({
           variables: {
             time: timer,
@@ -91,7 +90,7 @@ export default function CreatePost() {
           console.error('failed to set timer', timerSet.message);
         }
         else{
-          console.log(timerSet.message);
+          console.error(timerSet.message);
         };
 
       } catch (error) {
