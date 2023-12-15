@@ -103,12 +103,12 @@ const resolvers = {
                     }
 
                     const updateUser = await User.findOneAndUpdate(
-                        { _id: post.user._id},
-                        { $addToSet: {posts: post._id} }
+                        { _id: post.user},
+                        { $addToSet: {posts: createdPost._id} }
                     );
 
                     if(!updateUser) {
-                        throw new Error(`failed to update user ${post.user._id}`);
+                        throw new Error(`failed to update user ${post.user}`);
                     }
 
                     const newPost = Post.findById(createdPost._id).populate('user');
