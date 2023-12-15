@@ -23,6 +23,7 @@ export default function Dashboard() {
     const fetchData = async () => {
       try {
         if (!loading && !error && data) {
+          setDashboardUser(data.user);
           console.log('data:', data.user)
         }
       } catch (error) {
