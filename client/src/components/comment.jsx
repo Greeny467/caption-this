@@ -30,7 +30,7 @@ export default function Comment ({item, type}) {
 
     useEffect(() => {
         if (user !== null) {
-            if (user && user.votes && Array.isArray(user.votes) && user.votes.length > 0) {
+            if (user && user.votes && Array.isArray(user.votes)) {
                 const setVote = async () => {
                     const newVoteStyle = await voteStyleFinder(user, item);
                     setVoteStyle(newVoteStyle)
@@ -38,9 +38,6 @@ export default function Comment ({item, type}) {
 
                 setVote();
             }
-            else if (user && user.votes && Array.isArray(user.votes) && user.votes.length === 0){
-                setVoteStyle('voteBtnOn');
-            };
         }
     }, [loading, error, data, user]);
 
