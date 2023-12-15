@@ -43,7 +43,11 @@ const resolvers = {
         user: async (parent, {requestedUserId}) => {
             try {
 
-                const user = await User.findOne({_id: requestedUserId}).populate(['posts', 'captions', 'comments']);
+                const user = await User.findOne({_id: requestedUserId}).populate([
+                    { path: 'posts', populate: { path: 'user' } }, 
+                    'captions', 
+                    'comments'
+                ]);
                 return user;
             } catch (error) {
                 console.error(error);
