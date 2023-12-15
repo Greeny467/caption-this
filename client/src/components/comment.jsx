@@ -74,10 +74,14 @@ export default function Comment ({item, type}) {
 
                         {AUTH.loggedIn() ? (
                             <>
-                                { voteStyle === 'voteBtnOn' ? (
-                                    <button className={voteStyle} onClick={voteHandler}>Vote</button>
-                                ):(
-                                    <button className={voteStyle} onClick={voteHandler}>Remove Vote</button>
+                                {voteStyle !== 'voteBtnDisabled' && (
+                                    <>
+                                        { voteStyle === 'voteBtnOn' ? (
+                                            <button className={voteStyle} onClick={voteHandler}>Vote</button>
+                                        ):(
+                                            <button className={voteStyle} onClick={voteHandler}>Remove Vote</button>
+                                        )}
+                                    </>
                                 )}
                             </>
                         ):(
