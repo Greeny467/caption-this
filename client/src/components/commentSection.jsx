@@ -124,9 +124,7 @@ export default function CommentSection(item) {
         <>
           {Auth.loggedIn() ? (
             <>
-              {user.captions && Array.isArray(user.captions) && !user.captions.some((caption)=> caption.postId === post._id) ? (
-                <>
-                  <form>
+              <form>
                     <input
                       onChange={textHandler}
                       id="captionText"
@@ -136,13 +134,7 @@ export default function CommentSection(item) {
                     <button name="submit" id="submit" onClick={submitCaptionHandler}>
                       Submit
                     </button>
-                  </form>
-                </>
-              ):(
-                <>
-                  <h3>You already made a caption for this post</h3>
-                </>
-              )}
+                </form>
             </>
           ):(
             <>
