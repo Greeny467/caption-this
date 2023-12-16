@@ -8,8 +8,6 @@ import { useMutation, useQuery } from '@apollo/client';
 import { ADD_CAPTION, ADD_COMMENT } from '../utils/mutations';
 import { GET_ME } from '../utils/queries';
 
-import { sortCaptionsCommentSection } from '../utils/sortCaptions';
-
 export default function CommentSection(item) {
   const post = item;
   const isComments = post.item.caption !== null;
