@@ -265,7 +265,7 @@ const resolvers = {
                             voteCaption: captionId
                         }}},
                         { new: true }
-                    ).populate(['posts', 'captions', 'comments']);
+                    ).populate([{ path: 'posts', populate: { path: 'user' } }, 'captions', 'comments']);
 
                     if(!updatedUser){
                         throw new Error('failed to create vote');
@@ -302,7 +302,7 @@ const resolvers = {
                             voteCaption: captionId
                         }}},
                         { new: true}
-                    ).populate(['posts', 'captions', 'comments']);
+                    ).populate([{ path: 'posts', populate: { path: 'user' } }, 'captions', 'comments']);
 
                     if(!updatedUser){
                         throw new Error('failed to remove vote');
