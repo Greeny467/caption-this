@@ -5,6 +5,7 @@ import { SINGLE_POST } from '../../utils/queries';
 import { useQuery } from '@apollo/client';
 
 import CommentSection from '../../components/commentSection';
+import Leaderboard from '../../components/leaderboard';
 
 export default function PostPage () {
     const {postId} = useParams();
@@ -78,7 +79,7 @@ export default function PostPage () {
                         {pageType === 'post' ? (
                             <CommentSection item={post}/>
                         ):(
-                            <h1>Leaderboard</h1>
+                            <Leaderboard post={post}/>
                         )}
 
                     </div>

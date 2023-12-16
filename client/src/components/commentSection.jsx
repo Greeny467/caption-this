@@ -1,6 +1,7 @@
 import Comment from './comment';
 
 import Auth from '../utils/auth';
+import { sortCaptionsCommentSection, sortCaptionsDescending } from '../utils/sortCaptions';
 
 import { useState, useEffect } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
@@ -15,6 +16,8 @@ export default function CommentSection(item) {
 
   const [inputText, setInputText] = useState('');
   const [user, setUser] = useState({});
+  const [comments, setComments] = useState([]);
+
   const [addCaption, { captionError }] = useMutation(ADD_CAPTION);
   const [addComment, { commentError }] = useMutation(ADD_COMMENT);
   const { loading, error, data } = useQuery(GET_ME);
@@ -27,9 +30,18 @@ export default function CommentSection(item) {
         }
         else{
           setUser(data.me);
+
+          if(post.item.captions && Array.isArray(post.item.captions)){
+            setComments(sortCaptionsCommentSection(post.item.captions, data.me._id));
+          }
         };
       };
-    };
+    }
+    else{
+      if(post.item.captions && Array.isArray(post.item.captions)){
+        setComments(sortCaptionsDescending(post.item.captions));
+      }
+    }
   }, [loading, error, data]);
 
   const textHandler = (e) => {
@@ -102,7 +114,7 @@ export default function CommentSection(item) {
             )
           }
           <section>
-            {post.item.comments && Array.isArray(post.item.comments) && post.item.comments.map((comment) => (
+            {post.item.comments && Array.isArray(post.item.comments) && comments((comment) => (
               <>
                 <Comment key={comment.id} item={comment} type="comment" />
               </>
@@ -140,7 +152,7 @@ export default function CommentSection(item) {
             </>
           )}
           <section>
-            {post.item.captions && Array.isArray(post.item.captions) && post.item.captions.map((caption) => (
+            {post.item.captions && Array.isArray(post.item.captions) && comments.map((caption) => (
               <Comment key={caption.id} item={caption} type="caption" />
             ))}
           </section>

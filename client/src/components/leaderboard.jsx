@@ -2,7 +2,7 @@ import Comment from './comment';
 import { useState, useEffect } from 'react';
 import { sortCaptionsDescending } from '../utils/sortCaptions';
 
-export default function Leaderboard({ post, user }) {
+export default function Leaderboard({ post }) {
   const [captionType, setCaptionType] = useState('caption');
   const [captions, setCaptions] = useState([]);
   const [placement, setPlacement] = useState(0);
