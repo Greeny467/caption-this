@@ -9,8 +9,6 @@ import { GET_ME } from '../utils/queries';
 
 export default function Comment ({item, type}) {
 
-    console.log('comment:', item)
-
     const [user, setUser] = useState({});
     const [voteStyle, setVoteStyle] = useState('');
 

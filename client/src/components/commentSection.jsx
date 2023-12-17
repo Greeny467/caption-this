@@ -30,7 +30,6 @@ export default function CommentSection(item) {
           setUser(data.me);
 
           if(post.item.captions && Array.isArray(post.item.captions)){
-            console.log(sortCaptionsCommentSection(post.item.captions, data.me._id))
             setComments(sortCaptionsCommentSection(post.item.captions, data.me._id));
           }
         };
@@ -38,7 +37,6 @@ export default function CommentSection(item) {
     }
     else{
       if(post.item.captions && Array.isArray(post.item.captions)){
-        console.log(sortCaptionsDescending(post.item.captions))
         setComments(sortCaptionsDescending(post.item.captions));
       }
     }

@@ -77,7 +77,11 @@ export default function PostPage () {
                         </section>
                         
                         {pageType === 'post' ? (
-                            <CommentSection item={post}/>
+                            <>
+                                {post.captions && Array.isArray(post.captions) && (
+                                    <CommentSection item={post}/>
+                                )}
+                            </>
                         ):(
                             <Leaderboard post={post}/>
                         )}
