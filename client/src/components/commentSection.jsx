@@ -40,7 +40,7 @@ export default function CommentSection(item) {
         setComments(sortCaptionsDescending(post.item.captions));
       }
     }
-  }, [loading, error, data]);
+  }, [loading, error, data, post]);
 
   const textHandler = (e) => {
     setInputText(e.target.value);
