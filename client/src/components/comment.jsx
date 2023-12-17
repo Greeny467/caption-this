@@ -29,7 +29,7 @@ export default function Comment ({item, type}) {
     }, [loading, error, data]);
 
     useEffect(() => {
-        if (user !== null) {
+        if (user !== null && user !== undefined) {
             if (user && user.votes && Array.isArray(user.votes)) {
                 const setVote = async () => {
                     const newVoteStyle = await voteStyleFinder(user, item);

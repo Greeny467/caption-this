@@ -127,11 +127,15 @@ export default async function vote (user, caption) {
                 throw new Error('failed to decrease caption vote');
             };
 
+            console.log('DOWNVOTE', downVoteData)
+
             const removeUserVoteData = await removeUserVote(existingVote.votePost, existingVote.voteCaption);
 
             if(!removeUserVoteData) {
                 throw new Error('failed to remove vote from user');
             }
+
+            console.log('REMOVE USER VOTE', removeUserVoteData)
 
             const addUserVoteData = await addUserVote(postId, captionId);
 
@@ -139,11 +143,15 @@ export default async function vote (user, caption) {
                 throw new Error('failed to add new vote to user');
             };
 
+            console.log('ADD USER VOTE DATA', addUserVoteData)
+
             const upVoteData = await changeVote(caption, 'increase');
 
             if(!upVoteData) {
                 throw new Error('failed to increase caption vote');
             }
+
+            console.log('UPVOTE', upVoteData)
 
             return true;
         }
@@ -157,12 +165,15 @@ export default async function vote (user, caption) {
             throw new Error('failed to create userVote');
         };
 
+        console.log('INITAL USER VOTE', addUserVoteData)
+
         const upVoteData = await changeVote(caption, 'increase');
 
         if(!upVoteData) {
             throw new Error('failed to increase caption vote for initial vote.');
         };
 
+        console.log('INITIAL UPVOTE', upVoteData)
         return true;
     }
 };
