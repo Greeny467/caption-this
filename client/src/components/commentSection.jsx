@@ -37,6 +37,7 @@ export default function CommentSection(item) {
     }
     else{
       if(post.item.captions && Array.isArray(post.item.captions)){
+        console.log(sortCaptionsCommentSection(post.item.captions))
         setComments(sortCaptionsDescending(post.item.captions));
       }
     }
