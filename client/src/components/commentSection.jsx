@@ -37,11 +37,9 @@ export default function CommentSection(item) {
       };
     }
     else{
-      if (!loading && !error) {
-        if(post.item.captions && Array.isArray(post.item.captions)){
-          console.log(sortCaptionsDescending(post.item.captions))
-          setComments(sortCaptionsDescending(post.item.captions));
-        }
+      if(post.item.captions && Array.isArray(post.item.captions)){
+        console.log(sortCaptionsDescending(post.item.captions))
+        setComments(sortCaptionsDescending(post.item.captions));
       }
     }
   }, [loading, error, data]);

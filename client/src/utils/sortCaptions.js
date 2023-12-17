@@ -43,7 +43,13 @@ const sortCaptionsCommentSection = (captions, userId) => {
     });
 
     if (userCaption !== undefined) {
-        return [userCaption, sortCaptionsDescending(notUserCaption)];
+        const returnArray = [userCaption];
+        const sortedCaptions = sortCaptionsDescending(notUserCaption);
+
+        sortedCaptions.forEach((caption) => {
+            returnArray.push(caption);
+        })
+        return returnArray;
     }
 
 
