@@ -31,24 +31,28 @@ function mergeDescending(left, right) {
 }
 
 const sortCaptionsCommentSection = (captions, userId) => {
-    let userCaption = undefined;
+    let userCaption = [];
     const notUserCaption = [];
 
     captions.forEach(caption => {
         if (caption.user._id === userId) {
-            userCaption = caption;
+            userCaption.push(caption);
         } else {
             notUserCaption.push(caption);
         }
     });
 
-    if (userCaption !== undefined) {
-        const returnArray = [userCaption];
+    if (userCaption.length !== 0) {
+        const returnArray = [];
         const sortedCaptions = sortCaptionsDescending(notUserCaption);
 
+        userCaption.forEach((caption) => {
+            returnArray.push(caption);
+        });
         sortedCaptions.forEach((caption) => {
             returnArray.push(caption);
-        })
+        });
+        
         return returnArray;
     }
 
