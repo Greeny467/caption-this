@@ -30,15 +30,18 @@ export default function CommentSection(item) {
           setUser(data.me);
 
           if(post.item.captions && Array.isArray(post.item.captions)){
+            console.log(sortCaptionsCommentSection(post.item.captions, data.me._id))
             setComments(sortCaptionsCommentSection(post.item.captions, data.me._id));
           }
         };
       };
     }
     else{
-      if(post.item.captions && Array.isArray(post.item.captions)){
-        console.log(sortCaptionsCommentSection(post.item.captions))
-        setComments(sortCaptionsDescending(post.item.captions));
+      if (!loading && !error) {
+        if(post.item.captions && Array.isArray(post.item.captions)){
+          console.log(sortCaptionsDescending(post.item.captions))
+          setComments(sortCaptionsDescending(post.item.captions));
+        }
       }
     }
   }, [loading, error, data]);
