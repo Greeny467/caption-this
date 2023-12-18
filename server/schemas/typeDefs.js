@@ -1,7 +1,8 @@
 const { gql } = require('apollo-server-express');
 
-
 const typeDefs = gql`
+
+    scalar Date
 
     type User {
         _id: ID!
@@ -68,7 +69,7 @@ const typeDefs = gql`
         caption: ID
         captions: [ID]
         comments: [ID]
-        timerDate: String
+        timerDate: String!
     }
 
     input captionInput {
