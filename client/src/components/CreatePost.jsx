@@ -4,6 +4,7 @@ import { ADD_POST, SET_TIMED_CAPTION } from "../utils/mutations";
 
 import Auth from '../utils/auth';
 import uploadFile from "../utils/uploadFile";
+import setTimerDate from '../utils/timerDate';
 
 export default function CreatePost() {
 
@@ -18,6 +19,18 @@ export default function CreatePost() {
   const [tabState, setTabState] = useState("closed");
 
   const [user, setUser] = useState(undefined);
+
+  const options = [
+    { value: 5, label: '5 minutes' },
+    { value: 10, label: '10 minutes' },
+    { value: 15, label: '15 minutes' },
+    { value: 30, label: '30 minutes' },
+    { value: 60, label: '1 hour' },
+    { value: 180, label: '3 hours' },
+    { value: 300, label: '5 hours' },
+    { value: 1440, label: '1 day' },
+    { value: 4320, label: '3 days' },
+  ];
 
   useEffect(() => {
     if(Auth.loggedIn){
@@ -71,6 +84,7 @@ export default function CreatePost() {
           post: {
             user: user._id,
             imageURL: url,
+            timerDate: setTimerDate(timer)
           }
         },
       });
@@ -90,7 +104,7 @@ export default function CreatePost() {
           console.error('failed to set timer', timerSet.message);
         }
         else{
-          console.error(timerSet.message);
+          console.log(timerSet.message);
         };
 
       } catch (error) {
@@ -150,15 +164,17 @@ export default function CreatePost() {
               "Click here or drag an image to upload"
             )}
           </label>
+
           <label htmlFor="timerForm" id="timeFormLabel">Set Time in Minutes</label>
-          <input
-          id="timerForm"
-            type="number"
-            name="timer"
-            value={timer}
-            onChange={handleTimeSet}
-            placeholder="Time Here"
-          />
+          <select id="timerForm" name="timerSet" value={timer} onChange={handleTimeSet}>
+            <option value="" disabled>Select a time</option>
+            {options.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+
           <button onClick={handleSubmit}>Submit</button>
         </form>
       )}

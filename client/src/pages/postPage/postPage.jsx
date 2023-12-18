@@ -6,6 +6,7 @@ import { useQuery } from '@apollo/client';
 
 import CommentSection from '../../components/commentSection';
 import Leaderboard from '../../components/leaderboard';
+import CountdownTimer from '../../components/timer';
 
 export default function PostPage () {
     const {postId} = useParams();
@@ -49,6 +50,8 @@ export default function PostPage () {
         };
     };
 
+    const currentDate = new Date().getTime();
+
 
     return(
         <>
@@ -70,7 +73,13 @@ export default function PostPage () {
                                         <h4>{post.caption.text}</h4>
                                     </>
                                     ):(
-                                        <p>Caption hasn't been chosesn yet</p>
+                                        <>
+                                            {post.timerDate.getTime() > currentDate ? (
+                                                <CountdownTimer futureDate={timerDate}/>
+                                            ):(
+                                                <p>Caption hasn't been chosesn yet</p>
+                                            )}
+                                        </>
                                     )
                                 }
                             </div>

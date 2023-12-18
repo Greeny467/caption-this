@@ -19,6 +19,7 @@ const typeDefs = gql`
         caption: Caption
         captions: [Caption]
         comments: [Comment]
+        timerDate: String
     }
     type Comment {
         _id: ID!
@@ -67,6 +68,7 @@ const typeDefs = gql`
         caption: ID
         captions: [ID]
         comments: [ID]
+        timerDate: String
     }
 
     input captionInput {

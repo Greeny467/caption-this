@@ -120,6 +120,7 @@ export const SINGLE_POST = gql`
                 }
                 postId
             }
+            timerDate
         }
     } 
 `;
