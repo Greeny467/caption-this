@@ -360,6 +360,8 @@ const resolvers = {
 
                         const updatePost = await Post.findByIdAndUpdate(post, {timerDate: newDate});
 
+                        console.log(lastDate, newDate, updatePost);
+
                         if(!updatePost){
                             throw new Error('failed to reset post timer');
                         };
