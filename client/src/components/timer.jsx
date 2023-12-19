@@ -80,7 +80,7 @@ const CountdownTimer = ({ futureDate }) => {
       <p>
         Time left until caption is set:
         {timeLeft.days && `${timeLeft.days} days, `}
-        {timeLeft.hours && `${timeLeft.hours}:`}
+        {timeLeft.hours && `${timeLeft.hours} hours,`}
         {timeLeft.minutes && `${timeLeft.minutes} minutes, and `}
         {timeLeft.seconds && `${timeLeft.seconds} seconds`}
       </p>
