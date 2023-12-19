@@ -16,10 +16,32 @@ const CountdownTimer = ({ futureDate }) => {
   function calculateTimeLeft() {
     const now = new Date().getTime();
     const timeDifference = futureDate - now;
-    const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-    const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+    let time = timeDifference;
+    let days = 0;
+    let hours = 0;
+    let minutes = 0;
+    let seconds = 0;
+
+    if (time > 1000 * 60 * 60 * 24) {
+      days = Math.floor(time / (1000 * 60 * 60 * 24));
+      time %= 1000 * 60 * 60 * 24; 
+    };
+
+    if (time > 1000 * 60 * 60) {
+      hours = Math.floor(time / (1000 * 60 * 60));
+      time %= 1000 * 60 * 60;
+    };
+
+    if (time > 1000 * 60) {
+      minutes = Math.floor(time / (1000 * 60));
+      time %= 1000 * 60;
+    };
+
+    if (time > 1000) {
+      seconds = Math.floor(time / 1000);
+      time %= 1000;
+    };
 
     if(days !== 0){
         return {
@@ -54,11 +76,14 @@ const CountdownTimer = ({ futureDate }) => {
 
   return (
     <div>
-      <p>Time Until Caption is Set:</p>
-      {timeLeft.days && <p>{timeLeft.days} days,</p>}
-      {timeLeft.hours && <p> {timeLeft.hours}:</p>}
-      {timeLeft.minutes && <p>{timeLeft.minutes}:</p>}
-      {timeLeft.seconds && <p>{timeLeft.seconds}</p>}
+
+      <p>
+        Time left until caption is set:
+        {timeLeft.days && `${timeLeft.days} days, `}
+        {timeLeft.hours && `${timeLeft.hours}:`}
+        {timeLeft.minutes && `${timeLeft.minutes} minutes, and `}
+        {timeLeft.seconds && `${timeLeft.seconds} seconds`}
+      </p>
     </div>
   );
 };
