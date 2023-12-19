@@ -354,6 +354,7 @@ const resolvers = {
                     const captions = currentPost.captions;
                     
                     if(captions.length === 0){
+                        console.log(post.timerDate, 'HERE')
                         const lastDate = new Date(post.timerDate);
                         const newDate = new Date(lastDate.getTime() + time * 60 * 1000);
 
