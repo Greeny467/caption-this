@@ -74,7 +74,7 @@ export default function PostPage () {
                                     </>
                                     ):(
                                         <>
-                                            {post.timerDate ? (
+                                            {post.timerDate && parseInt(post.timerDate) > currentDate ? (
                                                 <CountdownTimer futureDate={parseInt(post.timerDate)}/>
                                             ):(
                                                 <p>Caption hasn't been chosesn yet</p>
