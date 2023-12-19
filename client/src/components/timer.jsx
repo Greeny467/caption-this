@@ -15,7 +15,7 @@ const CountdownTimer = ({ futureDate }) => {
 
   function calculateTimeLeft() {
     const now = new Date().getTime();
-    const timeDifference = futureDate.getTime() - now;
+    const timeDifference = futureDate - now;
     const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
     const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
     const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
