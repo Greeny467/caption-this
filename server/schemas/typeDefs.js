@@ -17,7 +17,7 @@ const typeDefs = gql`
         _id: ID!
         user: User!
         imageURL: String!
-        caption: ID
+        caption: Caption
         captions: [Caption]
         comments: [Comment]
         timerDate: String

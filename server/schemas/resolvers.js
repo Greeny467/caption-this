@@ -53,7 +53,7 @@ const resolvers = {
 
         allPosts: async (parent, args) => {
             try {
-                return Post.find().populate([ 'user', 'captions', 'comments']);
+                return Post.find().populate([ 'user', 'caption', 'captions', 'comments']);
             } catch (error) {
                 console.error(error);
                 throw new Error('failed to get all posts');
@@ -61,7 +61,7 @@ const resolvers = {
         },
         singlePost: async (parent, {requestedPostId}) => {
             try {
-                const post = await Post.findOne({_id: requestedPostId}).populate(['user', 'captions', 'comments']);
+                const post = await Post.findOne({_id: requestedPostId}).populate(['user', 'caption', 'captions', 'comments']);
                 return post
             } catch (error) {
                 console.error(error);
