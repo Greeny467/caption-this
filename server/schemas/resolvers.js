@@ -349,51 +349,52 @@ const resolvers = {
 
             const scheduleJob = async () => {
                 const timeInMilliseconds = time * 60 * 1000;
-                schedule.scheduleJob({ start: Date.now() + timeInMilliseconds}, async () => {
+                const scheduledTime = Date.now() + timeInMilliseconds;
+            
+                schedule.scheduleJob({ start: new Date(scheduledTime) }, async () => {
                     const currentPost = await Post.findById(post).populate('captions');
                     const captions = currentPost.captions;
-                    
-                    if(captions.length === 0){
+            
+                    if (captions.length === 0) {
                         const lastDate = new Date(currentPost.timerDate);
                         const newDate = new Date(lastDate.getTime() + time * 60 * 1000);
-
-                        const updatePost = await Post.findByIdAndUpdate(post, {timerDate: newDate});
-
-
-                        if(!updatePost){
+            
+                        const updatePost = await Post.findByIdAndUpdate(post, { timerDate: newDate });
+            
+                        if (!updatePost) {
                             throw new Error('failed to reset post timer');
-                        };
-
-                        scheduleJob();
-                    }
-                    else{
-                        const topCaption = findTopCaption(captions);
-
-                        const updatedPost = await Post.findByIdAndUpdate(post, { $set: { caption: topCaption._id } });
-
-                        if(!updatedPost) {
-                            console.error('failed to update post with new caption. Post in question:', post);
                         }
-                        else{
-                            console.error('succeeded in updating post with new caption. Post in question:', post);
-                        };
-                    };
-
+                    } else {
+                        const topCaption = findTopCaption(captions);
+            
+                        const updatedPost = await Post.findByIdAndUpdate(post, { $set: { caption: topCaption._id } });
+            
+                        if (!updatedPost) {
+                            console.error('failed to update post with new caption. Post in question:', post);
+                        } else {
+                            console.log('succeeded in updating post with new caption. Post in question:', post);
+                        }
+                    }
                 });
             };
+            
             try {
+                // Schedule the job for the first time
                 scheduleJob();
-                return({
+            
+                return {
                     success: true,
                     message: 'succeeded in setting timed caption update'
-                });
+                };
             } catch (error) {
                 console.error(error);
-                return({
+            
+                return {
                     success: false,
                     message: error
-                });
+                };
             }
+            
         }
         
 
