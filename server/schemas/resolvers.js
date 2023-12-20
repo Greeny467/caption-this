@@ -345,63 +345,59 @@ const resolvers = {
                 throw new Error('failed to remove vote entirely');
             };
         },
-        setTimedCaption: async (parent, {time, post}) => {
-            console.log(time, post)
-
+        setTimedCaption : async (parent, { time, post }) => {
+            console.log(time, post);
+        
             const scheduleJob = async (time, post) => {
-                const timeInMilliseconds = time * 60 * 1000;
-                const scheduledTime = new Date(Date.now() + timeInMilliseconds);
-                console.log('scheduledTime:', scheduledTime);
-            
-                schedule.scheduleJob({ start: new Date(scheduledTime) }, async () => {
+                const timeInMinutes = time;
+        
+                cron.schedule(`*/${timeInMinutes} * * * *`, async () => {
                     console.log('scheduled event happening');
+        
                     const currentPost = await Post.findById(post).populate('captions');
                     const captions = currentPost.captions;
-            
+        
                     if (captions.length === 0) {
                         const lastDate = new Date(currentPost.timerDate);
-                        const newDate = new Date(lastDate.getTime() + time * 60 * 1000);
-            
+                        const newDate = new Date(lastDate.getTime() + timeInMinutes * 60 * 1000);
+        
                         const updatePost = await Post.findByIdAndUpdate(post, { timerDate: newDate });
-                        
-            
+        
                         if (!updatePost) {
                             throw new Error('failed to reset post timer');
                         }
-
-                        scheduleJob(time, post);
+        
                     } else {
                         const topCaption = findTopCaption(captions);
-            
+        
                         const updatedPost = await Post.findByIdAndUpdate(post, { $set: { caption: topCaption._id } });
-            
+                        
                         if (!updatedPost) {
                             console.error('failed to update post with new caption. Post in question:', post);
                         } else {
                             console.log('succeeded in updating post with new caption. Post in question:', post);
                         }
+                        this.stop();
                     }
                 });
             };
-            
+        
             try {
-                // Schedule the job for the first time
                 scheduleJob(time, post);
-            
+        
                 return {
                     success: true,
-                    message: 'succeeded in setting timed caption update'
+                    message: 'succeeded in setting timed caption update',
                 };
             } catch (error) {
                 console.error(error);
-            
+        
                 return {
                     success: false,
-                    message: error
+                    message: error,
                 };
             }
-            
-        }
+        },
         
 
     }
