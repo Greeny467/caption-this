@@ -346,12 +346,15 @@ const resolvers = {
             };
         },
         setTimedCaption: async (parent, {time, post}) => {
+            console.log(time, post)
 
-            const scheduleJob = async () => {
+            const scheduleJob = async (time, post) => {
                 const timeInMilliseconds = time * 60 * 1000;
-                const scheduledTime = Date.now() + timeInMilliseconds;
+                const scheduledTime = new Date(Date.now() + timeInMilliseconds);
+                console.log('scheduledTime:', scheduledTime);
             
                 schedule.scheduleJob({ start: new Date(scheduledTime) }, async () => {
+                    console.log('scheduled event happening');
                     const currentPost = await Post.findById(post).populate('captions');
                     const captions = currentPost.captions;
             
@@ -360,10 +363,13 @@ const resolvers = {
                         const newDate = new Date(lastDate.getTime() + time * 60 * 1000);
             
                         const updatePost = await Post.findByIdAndUpdate(post, { timerDate: newDate });
+                        
             
                         if (!updatePost) {
                             throw new Error('failed to reset post timer');
                         }
+
+                        scheduleJob(time, post);
                     } else {
                         const topCaption = findTopCaption(captions);
             
@@ -380,7 +386,7 @@ const resolvers = {
             
             try {
                 // Schedule the job for the first time
-                scheduleJob();
+                scheduleJob(time, post);
             
                 return {
                     success: true,
