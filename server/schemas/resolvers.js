@@ -354,13 +354,11 @@ const resolvers = {
                     const captions = currentPost.captions;
                     
                     if(captions.length === 0){
-                        console.log(currentPost.timerDate, 'HERE')
                         const lastDate = new Date(currentPost.timerDate);
                         const newDate = new Date(lastDate.getTime() + time * 60 * 1000);
 
                         const updatePost = await Post.findByIdAndUpdate(post, {timerDate: newDate});
 
-                        console.log(lastDate, newDate, updatePost);
 
                         if(!updatePost){
                             throw new Error('failed to reset post timer');
