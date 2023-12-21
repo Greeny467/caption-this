@@ -1,5 +1,5 @@
 require('dotenv').config();
-const schedule = require('node-schedule');
+const cron = require('node-cron');
 const { User, Post, Caption, Comment } = require('../models');
 require('mongoose');
 const {signToken} = require('../utils/auth');
