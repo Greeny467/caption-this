@@ -15,7 +15,7 @@ export default function CreatePost() {
   const [fileName, setFileName] = useState('');
   const [displayFile, setDisplayFile] = useState(null);
 
-  const [timer, setTimer] = useState(0);
+  const [timer, setTimer] = useState(5);
   const [tabState, setTabState] = useState("closed");
 
   const [user, setUser] = useState(undefined);
@@ -115,7 +115,6 @@ export default function CreatePost() {
       setFile(null);
       setTimer(0);
 
-      console.log("New post:", response.data.createPost);
     } catch (error) {
       console.error("Error submitting post", error);
     }
