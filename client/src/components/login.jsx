@@ -39,7 +39,7 @@ const Login = () => {
       };
 
       const {token, user} = data.login;
-      Auth.login(token);
+      Auth.login(token, user);
     } catch (error) {
       console.error(error);
     }
@@ -57,7 +57,7 @@ const Login = () => {
     console.log('signUp Data:', data);
 
     const {token, user} = data.addUser;
-    Auth.login(token);
+    Auth.login(token, user);
     } catch (error) {
       console.error(error);
     }
