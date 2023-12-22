@@ -25,7 +25,6 @@ const Login = () => {
 
   const [signup, {SUloading, SUerror}] = useMutation(ADD_USER, {
     onCompleted: ({ signup }) => {
-      window.location.reload();
       setTimeout(() => {
         Auth.logout();
       }, 2 * 60 * 60 * 1000);
@@ -56,7 +55,7 @@ const Login = () => {
     };
 
     console.log(data);
-    
+
     const {token, user} = data.addUser;
     Auth.login(token);
     } catch (error) {
