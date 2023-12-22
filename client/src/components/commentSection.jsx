@@ -1,3 +1,5 @@
+import './components.scss';
+
 import Comment from './comment';
 
 import Auth from '../utils/auth';
@@ -93,7 +95,7 @@ export default function CommentSection(item) {
 
 
   return(
-    <>
+    <div className='commentSection'>
       {isComments ? (
         <>
           {Auth.loggedIn() ?
@@ -149,7 +151,7 @@ export default function CommentSection(item) {
 
         </>
       )}
-    </>
+    </div>
   );
 };
   

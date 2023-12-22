@@ -1,3 +1,5 @@
+import './components.scss';
+
 import vote from '../utils/vote';
 import { voteStyleFinder } from '../utils/vote';
 
@@ -61,8 +63,8 @@ export default function Comment ({item, type}) {
     
     return(
         <>
-            <div>
-                <a href={`/dashboard/${item.user._id}`}>{item.user.username}</a>
+            <div className='comment'>
+                <a className='userName' href={`/dashboard/${item.user._id}`}>{item.user.username}</a>
                 <p>CreatedAt here</p>
                 <p>{item.text}</p>
                 {type === 'caption' && (

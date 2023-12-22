@@ -1,3 +1,5 @@
+import './components.scss';
+
 import Comment from './comment';
 import { useState, useEffect } from 'react';
 import { sortCaptionsDescending } from '../utils/sortCaptions';
@@ -28,7 +30,7 @@ export default function Leaderboard({ post }) {
 
   return (
     <>
-      <div>
+      <div className='leaderboard'>
         <h1>leaderboard</h1>
         <section>
           {captions.slice(placement, placement + 10).map((caption, index) => (

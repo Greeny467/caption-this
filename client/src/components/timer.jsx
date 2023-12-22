@@ -1,3 +1,4 @@
+import './components.scss';
 import React, { useState, useEffect } from 'react';
 
 const CountdownTimer = ({ futureDate }) => {
