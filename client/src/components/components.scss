@@ -7,14 +7,14 @@
     margin: 20px;
     transition: all 0.3s ease-in-out;
     opacity: 0.9;
-    color: $post-color;
-    background-color: $light-shades;
+    color: $light-shades;
+    background-color: $main-background;
     width: 600px;
     height: auto;
     border-radius: 3px;
     padding: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    border: 1px outset $main-background;
+    border: 1px outset $light-shades;
 }
 
 .comment:hover {
