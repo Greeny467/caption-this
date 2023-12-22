@@ -7,14 +7,14 @@
     margin: 20px;
     transition: all 0.3s ease-in-out;
     opacity: 0.9;
-    color: $light-shades;
-    background-color: $post-color;
+    color: $post-color;
+    background-color: $light-shades;
     width: 600px;
     height: auto;
     border-radius: 3px;
     padding: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    border: 1px outset $light-shades;
+    border: 1px outset $main-background;
 }
 
 .comment:hover {
@@ -30,12 +30,11 @@
     align-items: center;
     margin: 20px;
     opacity: 0.95;
-    background-color: $light-shades;
     width: 700px;
     height: auto;
     padding: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    border: 1px outset $post-color;
+    border: 1px outset $light-shades;
 }
 
 .leaderboard {
