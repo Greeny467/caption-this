@@ -351,7 +351,7 @@ const resolvers = {
             const scheduleJob = async (time, post) => {
                 const timeInMinutes = time;
         
-                cron.schedule(`*/${timeInMinutes} * * * *`, async () => {
+                const task = cron.schedule(`*/${timeInMinutes} * * * *`, async () => {
                     console.log('scheduled event happening');
         
                     const currentPost = await Post.findById(post).populate('captions');
@@ -377,8 +377,13 @@ const resolvers = {
                         } else {
                             console.log('succeeded in updating post with new caption. Post in question:', post);
                         }
-                        this.stop();
+                        task.emit('stop');
                     }
+                });
+
+                task.once('stop', () => {
+                    console.log('stopping task');
+                    task.stop();
                 });
             };
         
