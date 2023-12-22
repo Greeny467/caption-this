@@ -54,7 +54,7 @@ const Login = () => {
       console.error('something went wrong signup');
     };
 
-    console.log(data);
+    console.log('signUp Data:', data);
 
     const {token, user} = data.addUser;
     Auth.login(token);
