@@ -1,3 +1,5 @@
+import './postPage.scss';
+
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
@@ -56,12 +58,12 @@ export default function PostPage () {
     return(
         <>
             {post !== undefined ? (
-                <>
+                <div>
                     <a id='backbutton' href='/'>Back</a>
                     <button id='changePageType' onClick={handlePageTypeChange}>{pageType === 'post' ? (<>Vote</>): (<>Post</>)}</button>
-                    <div>
+                    <div className='pagePost'>
                         <section>
-                            <a href={`/dashboard/${post.user._id}`}>{post.user.username}</a>
+                            <a className='userName' href={`/dashboard/${post.user._id}`}>{post.user.username}</a>
                             <h3>Other info?</h3>
                         </section>
                         <section>
@@ -70,7 +72,7 @@ export default function PostPage () {
                                 {post.caption !== null ? ( 
                                     <>
                                         <a href={`/dashboard/${post.caption.user._id}`}>{post.caption.user.username}</a>
-                                        <h4>{post.caption.text}</h4>
+                                        <h4 className='postPageText'>{post.caption.text}</h4>
                                     </>
                                     ):(
                                         <>
@@ -96,7 +98,7 @@ export default function PostPage () {
                         )}
 
                     </div>
-                </>
+                </div>
             ):(
                 <h1>Post Not Loaded</h1>
             )}

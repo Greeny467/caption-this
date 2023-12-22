@@ -1,0 +1,53 @@
+@use "../../assets/styling/variables" as *;
+
+.comment {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin: 20px;
+    transition: all 0.3s ease-in-out;
+    opacity: 0.9;
+    color: $light-shades;
+    background-color: $post-color;
+    width: 600px;
+    height: auto;
+    border-radius: 3px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border: 1px outset $light-shades;
+}
+
+.comment:hover {
+    scale: 1.03;
+    opacity: 1;
+    rotate: 0deg;
+}
+
+
+.commentSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    opacity: 0.95;
+    background-color: $light-shades;
+    width: 700px;
+    height: auto;
+    padding: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border: 1px outset $post-color;
+}
+
+.leaderboard {
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+    opacity: 0.95;
+    background-color: $post-color;
+    color: $light-shades;
+    width: 700px;
+    height: auto;
+    padding: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border: 1px outset $light-shades;
+}
