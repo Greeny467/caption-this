@@ -55,6 +55,8 @@ const Login = () => {
       console.error('something went wrong signup');
     };
 
+    console.log(data);
+    
     const {token, user} = data.addUser;
     Auth.login(token);
     } catch (error) {
