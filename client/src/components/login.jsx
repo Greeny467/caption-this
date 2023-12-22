@@ -16,7 +16,6 @@ const Login = () => {
 
   const [login, { loading, error }] = useMutation(LOGIN_USER, {
     onCompleted: ({ login }) => {
-      window.location.reload();
       setTimeout(() => {
         Auth.logout();
       }, 2 * 60 * 60 * 1000);
@@ -47,6 +46,7 @@ const Login = () => {
   };
 
   const handleSignup = async (e) => {
+    e.preventDefault();
     try {
       const {data} = await signup({ variables: {username, email, password}});
 
