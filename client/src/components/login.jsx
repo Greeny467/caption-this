@@ -16,13 +16,19 @@ const Login = () => {
 
   const [login, { loading, error }] = useMutation(LOGIN_USER, {
     onCompleted: ({ login }) => {
-      // Handle successful login
+      window.location.reload();
+      setTimeout(() => {
+        Auth.logout();
+      }, 2 * 60 * 60 * 1000);
     },
   });
 
   const [signup, {SUloading, SUerror}] = useMutation(ADD_USER, {
     onCompleted: ({ signup }) => {
-      // Handle successful signup
+      window.location.reload();
+      setTimeout(() => {
+        Auth.logout();
+      }, 2 * 60 * 60 * 1000);
     }
   })
 
