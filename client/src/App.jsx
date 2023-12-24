@@ -19,7 +19,7 @@ function App() {
   
   const showSidebar = () => setSidebar(!sidebar);
   useEffect(() => {
-    if(Auth.isTokenExpired() === true){
+    if(Auth.loggedIn() === false || !Auth.loggedIn()){
       Auth.logout();
     }
   })
