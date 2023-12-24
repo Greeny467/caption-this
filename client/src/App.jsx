@@ -18,7 +18,7 @@ function App() {
   const [sidebar, setSidebar] = useState(false);
   
   const showSidebar = () => setSidebar(!sidebar);
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('id_token');
 
   useEffect(() => {
     if(token && Auth.loggedIn() === false){
