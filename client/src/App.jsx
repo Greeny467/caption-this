@@ -22,7 +22,7 @@ function App() {
     if(Auth.loggedIn() === false || !Auth.loggedIn()){
       Auth.logout();
     }
-  })
+  }, [])
 
   return (
     <ApolloProvider client = {client}>
