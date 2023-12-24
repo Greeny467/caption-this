@@ -18,11 +18,13 @@ function App() {
   const [sidebar, setSidebar] = useState(false);
   
   const showSidebar = () => setSidebar(!sidebar);
+  const token = localStorage.getItem('token');
+
   useEffect(() => {
-    if(Auth.loggedIn() === false || !Auth.loggedIn()){
+    if(token && Auth.loggedIn() === false){
       Auth.logout();
     }
-  }, [])
+  }, [token])
 
   return (
     <ApolloProvider client = {client}>
