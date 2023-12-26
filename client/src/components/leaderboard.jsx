@@ -29,7 +29,6 @@ export default function Leaderboard({ post }) {
   };
 
   return (
-    <>
       <div className='leaderboard'>
         <h1>leaderboard</h1>
         <section>
@@ -48,6 +47,5 @@ export default function Leaderboard({ post }) {
           <button onClick={handleIncreasePlacement}>down</button>
         )}
       </div>
-    </>
   );
 }

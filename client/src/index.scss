@@ -34,9 +34,19 @@ main {
 }
 
 .userName {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  padding: 10px;
   font-size: 20px;
-  font-weight: 500;
-  margin: 0 0 10px 0;
+  font-weight: 1000;
+  text-align: center;
   color: $light-shades;
+  text-decoration: none;
+  &:hover {
+      text-decoration: underline;
+  }
 }
 

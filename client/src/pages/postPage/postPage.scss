@@ -38,3 +38,37 @@
     font-weight: 500;
     text-align: center;
 }
+
+.pageButton {
+    display: inherit;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    cursor: pointer;
+    width: 100px;
+    height: 50px;
+    margin: 10px;
+    border-radius: 5px;
+    border: 1px outset $light-shades;
+    background-color: $dark-shades;
+    color: $light-shades;
+    font-size: 20px;
+    font-weight: 500;
+    transition: all 0.3s ease-in-out;
+    user-select: none;
+    &:hover {
+        background-color: $dark-accent;
+        border: 1px inset $light-shades;
+    }
+}
+
+.buttonContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: auto;
+    padding: 10px;
+}
