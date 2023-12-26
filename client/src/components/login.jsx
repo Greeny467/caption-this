@@ -5,6 +5,7 @@ import { useMutation } from '@apollo/client';
 import { LOGIN_USER, ADD_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 import { TextField, ToggleButton, Button } from '@mui/material';
+import { ClickAwayListener } from '@mui/base';
 
 const Login = () => {
   const [drawerState, setDrawerState] = useState(true);
@@ -29,6 +30,10 @@ const Login = () => {
       }, 2 * 60 * 60 * 1000);
     }
   })
+
+  const handleClickAway = () => {
+    setDrawerState(true);
+  };
 
   const handleLogin = async () => {
     try {
@@ -77,7 +82,8 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <ClickAwayListener onClickAway={handleClickAway}>
+      <div>
       {!Auth.loggedIn() ?
        (<ToggleButton
         value="Login"
@@ -131,7 +137,8 @@ const Login = () => {
         )}
         </>
       )}
-    </div>
+      </div>
+    </ClickAwayListener>
   );
 };
 
