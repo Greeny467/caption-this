@@ -32,7 +32,7 @@ export default function Feed() {
       ) : error ? (
         <h1>Something went wrong.</h1>
       ) : feedData.length > 0 ? (
-        feedData.map((post) => <Post key={post.id} post={post} />)
+        [...feedData].reverse().map((post) => <Post key={post.id} post={post} />)
       ) : (
         <h1>There aren't any posts yet.</h1>
       )}
