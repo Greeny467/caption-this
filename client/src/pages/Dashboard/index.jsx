@@ -43,9 +43,6 @@ export default function Dashboard() {
           <h1>{dashboardUser.username}'s Dashboard</h1>
           <div id='mainholder'>
             <section>
-              <p> User info?</p>
-            </section>
-            <section>
               <div>
                 <h3>Posts:</h3>
                 {dashboardUser.posts.map((post) => (

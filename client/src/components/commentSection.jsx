@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { ADD_CAPTION, ADD_COMMENT } from '../utils/mutations';
 import { GET_ME } from '../utils/queries';
+import { TextField, Button } from '@mui/material';
 
 export default function CommentSection(item) {
   const post = item;
@@ -101,13 +102,14 @@ export default function CommentSection(item) {
           {Auth.loggedIn() ?
             ( 
               <form>
-                <input
+                <TextField
                   onChange={textHandler}
+                  label='Comment'
                   id='commentText'
                   name='commentText'
                   value={inputText}
-                ></input>
-                <button name='submit' id='submit' onClick={submitCommentHandler}>Submit</button>
+                ></TextField>
+                <Button name='submit' id='submit' onClick={submitCommentHandler}>Submit</Button>
               </form>
             ):(
               <h1>Login to add a comment</h1>
@@ -127,15 +129,16 @@ export default function CommentSection(item) {
           {Auth.loggedIn() ? (
             <>
               <form>
-                    <input
+                    <TextField
+                      label="Caption"
                       onChange={textHandler}
                       id="captionText"
                       name="captionText"
                       value={inputText}
-                    ></input>
-                    <button name="submit" id="submit" onClick={submitCaptionHandler}>
+                    ></TextField>
+                    <Button name="submit" id="submit" onClick={submitCaptionHandler}>
                       Submit
-                    </button>
+                    </Button>
                 </form>
             </>
           ):(
